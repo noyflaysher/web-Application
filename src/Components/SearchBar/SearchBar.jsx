@@ -30,51 +30,26 @@ function SearchBar() {
       </SearchContainer>
       <Disclosure.Panel as={FiltersContainer}>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                size="small"
-                sx={{
-                  color: "#F59583",
-                  "&.Mui-checked": {
-                    color: "#F8BB86",
-                  },
-                }}
-              />
-            }
-            label="spicy"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                size="small"
-                sx={{
-                  color: "#F59583",
-                  "&.Mui-checked": {
-                    color: "#F8BB86",
-                  },
-                }}
-              />
-            }
-            label="vegetarian"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                size="small"
-                sx={{
-                  color: "#F59583",
-                  "&.Mui-checked": {
-                    color: "#F8BB86",
-                  },
-                }}
-              />
-            }
-            label="vegan"
-          />
+          <FormControlLabel control={<FilterBox />} label="spicy" />
+          <FormControlLabel control={<FilterBox />} label="vegetarian" />
+          <FormControlLabel control={<FilterBox />} label="vegan" />
         </FormGroup>
       </Disclosure.Panel>
     </Disclosure>
+  );
+}
+
+function FilterBox() {
+  return (
+    <Checkbox
+      size="small"
+      sx={{
+        color: "#F59583",
+        "&.Mui-checked": {
+          color: "#F8BB86",
+        },
+      }}
+    />
   );
 }
 
