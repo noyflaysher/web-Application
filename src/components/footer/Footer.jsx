@@ -10,7 +10,7 @@ function Footer() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    load();
+  load();
   }, []);
 
   async function load(city="jerusalem"){
