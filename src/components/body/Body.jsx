@@ -1,13 +1,39 @@
-import React from 'react'
-import Recipe from './Recipe'
-import Result from './Result'
+import React from "react";
+import Recipe from "./Recipe/Recipe";
+import Result from "./Result";
 function Body() {
+  const ingredient = [
+    {
+      quantity: "0.5",
+      unit: "cup",
+      description: "bread flour",
+    },
+    {
+      quantity: "2",
+      unit: "lb",
+      description: "oil",
+    },
+    {
+      quantity: "3.5",
+      unit: "tps",
+      description: "dry active yeast",
+    },
+  ];
   return (
     <>
-    <Result></Result>
-    <Recipe></Recipe>
+      <Result></Result>
+      <Recipe
+        image="./images/pizza.jpg"
+        title="home made pizza"
+        time="45"
+        servings="4"
+        ingredients={ingredient}
+        description="description of the recipe"
+        publisher="Noy Flaysher"
+        link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
+      ></Recipe>
     </>
-  )
+  );
 }
 
-export default Body
+export default Body;

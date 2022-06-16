@@ -1,0 +1,32 @@
+.btn--tiny {
+  font-size: 2.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--tiny:hover {
+  transform: translateY(-0.4rem);
+  /* color: white; */
+  transform: scale(1.3);
+}
+
+.btn--direction {
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  background-color: white;
+  border: none;
+  height: 3rem;
+  width: 10rem;
+  border-radius: 20px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  color: black;
+  text-transform: uppercase;
+  font-family: inherit;
+}
+
+.btn--direction a,
+.btn--direction a:link {
+  text-decoration: none;
+  color: black;
+}

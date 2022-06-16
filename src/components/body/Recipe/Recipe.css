@@ -80,7 +80,7 @@
   font-size: 2rem;
   font-family: "Lato";
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .recipe__btn {
@@ -89,6 +89,19 @@
   justify-content: center;
   align-items: center;
 }
+
+.recipe__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recipe__description p {
+  margin-bottom: 1rem;
+}
+/* .recipe__btn:hover {
+  transform: translateY(-1px);
+} */
 
 /* .recipe {
   display: flex;
