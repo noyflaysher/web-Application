@@ -1,44 +1,44 @@
-import React from 'react'
+import React from "react";
 
 function NavBar() {
   return (
     <>
-    <header class="header">
-        <img alt="Logo" class="header__logo" />
-        <form class="search">
+      <header className="header">
+        <img alt="Logo" className="header__logo" />
+        <form className="search">
           <input
             type="text"
-            class="search__field"
+            className="search__field"
             placeholder="Search over 1,000,000 recipes..."
           />
-          <button class="btn search__btn">
-            <svg class="search__icon">
+          <button className="btn search__btn">
+            <svg className="search__icon">
               <use></use>
             </svg>
             <span>Search</span>
           </button>
         </form>
 
-        <nav class="nav">
-          <ul class="nav__list">
-            <li class="nav__item">
-              <button class="nav__btn nav__btn--add-recipe">
-                <svg class="nav__icon">
+        <nav className="nav">
+          <ul className="nav__list">
+            <li className="nav__item">
+              <button className="nav__btn nav__btn--add-recipe">
+                <svg className="nav__icon">
                   <use></use>
                 </svg>
                 <span>Add recipe</span>
               </button>
             </li>
-            <li class="nav__item">
-              <button class="nav__btn nav__btn--bookmarks">
-                <svg class="nav__icon">
-                  <use ></use>
+            <li className="nav__item">
+              <button className="nav__btn nav__btn--bookmarks">
+                <svg className="nav__icon">
+                  <use></use>
                 </svg>
                 <span>Bookmarks</span>
               </button>
-              <div class="bookmarks">
-                <ul class="bookmarks__list">
-                  <div class="message">
+              <div className="bookmarks">
+                <ul className="bookmarks__list">
+                  <div className="message">
                     <div>
                       <svg>
                         <use></use>
@@ -55,7 +55,7 @@ function NavBar() {
         </nav>
       </header>
     </>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

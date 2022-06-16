@@ -1,31 +1,35 @@
 import React from "react";
-function Result() {
-  return (
-    <>
-      <div class="search-results">
-        <ul class="results">
-          <a>RECIPE1</a>
-          <a>RECIPE2</a>
-          <li class="preview">
-            <a class="preview__link preview__link--active">
-              <figure class="preview__fig">
-                <img alt="Test" />
-              </figure>
-              <div class="preview__data">
-                <h4 class="preview__title">Pasta with Tomato Cream ...</h4>
-                <p class="preview__publisher">The Pioneer Woman</p>
-                <div class="preview__user-generated">
-                  <svg>
-                    <use></use>
-                  </svg>
-                </div>
-              </div>
-            </a>
-          </li>
-        </ul>
+import 
+import Card from "../Card";
+import "./Result.css";
+const Result = (props) => {
+  if (props.items.lenght === 0) {
+    return (
+      <div className="recipe-list center">
+        <Card>
+          <h2>No recipe found. Maybe create one?</h2>
+          <button>ADD RECIPE!</button>
+        </Card>
       </div>
-    </>
+    );
+  }
+  return (
+    <ul>
+      {props.items.map((recipe) => (
+        <RecipeItem
+          key={Math.random()}
+          image={recipe.imageSrc}
+          title={recipe.title}
+          time={recipe.time}
+          servings={recipe.servings}
+          ingrediants={recipe.ingrediants}
+          description={recipe.description}
+          publisher={recipe.publisher}
+          link={recipe.link}
+        />
+      ))}
+    </ul>
   );
-}
+};
 
 export default Result;
