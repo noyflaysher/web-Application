@@ -1,21 +1,112 @@
 .recipe {
+  flex: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  justify-content: space-between;
+}
+
+.recipe__header {
+  position: relative;
+  height: 32rem;
+  transform-origin: top;
+  margin-bottom: 15rem;
+}
+
+.recipe__image {
+  width: 100%;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe__title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 20%) skewY(-6deg);
+  color: #fff;
+  font-weight: 700;
+  font-size: 3.25rem;
+  text-transform: uppercase;
+  width: 50%;
+  line-height: 1.95;
+  text-align: center;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 1.3rem 2rem;
+  background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
+}
+
+.recipe__details {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8rem;
+}
+
+.recipe__info {
+  font-size: 1.65rem;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  margin-right: 12rem;
+  justify-content: space-between;
+}
+
+.recipe__info-data {
+  margin-right: 0.5rem;
+}
+
+.recipe__info-text {
+  margin-right: 0.5rem;
+}
+
+.btn--tiny {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.btn--update-servings-plus {
+  margin-left: 1rem;
+}
+
+.recipe__ingredients {
+  margin-bottom: 4rem;
+}
+
+.heading--2 {
+  font-size: 2rem;
+  font-family: "Lato";
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.recipe__btn {
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .recipe {
   display: flex;
   flex-direction: column;
   background-color: white;
   width: 20rem;
-}
+} */
 
-.recipe__title {
-  text-transform: uppercase;
+/* .recipe__title {
+   text-transform: uppercase;
   font-weight: bold;
   font-size: 5rem;
-  /* display: inline-block;
+  display: inline-block;
   background-image: linear-gradient(to right, #e0ffff, #87cefa);
   -webkit-background-clip: text;
-  color: transparent; */
+  color: transparent; 
 
   background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   background-size: cover;
   transform: skewY(-40deg) translateY(-39rem);
-  transform: skewY(7deg);
-}
+  transform: skewY(7deg); 
+} */
