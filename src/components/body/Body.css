@@ -1,0 +1,12 @@
+.body__continer {
+  margin: 5rem;
+  display: flex;
+}
+.body__result-continer {
+  flex: 30%;
+  width: 100%;
+}
+.body__recipe-continer {
+  flex: 70%;
+  width: 100%;
+}

@@ -1,11 +1,10 @@
-import React from 'react'
-
+import React from "react";
 function Result() {
   return (
     <>
-    <div class="search-results">
+      <div class="search-results">
         <ul class="results">
-           <a>RECIPE1</a>
+          <a>RECIPE1</a>
           <a>RECIPE2</a>
           <li class="preview">
             <a class="preview__link preview__link--active">
@@ -24,9 +23,9 @@ function Result() {
             </a>
           </li>
         </ul>
-    </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Result
+export default Result;

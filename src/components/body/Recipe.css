@@ -1,19 +1,12 @@
 .recipe {
-  display: flex;
   flex-direction: column;
   background-color: white;
-  width: 20rem;
 }
 
 .recipe__title {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 5rem;
-  /* display: inline-block;
-  background-image: linear-gradient(to right, #e0ffff, #87cefa);
-  -webkit-background-clip: text;
-  color: transparent; */
-
   background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   background-size: cover;
   transform: skewY(-40deg) translateY(-39rem);
