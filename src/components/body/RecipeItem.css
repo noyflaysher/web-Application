@@ -1,0 +1,32 @@
+.recipe-item {
+  margin: 1rem;
+  width: 90%;
+  min-width: 17.5rem;
+  padding: 0;
+  list-style: none;
+}
+.recipe-item__content {
+  padding: 0;
+}
+.recipe-item__publisher-image {
+  width: 7rem;
+  height: 7rem;
+  margin-right: 1.5rem;
+  top: 1rem;
+  border-radius: 50%;
+}
+.recipe-item__recipe-info {
+  top: -2.5rem;
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: #6a93f4;
+}
+.recipe-item__publisher {
+  margin-top: 1rem;
+}
+.recipe-item:hover h2,
+.recipe-item:active h2,
+.recipe-item:hover h3,
+.recipe-item:active h3 {
+  color: #19b2ca;
+}

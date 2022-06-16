@@ -1,5 +1,5 @@
 import React from "react";
-import 
+import RecipeItem from "./RecipeItem";
 import Card from "../Card";
 import "./Result.css";
 const Result = (props) => {
@@ -17,8 +17,8 @@ const Result = (props) => {
     <ul>
       {props.items.map((recipe) => (
         <RecipeItem
-          key={Math.random()}
-          image={recipe.imageSrc}
+          key={recipe.title}
+          imageSrc={recipe.imageSrc}
           title={recipe.title}
           time={recipe.time}
           servings={recipe.servings}

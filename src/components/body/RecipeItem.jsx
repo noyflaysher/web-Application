@@ -6,18 +6,17 @@ import Avatar from "./ElementUI/Avatar";
 import "./RecipeItem.css";
 const RecipeItem = (props) => {
   return (
-    <li>
-      <Card>
-        <Link to="#">
-          <div class="pecipe-item__publisher-image">
-            <Avatar image={props.imageSrc} alt={props.title} />
-          </div>
-          <div className="pecipe-item__recipe-info">
-            <h2>{props.title}</h2>
-            <h3>{props.publisher}</h3>
-          </div>
-        </Link>
+    <li className="recipe-item">
+      <Card className="recipe-item__content">
+        <div class="recipe-item__publisher-image">
+          <Avatar image={props.imageSrc} alt={props.title} />
+        </div>
+        <div className="recipe-item__recipe-info">
+          <h2>{props.title}</h2>
+          <h3 className="recipe-item__publisher">by: {props.publisher}</h3>
+        </div>
       </Card>
     </li>
   );
 };
+export default RecipeItem;
