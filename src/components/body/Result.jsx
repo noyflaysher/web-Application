@@ -3,7 +3,7 @@ import RecipeItem from "./RecipeItem";
 import Card from "../Card";
 import "./Result.css";
 const Result = (props) => {
-  if (props.items.lenght === 0) {
+  if (props.items.length === 0) {
     return (
       <div className="recipe-list center">
         <Card>
@@ -26,6 +26,8 @@ const Result = (props) => {
           description={recipe.description}
           publisher={recipe.publisher}
           link={recipe.link}
+          address={recipe.address}
+          coordinates={recipe.location}
         />
       ))}
     </ul>
