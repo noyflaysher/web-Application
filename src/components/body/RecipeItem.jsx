@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Map from "../map/Map";
 import Card from "../Card";
 import Modal from "../map/Modal";
-import Avatar from "./ElementUI/Avatar";
+import Image from "./ElementUI/Image";
 
 import "./RecipeItem.css";
 const RecipeItem = (props) => {
@@ -31,7 +31,7 @@ const RecipeItem = (props) => {
         <Card className="recipe-item__content">
           <a href="#">
             <div class="recipe-item__publisher-image">
-              <Avatar image={props.imageSrc} alt={props.title} />
+              <Image image={props.imageSrc} alt={props.title} />
             </div>
             <div className="recipe-item__recipe-info">
               <h2>{props.title}</h2>

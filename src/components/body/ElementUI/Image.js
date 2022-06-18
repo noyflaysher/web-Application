@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./Avatar.css";
+import "./Image.css";
 
-const Avatar = (props) => {
+const Image = (props) => {
   return (
-    <div className={`avatar ${props.className}`} style={props.style}>
+    <div className={`image ${props.className}`} style={props.style}>
       <img
         src={props.image}
         alt={props.alt}
@@ -14,4 +14,4 @@ const Avatar = (props) => {
   );
 };
 
-export default Avatar;
+export default Image;
