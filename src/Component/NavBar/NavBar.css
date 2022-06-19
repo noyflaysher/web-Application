@@ -1,7 +1,8 @@
 .nav-bar {
   width: 100%;
-  border: 1px solid orange;
   height: 4rem;
+  border: 1px solid orange;
+  background-color: whitesmoke;
 }
 
 .flex-container {

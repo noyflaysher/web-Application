@@ -9,18 +9,20 @@ function NavBar() {
       <nav className="nav-bar flex-container">
         {/* LOGO */}
         <SearchBar />
-        {!isConnected && (
-          <>
-            <NavBarButton>log in</NavBarButton>
-            <NavBarButton>sign up</NavBarButton>
-          </>
-        )}
-        {isConnected && (
-          <>
-            <NavBarButton>create a recipe</NavBarButton>
-            <NavBarButton>log out</NavBarButton>
-          </>
-        )}
+        <div>
+          {!isConnected && (
+            <>
+              <NavBarButton>log in</NavBarButton>
+              <NavBarButton>sign up</NavBarButton>
+            </>
+          )}
+          {isConnected && (
+            <>
+              <NavBarButton>create a recipe</NavBarButton>
+              <NavBarButton>log out</NavBarButton>
+            </>
+          )}
+        </div>
       </nav>
     </>
   );

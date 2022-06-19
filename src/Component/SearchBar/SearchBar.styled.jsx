@@ -14,9 +14,8 @@ export const SearchContainer = styled.div`
 `;
 
 export const Search = styled.input`
-  color: inherit;
   width: 25rem;
-  height: 4rem;
+  height: 3.5rem;
   background: none;
   border: none;
   font-size: 1.2rem;
@@ -27,11 +26,13 @@ export const SearchButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4rem;
+  font-size: 1.5rem;
+  font-family: inherit;
+  font-weight: bold;
+  height: 3.5rem;
   width: 10rem;
-  color: #fff;
   cursor: pointer;
-  background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
+  background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   border-radius: 1.5rem;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -48,7 +49,7 @@ export const SearchToggle = styled.button`
   width: 4rem;
   border-radius: 50% 0 0 50%;
   border: none;
-  background-image: linear-gradient(to bottom right, #fbdb89, #f48982);
+  background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   cursor: pointer;
   padding: 0.4rem 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -61,7 +62,7 @@ export const SearchToggle = styled.button`
 export const FiltersContainer = styled.div`
   position: absolute;
   left: 0;
-  top: 4.2rem;
+  top: 4rem;
   background: #f9f5f3;
   width: 33rem;
   padding: 0.5rem;
