@@ -1,6 +1,8 @@
 import React from "react";
 import Recipe from "./Recipe/Recipe";
 import Result from "./Result";
+import Map from "../map/Map";
+
 function Body() {
   const ingredient = [
     {
@@ -23,7 +25,7 @@ function Body() {
     <>
       <Result></Result>
       <Recipe
-        image="./images/pizza.jpg"
+        image="src\components\body\images\pizza-img.jpg"
         title="home made pizza"
         time="45"
         servings="4"

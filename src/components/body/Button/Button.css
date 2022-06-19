@@ -13,11 +13,13 @@
 
 .btn--direction {
   margin-top: 3rem;
-  font-size: 1.2rem;
-  background-color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
+
   border: none;
-  height: 3rem;
-  width: 10rem;
+  height: 3.5rem;
+  width: 11.5rem;
   border-radius: 20px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   color: black;
@@ -29,4 +31,10 @@
 .btn--direction a:link {
   text-decoration: none;
   color: black;
+}
+
+.btn--direction:hover {
+  background-image: none;
+  background-color: white;
+  transform: scale(1.1);
 }
