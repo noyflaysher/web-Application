@@ -29,6 +29,6 @@ function NavBar() {
 }
 
 function NavBarButton(props) {
-  return <Button className="btn--blue">{props.children}</Button>;
+  return <Button className="btn--blue btn--margin">{props.children}</Button>;
 }
 export default NavBar;

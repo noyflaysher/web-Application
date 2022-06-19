@@ -65,7 +65,7 @@ export const FiltersContainer = styled.div`
   top: 4rem;
   background: #f9f5f3;
   width: 33rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   span {
