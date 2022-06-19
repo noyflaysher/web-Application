@@ -1,6 +1,6 @@
-import Body from "./components/body/Body";
-import Footer from "./components/footer/Footer";
-import Card from "./components/UI/Card";
+import Body from "./Components/body/Body";
+import Footer from "./Components/footer/Footer";
+import Card from "./Components/UI/Card";
 function App() {
   return (
     <Card>
