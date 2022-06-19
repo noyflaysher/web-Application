@@ -1,0 +1,14 @@
+.body__continer {
+  margin: 7rem;
+  display: flex;
+}
+.body__result-continer {
+  flex: 30%;
+  width: 100%;
+  background-color: aliceblue;
+}
+.body__recipe-continer {
+  flex: 70%;
+  width: 100%;
+  background-color: rgb(241, 238, 238);
+}

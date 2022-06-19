@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React from 'react'
 import SearchBar from '../SearchBar/SearchBar'
+=======
+import React from "react";
+>>>>>>> body
 
 function NavBar() {
   return (
     <>
+<<<<<<< HEAD
     <header class="header">
         <img alt="Logo" class="header__logo" />
 
@@ -13,21 +18,44 @@ function NavBar() {
             <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
                 <svg class="nav__icon">
+=======
+      <header className="header">
+        <img alt="Logo" className="header__logo" />
+        <form className="search">
+          <input
+            type="text"
+            className="search__field"
+            placeholder="Search over 1,000,000 recipes..."
+          />
+          <button className="btn search__btn">
+            <svg className="search__icon">
+              <use></use>
+            </svg>
+            <span>Search</span>
+          </button>
+        </form>
+
+        <nav className="nav">
+          <ul className="nav__list">
+            <li className="nav__item">
+              <button className="nav__btn nav__btn--add-recipe">
+                <svg className="nav__icon">
+>>>>>>> body
                   <use></use>
                 </svg>
                 <span>Add recipe</span>
               </button>
             </li>
-            <li class="nav__item">
-              <button class="nav__btn nav__btn--bookmarks">
-                <svg class="nav__icon">
-                  <use ></use>
+            <li className="nav__item">
+              <button className="nav__btn nav__btn--bookmarks">
+                <svg className="nav__icon">
+                  <use></use>
                 </svg>
                 <span>Bookmarks</span>
               </button>
-              <div class="bookmarks">
-                <ul class="bookmarks__list">
-                  <div class="message">
+              <div className="bookmarks">
+                <ul className="bookmarks__list">
+                  <div className="message">
                     <div>
                       <svg>
                         <use></use>
@@ -44,7 +72,7 @@ function NavBar() {
         </nav>
       </header>
     </>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;
