@@ -141,13 +141,6 @@ function Recipe(props) {
             publisher: {props.publisher}
           </span>
         </div>
-        <Button className="btn--blue">
-          <a href={props.link} target="_blank">
-            <span>Directions</span>
-            <HiArrowNarrowRight />
-          </a>
-        </Button>
-        <Button>Where can you find me? </Button>
       </div>
     </div>
   );
