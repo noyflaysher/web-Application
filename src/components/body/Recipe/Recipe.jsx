@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "./Recipe.css";
-import Ingredients from "../Ingredient/IngredientsList";
+import { useParams } from "react-router-dom";
 import { BiTimeFive, BiMinusCircle } from "react-icons/bi";
 import { BsPlusCircle } from "react-icons/bs";
 import recipeImage from "../images/pizza-img.jpg";
@@ -10,6 +9,8 @@ import {
   AiFillMinusCircle,
 } from "react-icons/ai";
 import { HiArrowNarrowRight } from "react-icons/hi";
+import "./Recipe.css";
+import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
 
 //Json Recipe{

@@ -1,16 +1,37 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Recipe from "./Recipe/Recipe";
 import Result from "./Result";
 import "./Body.css";
+import TitleRecipeList from "./TitleRecipeList";
+
+const ingredient = [
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "2",
+    unit: "lb",
+    description: "oil",
+  },
+  {
+    quantity: "3.5",
+    unit: "tps",
+    description: "dry active yeast",
+  },
+];
 
 const RECIPE_ARR = [
   {
     imageSrc:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkm8s8JbMGJejw7OZMFu_Qmf4oPKTtNQ9sA&usqp=CAU",
+    id: "pizza",
     title: "pizza",
     time: 3,
     servings: "3",
-    ingrediants: ["1", "2", "3"],
+    ingrediants: { ingredient },
     description: "homemade pizza",
     publisher: "Noy",
     link: "#",
@@ -23,11 +44,12 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://www.thechunkychef.com/wp-content/uploads/2016/02/Roasted-Garlic-Cream-Sauce-7-feat-500x375.jpg",
-    title: "Paste with cream sauce ",
+    id: "Paste_with_cream_sauce",
+    title: "Paste with cream sauce",
     time: 3,
     servings: "3",
-    ingrediants: ["1", "2", "3"],
-    description: "homemade pizza",
+    ingrediants: { ingredient },
+    description: "Paste with cream sauce",
     publisher: "Maya",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
@@ -39,11 +61,12 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://media-cdn.tripadvisor.com/media/photo-s/12/e2/7f/9b/hamburger-with-foie-gras.jpg",
-    title: " Kosher Burger",
+    id: "Kosher_Burger",
+    title: "Kosher Burger",
     time: 3,
     servings: "3",
-    ingrediants: ["1", "2", "3"],
-    description: "homemade pizza",
+    ingrediants: { ingredient },
+    description: "Kosher Burger",
     publisher: "SAAR",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
@@ -55,11 +78,12 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://do94x2ubilg42sdsl48mfdqk-wpengine.netdna-ssl.com/wp-content/uploads/44890096345_3612433c15_b.jpg",
-    title: "Vegetarian  sushi",
+    id: "Vegetarian_sushi",
+    title: "Vegetarian sushi",
     time: 3,
     servings: "3",
-    ingrediants: ["1", "2", "3"],
-    description: "homemade pizza",
+    ingrediants: { ingredient },
+    description: "Vegetarian sushi",
     publisher: "Oz",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
@@ -69,43 +93,45 @@ const RECIPE_ARR = [
     },
   },
 ];
-
 function Body() {
-  const ingredient = [
-    {
-      quantity: "0.5",
-      unit: "cup",
-      description: "bread flour",
-    },
-    {
-      quantity: "2",
-      unit: "lb",
-      description: "oil",
-    },
-    {
-      quantity: "3.5",
-      unit: "tps",
-      description: "dry active yeast",
-    },
-  ];
   return (
-    <div className="body__continer">
-      <div className="body__result-continer">
-        <Result items={RECIPE_ARR} />
+    <>
+      <div className="body__continer">
+        <Router>
+          <div className="body__result-continer">
+            <Result items={RECIPE_ARR} />
+          </div>
+          <Switch>
+            <div className="body__recipe-continer">
+              <Route path="/" exact>
+                <Recipe
+                  image="src\components\body\images\pizza-img.jpg"
+                  title="homemade pizza"
+                  time="45"
+                  servings="4"
+                  ingredients={ingredient}
+                  description="description of the recipe"
+                  publisher="Noy Flaysher"
+                  link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
+                />
+              </Route>
+              <Route path="/test" exact>
+                <Recipe
+                  image="src\components\body\images\pizza-img.jpg"
+                  title="homemade pizza"
+                  time="45"
+                  servings="4"
+                  ingredients={ingredient}
+                  description="description of the recipe"
+                  publisher="Maya Koma"
+                  link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
+                />
+              </Route>
+            </div>
+          </Switch>
+        </Router>
       </div>
-      <div className="body__recipe-continer">
-        <Recipe
-          image="src\components\body\images\pizza-img.jpg"
-          title="home made pizza"
-          time="45"
-          servings="4"
-          ingredients={ingredient}
-          description="description of the recipe"
-          publisher="Noy Flaysher"
-          link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
-        ></Recipe>
-      </div>
-    </div>
+    </>
   );
 }
 
