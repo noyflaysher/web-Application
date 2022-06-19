@@ -24,7 +24,10 @@ const RecipeItem = (props) => {
         contentClass="recipe-item__modal-content"
         footerClass="recipe-item__modal-actions"
         footer={
-          <Button className="btn--blue" onClick={closeMapHandler}>
+          <Button
+            className="btn--blue btn--blue-close"
+            onClick={closeMapHandler}
+          >
             CLOSE
           </Button>
         }

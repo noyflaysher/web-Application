@@ -1,13 +1,18 @@
-import Body from "./Components/body/Body";
-import Footer from "./Components/footer/Footer";
-import Card from "./Components/UI/Card";
+import Body from "./Component/body/Body";
+import Footer from "./Component/footer/Footer";
+import Card from "./Component/UI/Card";
+import LogInForm from "./Component/Form/LogInForm";
+import NavBar from "./Component/NavBar/NavBar";
 function App() {
   return (
-    <Card>
-      <Body></Body>
-      <Footer></Footer>
-    </Card>
+    <>
+    <NavBar />
+     <Card>
+     <Body></Body>
+     <Footer></Footer>
+     <LogInForm />
+      <Card/>
+    </>
   );
-}
 
 export default App;
