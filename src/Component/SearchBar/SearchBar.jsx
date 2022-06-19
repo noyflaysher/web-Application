@@ -1,4 +1,3 @@
-import "./SearchBar.css";
 import { Disclosure } from "@headlessui/react";
 import {
   Search,

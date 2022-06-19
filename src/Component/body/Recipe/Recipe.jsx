@@ -143,7 +143,7 @@ function Recipe(props) {
         <Button className="btn--blue btn--blue-direction">
           <a href={props.link} target="_blank">
             <span>Directions</span>
-            <HiArrowNarrowRight />
+            {/*<HiArrowNarrowRight />*/}
           </a>
         </Button>
       </div>
