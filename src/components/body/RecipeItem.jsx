@@ -11,7 +11,9 @@ const RecipeItem = (props) => {
   const openMapHandler = () => setShowMap(true);
 
   const closeMapHandler = () => setShowMap(false);
-
+  const sentRecipe = () => {
+    console.log(props);
+  };
   return (
     <React.Fragment>
       <Modal
@@ -26,7 +28,7 @@ const RecipeItem = (props) => {
           <Map center={props.coordinates} zoom={16} />
         </div>
       </Modal>
-      <li className="recipe-item">
+      <li className="recipe-item" onClick={sentRecipe}>
         <Card className="recipe-item__content">
           <a href="#">
             <div className="recipe-item__publisher-image">
