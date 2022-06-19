@@ -1,13 +1,10 @@
-import Body from "./Components/body/Body";
-import Footer from "./Components/footer/Footer";
-import Card from "./Components/UI/Card";
+import NavBar from "./Component/NavBar/NavBar";
+import Body from "./Component/body/Body";
+import Footer from "./Component/footer/Footer";
+import Card from "./Component/UI/Card";
+import SearchBar from "./Component/SearchBar/SearchBar";
 function App() {
-  return (
-    <Card>
-      <Body></Body>
-      <Footer></Footer>
-    </Card>
-  );
+  return <NavBar />;
 }
 
 export default App;
