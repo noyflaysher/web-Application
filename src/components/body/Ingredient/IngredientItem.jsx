@@ -1,7 +1,6 @@
 //FiCheck
 import { FiCheck } from "react-icons/fi";
 import "./IngredientsItem.css";
-import fractionUnicode from "fraction-unicode";
 
 function IngredientItem(props) {
   return (

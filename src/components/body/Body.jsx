@@ -1,7 +1,6 @@
 import React from "react";
 import Recipe from "./Recipe/Recipe";
 import Result from "./Result";
-import Map from "../map/Map";
 import "./Body.css";
 
 const RECIPE_ARR = [
