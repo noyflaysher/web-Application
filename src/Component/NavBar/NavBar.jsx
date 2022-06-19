@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../body/Button/Button";
+import Button from "../body/Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import "./NavBar.css";
 function NavBar() {
@@ -9,16 +9,16 @@ function NavBar() {
       <nav className="nav-bar flex-container">
         {/* LOGO */}
         <SearchBar />
-        {isConnected && (
-          <>
-            <Button className="btn--blue">log in</Button>
-            <Button>sign up</Button>
-          </>
-        )}
         {!isConnected && (
           <>
-            <Button>create a recipe</Button>
-            <Button>log out</Button>
+            <NavBarButton>log in</NavBarButton>
+            <NavBarButton>sign up</NavBarButton>
+          </>
+        )}
+        {isConnected && (
+          <>
+            <NavBarButton>create a recipe</NavBarButton>
+            <NavBarButton>log out</NavBarButton>
           </>
         )}
       </nav>
@@ -26,4 +26,7 @@ function NavBar() {
   );
 }
 
+function NavBarButton(props) {
+  return <Button className="btn--blue">{props.children}</Button>;
+}
 export default NavBar;
