@@ -1,13 +1,14 @@
-
-import Body from "./components/body/Body";
-import NavBar from "./components/navBar/NavBar";
-import Footer from "./components/footer/Footer";
+// import Body from "./components/body/Body";
+// import NavBar from "./components/navBar/NavBar";
+// import Footer from "./components/footer/Footer";
+import SearchBar from "./Components/SearchBar/SearchBar";
 function App() {
   return (
     <>
-      <NavBar></NavBar>
+      {/* <NavBar></NavBar>
       <Body></Body>
-      <Footer></Footer>
+      <Footer></Footer> */}
+      <SearchBar />
     </>
   );
 }
