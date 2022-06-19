@@ -1,10 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Recipe from "./Recipe/Recipe";
-import Result from "./Result";
-import ChosenRecipe from "./ChosenRecipe";
-import "./Body.css";
-
 const ingredient = [
   {
     quantity: "0.5",
@@ -27,8 +23,8 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkm8s8JbMGJejw7OZMFu_Qmf4oPKTtNQ9sA&usqp=CAU",
-    id: "pizza",
     title: "pizza",
+    id: "pizza",
     time: 3,
     servings: "3",
     ingrediants: { ingredient },
@@ -44,8 +40,8 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://www.thechunkychef.com/wp-content/uploads/2016/02/Roasted-Garlic-Cream-Sauce-7-feat-500x375.jpg",
-    id: "Paste_with_cream_sauce",
     title: "Paste with cream sauce",
+    id: "Paste_with_cream_sauce",
     time: 3,
     servings: "3",
     ingrediants: { ingredient },
@@ -61,8 +57,8 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://media-cdn.tripadvisor.com/media/photo-s/12/e2/7f/9b/hamburger-with-foie-gras.jpg",
-    id: "Kosher_Burger",
     title: "Kosher Burger",
+    id: "Kosher_Burger",
     time: 3,
     servings: "3",
     ingrediants: { ingredient },
@@ -78,8 +74,8 @@ const RECIPE_ARR = [
   {
     imageSrc:
       "https://do94x2ubilg42sdsl48mfdqk-wpengine.netdna-ssl.com/wp-content/uploads/44890096345_3612433c15_b.jpg",
-    id: "Vegetarian_sushi",
     title: "Vegetarian sushi",
+    id: "Vegetarian_sushi",
     time: 3,
     servings: "3",
     ingrediants: { ingredient },
@@ -93,37 +89,22 @@ const RECIPE_ARR = [
     },
   },
 ];
-function Body() {
-  return (
-    <>
-      <div className="body__continer">
-        <Router>
-          <div className="body__result-continer">
-            <Result items={RECIPE_ARR} />
-          </div>
-          <Switch>
-            <div className="body__recipe-continer">
-              <Route path="/" exact>
-                <Recipe
-                  image="src\components\body\images\pizza-img.jpg"
-                  title="homemade pizza"
-                  time="45"
-                  servings="4"
-                  ingredients={ingredient}
-                  description="description of the recipe"
-                  publisher="Noy Flaysher"
-                  link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
-                />
-              </Route>
-              <Route path="/:id" exact>
-                <ChosenRecipe />
-              </Route>
-            </div>
-          </Switch>
-        </Router>
-      </div>
-    </>
-  );
-}
 
-export default Body;
+const ChosenRecipe = () => {
+  const id = useParams().id;
+  const loadedRecipe = RECIPE_ARR.filter((recipe) => recipe.id === id);
+  console.log(loadedRecipe[0]);
+  return (
+    <Recipe
+      image={loadedRecipe[0].imageSrc}
+      title={loadedRecipe[0].title}
+      time={loadedRecipe[0].time}
+      servings={loadedRecipe[0].servings}
+      ingredients={loadedRecipe[0].ingrediants}
+      description={loadedRecipe[0].description}
+      publisher={loadedRecipe[0].publisher}
+      link={loadedRecipe[0].link}
+    />
+  );
+};
+export default ChosenRecipe;

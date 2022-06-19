@@ -1,15 +1,13 @@
 import React from "react";
 import RecipeItem from "./RecipeItem";
-import Card from "../UI/Card";
+
 import "./Result.css";
 const Result = (props) => {
   if (props.items.length === 0) {
     return (
       <div className="recipe-list center">
-        <Card>
-          <h2>No recipe found. Maybe create one?</h2>
-          <button>ADD RECIPE!</button>
-        </Card>
+        <h2>No recipe found. Maybe create one?</h2>
+        <button>ADD RECIPE!</button>
       </div>
     );
   }
@@ -17,7 +15,8 @@ const Result = (props) => {
     <ul>
       {props.items.map((recipe) => (
         <RecipeItem
-          key={recipe.title}
+          key={recipe.id}
+          id={recipe.id}
           imageSrc={recipe.imageSrc}
           title={recipe.title}
           time={recipe.time}
