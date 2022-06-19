@@ -30,7 +30,7 @@ export const SearchButton = styled.button`
   font-family: inherit;
   font-weight: bold;
   height: 3.5rem;
-  width: 10rem;
+  width: 12.5rem;
   cursor: pointer;
   background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   border-radius: 1.5rem;
