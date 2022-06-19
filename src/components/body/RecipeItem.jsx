@@ -3,6 +3,8 @@ import Map from "../map/Map";
 import Card from "../UI/Card";
 import Modal from "../map/Modal";
 import Image from "./ElementUI/Image";
+import Button from "./Button/Button";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 import "./RecipeItem.css";
 const RecipeItem = (props) => {
@@ -20,7 +22,11 @@ const RecipeItem = (props) => {
         header={props.address}
         contentClass="recipe-item__modal-content"
         footerClass="recipe-item__modal-actions"
-        footer={<button onClick={closeMapHandler}>CLOSE</button>}
+        footer={
+          <Button className="btn--blue" onClick={closeMapHandler}>
+            CLOSE
+          </Button>
+        }
       >
         <div className="map-container">
           <Map center={props.coordinates} zoom={16} />
@@ -34,10 +40,14 @@ const RecipeItem = (props) => {
             </div>
             <div className="recipe-item__recipe-info">
               <h2>{props.title}</h2>
-              <h4 className="recipe-item__publisher">
-                Preparation time: {props.time} Hours
-              </h4>
-              <button onClick={openMapHandler}>SHOW ON MAP</button>
+              <div className="recipe-item-row">
+                <h4 className="recipe-item__publisher">
+                  Preparation time: {props.time} Hours
+                </h4>
+                <Button className="btn-map" onClick={openMapHandler}>
+                  <FaMapMarkerAlt />
+                </Button>
+              </div>
             </div>
           </a>
         </Card>

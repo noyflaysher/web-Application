@@ -22,4 +22,5 @@ body {
   background-image: linear-gradient(to right, #e0ffff, #87cefa);
   margin: auto;
   text-align: center;
+  width: 100%;
 }

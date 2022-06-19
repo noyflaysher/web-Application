@@ -1,6 +1,10 @@
 .body__continer {
-  margin: 7rem;
+  /* margin: 7rem; */
+  /* border-radius: 50%; */
+  position: relative;
+  border-radius: 20rem;
   display: flex;
+  margin: 0;
 }
 .body__result-continer {
   flex: 30%;

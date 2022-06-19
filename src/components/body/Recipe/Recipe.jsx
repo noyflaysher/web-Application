@@ -3,8 +3,8 @@ import "./Recipe.css";
 import Ingredients from "../Ingredient/IngredientsList";
 import { BiTimeFive, BiMinusCircle } from "react-icons/bi";
 import { BsPlusCircle } from "react-icons/bs";
+import recipeImage from "../images/pizza-img.jpg";
 import {
-  AiOutlineMinusCircle,
   AiOutlineLike,
   AiFillPlusCircle,
   AiFillMinusCircle,
@@ -89,7 +89,7 @@ function Recipe(props) {
   return (
     <div className="recipe">
       <div className="recipe__header">
-        <img className="recipe__image" src={props.image} />
+        <img className="recipe__image" src={recipeImage} />
         <h1>
           <span className="recipe__title">{props.title}</span>
         </h1>
@@ -141,7 +141,7 @@ function Recipe(props) {
             publisher: {props.publisher}
           </span>
         </div>
-        <Button className="btn--direction">
+        <Button className="btn--blue">
           <a href={props.link} target="_blank">
             <span>Directions</span>
             <HiArrowNarrowRight />
