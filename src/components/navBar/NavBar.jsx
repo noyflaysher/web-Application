@@ -1,24 +1,13 @@
 import React from 'react'
+import SearchBar from '../SearchBar/SearchBar'
 
 function NavBar() {
   return (
     <>
     <header class="header">
         <img alt="Logo" class="header__logo" />
-        <form class="search">
-          <input
-            type="text"
-            class="search__field"
-            placeholder="Search over 1,000,000 recipes..."
-          />
-          <button class="btn search__btn">
-            <svg class="search__icon">
-              <use></use>
-            </svg>
-            <span>Search</span>
-          </button>
-        </form>
 
+    <SearchBar></SearchBar>
         <nav class="nav">
           <ul class="nav__list">
             <li class="nav__item">
