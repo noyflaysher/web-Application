@@ -45,7 +45,7 @@ function SearchBar() {
 function FilterBox() {
   return (
     <Checkbox
-      size="small"
+      size="medium"
       sx={{
         color: "#c4f0fd",
         "&.Mui-checked": {
