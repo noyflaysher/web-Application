@@ -95,7 +95,16 @@ function Body() {
         <Result items={RECIPE_ARR} />
       </div>
       <div className="body__recipe-continer">
-        <Recipe />
+        <Recipe
+          image="src\components\body\images\pizza-img.jpg"
+          title="home made pizza"
+          time="45"
+          servings="4"
+          ingredients={ingredient}
+          description="description of the recipe"
+          publisher="Noy Flaysher"
+          link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
+        ></Recipe>
       </div>
     </div>
   );

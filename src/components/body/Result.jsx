@@ -1,6 +1,6 @@
 import React from "react";
 import RecipeItem from "./RecipeItem";
-import Card from "../Card";
+import Card from "../UI/Card";
 import "./Result.css";
 const Result = (props) => {
   if (props.items.length === 0) {

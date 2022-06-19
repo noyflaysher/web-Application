@@ -7,12 +7,12 @@ function IngredientItem(props) {
   return (
     <li className="recipe__ingredient">
       <FiCheck />
-      <div class="ingredient__quantity">
+      <div className="ingredient__quantity">
         {props.quantity}
         {/* ${ing.quantity ? fractionUnicode(ing.quantity).toString() : ""} */}
       </div>
-      <span class="ingredient__quantity">{props.unit}</span>
-      <div class="ingredient__description">{props.description}</div>
+      <span className="ingredient__quantity">{props.unit}</span>
+      <div className="ingredient__description">{props.description}</div>
     </li>
   );
 }

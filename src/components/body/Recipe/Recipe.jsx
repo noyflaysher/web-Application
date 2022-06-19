@@ -95,20 +95,20 @@ function Recipe(props) {
         </h1>
       </div>
 
-      <div class="recipe__details">
-        <div class="recipe__info">
-          <span class="recipe__info-data recipe__info-data--minutes">
+      <div className="recipe__details">
+        <div className="recipe__info">
+          <span className="recipe__info-data recipe__info-data--minutes">
             {props.time}
           </span>
-          <span class="recipe__info-text">minutes</span>
+          <span className="recipe__info-text">minutes</span>
           <BiTimeFive />
         </div>
-        <div class="recipe__info">
-          <span class="recipe__info-data recipe__info-data--people">
+        <div className="recipe__info">
+          <span className="recipe__info-data recipe__info-data--people">
             {numServings}
           </span>
-          <span class="recipe__info-text">servings </span>
-          <div class="recipe__info-buttons">
+          <span className="recipe__info-text">servings </span>
+          <div className="recipe__info-buttons">
             <Button
               className="btn--tiny btn--update-servings btn--update-servings-plus"
               onClick={addServingsHandler}
@@ -128,16 +128,18 @@ function Recipe(props) {
         </Button>
       </div>
 
-      <div class="recipe__ingredients">
-        <h2 class="heading--2">Recipe ingredients</h2>
+      <div className="recipe__ingredients">
+        <h2 className="heading--2">Recipe ingredients</h2>
         <Ingredients data={ingredients} />
       </div>
 
-      <div class="recipe__directions">
-        <h2 class="heading--2">How to cook it</h2>
-        <div class="recipe__description">
+      <div className="recipe__directions">
+        <h2 className="heading--2">How to cook it</h2>
+        <div className="recipe__description">
           <p>{props.description}</p>
-          <span class="recipe__publisher">publisher: {props.publisher}</span>
+          <span className="recipe__publisher">
+            publisher: {props.publisher}
+          </span>
         </div>
         <Button className="btn--direction">
           <a href={props.link} target="_blank">

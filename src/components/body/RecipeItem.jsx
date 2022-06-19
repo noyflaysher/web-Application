@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Map from "../map/Map";
-import Card from "../Card";
+import Card from "../UI/Card";
 import Modal from "../map/Modal";
 import Image from "./ElementUI/Image";
 
@@ -30,7 +29,7 @@ const RecipeItem = (props) => {
       <li className="recipe-item">
         <Card className="recipe-item__content">
           <a href="#">
-            <div class="recipe-item__publisher-image">
+            <div className="recipe-item__publisher-image">
               <Image image={props.imageSrc} alt={props.title} />
             </div>
             <div className="recipe-item__recipe-info">
@@ -38,9 +37,7 @@ const RecipeItem = (props) => {
               <h4 className="recipe-item__publisher">
                 Preparation time: {props.time} Hours
               </h4>
-              <button inverse onClick={openMapHandler}>
-                SHOW ON MAP
-              </button>
+              <button onClick={openMapHandler}>SHOW ON MAP</button>
             </div>
           </a>
         </Card>
