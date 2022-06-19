@@ -15,7 +15,8 @@ const Result = (props) => {
     <ul>
       {props.items.map((recipe) => (
         <RecipeItem
-          key={recipe.title}
+          key={recipe.id}
+          id={recipe.id}
           imageSrc={recipe.imageSrc}
           title={recipe.title}
           time={recipe.time}
