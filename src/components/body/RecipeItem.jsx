@@ -35,9 +35,11 @@ const RecipeItem = (props) => {
             </div>
             <div className="recipe-item__recipe-info">
               <h2>{props.title}</h2>
-              <h3 className="recipe-item__publisher">by: {props.publisher}</h3>
+              <h4 className="recipe-item__publisher">
+                Preparation time: {props.time} Hours
+              </h4>
               <button inverse onClick={openMapHandler}>
-                map
+                SHOW ON MAP
               </button>
             </div>
           </a>
