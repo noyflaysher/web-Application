@@ -6,7 +6,10 @@ import NavBar from "./Component/NavBar/NavBar";
 function App() {
   return (
     <div>
-      <NavBar />
+      <Card>
+        <NavBar />
+      </Card>
+
       <Card>
         <Body />
         <Footer />

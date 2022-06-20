@@ -71,6 +71,7 @@ export const FiltersContainer = styled.div`
   span {
     padding: 0.25rem;
     margin-left: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-family: inherit;
   }
 `;

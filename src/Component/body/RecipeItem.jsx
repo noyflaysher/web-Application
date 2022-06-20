@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Map from "../map/Map";
 import Card from "../UI/Card";
 import Modal from "../map/Modal";
 import Image from "./ElementUI/Image";
 import Button from "./Button/Button";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt as MapImage } from "react-icons/fa";
 
 import "./RecipeItem.css";
 const RecipeItem = (props) => {
@@ -13,7 +14,7 @@ const RecipeItem = (props) => {
   const openMapHandler = () => setShowMap(true);
 
   const closeMapHandler = () => setShowMap(false);
-
+  console.log(props);
   return (
     <React.Fragment>
       <Modal
@@ -37,7 +38,7 @@ const RecipeItem = (props) => {
       </Modal>
       <li className="recipe-item">
         <Card className="recipe-item__content">
-          <a href="#">
+          <Link to={`/${props.id}`}>
             <div className="recipe-item__publisher-image">
               <Image image={props.imageSrc} alt={props.title} />
             </div>
@@ -48,11 +49,11 @@ const RecipeItem = (props) => {
                   Preparation time: {props.time} Hours
                 </h4>
                 <Button className="btn-map" onClick={openMapHandler}>
-                  <FaMapMarkerAlt />
+                  <MapImage />
                 </Button>
               </div>
             </div>
-          </a>
+          </Link>
         </Card>
       </li>
     </React.Fragment>

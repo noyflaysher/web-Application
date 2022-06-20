@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import "./Recipe.css";
-import Ingredients from "../Ingredient/IngredientsList";
 import { BiTimeFive, BiMinusCircle } from "react-icons/bi";
-import { BsPlusCircle } from "react-icons/bs";
 import recipeImage from "../images/pizza-img.jpg";
 import {
   AiOutlineLike,
   AiFillPlusCircle,
   AiFillMinusCircle,
 } from "react-icons/ai";
-import { HiArrowNarrowRight } from "react-icons/hi";
+import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
+
+import "./Recipe.css";
 
 //Json Recipe{
 // imageSrc:
@@ -144,7 +143,7 @@ function Recipe(props) {
         <Button className="btn--blue btn--blue-direction">
           <a href={props.link} target="_blank">
             <span>Directions</span>
-            <HiArrowNarrowRight />
+            {/*<HiArrowNarrowRight />*/}
           </a>
         </Button>
       </div>
