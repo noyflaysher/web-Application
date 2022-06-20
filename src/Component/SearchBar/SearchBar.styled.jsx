@@ -19,9 +19,9 @@ export const Search = styled.input`
   background: none;
   border: none;
   font-size: 1.2rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   text-align: left;
   padding: 1rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 `;
 
 export const SearchButton = styled.button`
@@ -37,11 +37,11 @@ export const SearchButton = styled.button`
   background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   border-radius: 1.5rem;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   transition: all 0.2s;
   right: 2rem;
   padding-right: 0.5rem;
   position: relative;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   &:hover {
     transform: scale(1.1);
     font-size: 1.6rem;
@@ -57,8 +57,8 @@ export const SearchToggle = styled.button`
   background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
   cursor: pointer;
   padding: 0.3rem 0 0 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   transition: all 0.2s;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   &:hover {
     transform: scale(1.1);
     font-size: 1.6rem;
@@ -74,7 +74,8 @@ export const FiltersContainer = styled.div`
   width: 34rem;
   padding: 0.5rem 1.5rem;
   border-radius: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  z-index: 1;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   span {
     padding: 0.25rem;
     margin-left: 0.5rem;

@@ -9,9 +9,6 @@ function App() {
     <div>
       <Card>
         <NavBar />
-      </Card>
-
-      <Card>
         <Body />
         <Footer />
         <LogInForm />
