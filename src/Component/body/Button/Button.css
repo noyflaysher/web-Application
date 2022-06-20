@@ -12,6 +12,7 @@
 }
 
 .btn--blue {
+  cursor: pointer;
   font-size: 1.5rem;
   font-weight: bold;
   background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
@@ -23,6 +24,7 @@
   color: black;
   text-transform: uppercase;
   font-family: inherit;
+  transition: all 0.2s;
 }
 
 .btn--blue a,
@@ -38,7 +40,14 @@
 }
 
 .btn--blue-direction {
+  cursor: pointer;
   margin-top: 3rem;
+  transition: all 0.2s;
+}
+.btn--blue-direction:hover,
+.btn--blue:hover {
+  transform: scale(1.1);
+  font-size: 1.6rem;
 }
 
 .btn--blue-close {

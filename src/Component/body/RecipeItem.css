@@ -5,7 +5,14 @@
   list-style: none;
   text-align: center;
   align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
 }
+
+.recipe-item:hover {
+  transform: scale(1.05);
+}
+
 .recipe-item a {
   display: flex;
   /* align-items: center; */
