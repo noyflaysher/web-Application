@@ -46,9 +46,9 @@ function FilterBox() {
     <Checkbox
       size="medium"
       sx={{
-        color: "#c4f0fd",
+        color: "#8bd0fa",
         "&.Mui-checked": {
-          color: "#8bd0fa",
+          color: "#F4AA8A",
         },
       }}
     />
