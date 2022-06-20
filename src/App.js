@@ -5,14 +5,15 @@ import LogInForm from "./Component/Form/LogInForm";
 import NavBar from "./Component/NavBar/NavBar";
 function App() {
   return (
-    <>
-    <NavBar />
-     <Card>
-     <Body></Body>
-     <Footer></Footer>
-     <LogInForm />
-      <Card/>
-    </>
+    <div>
+      <NavBar />
+      <Card>
+        <Body />
+        <Footer />
+        <LogInForm />
+      </Card>
+    </div>
   );
+}
 
 export default App;
