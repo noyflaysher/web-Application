@@ -23,6 +23,26 @@ const ingredient = [
     unit: "tps",
     description: "dry active yeast",
   },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
 ];
 
 const RECIPE_ARR = [

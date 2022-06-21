@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BiTimeFive, BiMinusCircle } from "react-icons/bi";
-import recipeImage from "../images/pizza-img.jpg";
 import {
   AiOutlineLike,
   AiFillPlusCircle,
@@ -10,6 +9,34 @@ import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
 
 import "./Recipe.css";
+
+const ingredient = [
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "2",
+    unit: "lb",
+    description: "oil",
+  },
+  {
+    quantity: "3.5",
+    unit: "tps",
+    description: "dry active yeast",
+  },
+];
 
 //Json Recipe{
 // imageSrc:
@@ -23,68 +50,6 @@ import "./Recipe.css";
 //}
 
 function Recipe(props) {
-  const [numServings, setNumServings] = useState(props.servings);
-  const [ingredients, setIngredients] = useState(props.ingredients);
-
-  const addServingsHandler = function () {
-    setNumServings(+numServings + 1);
-    updateIngredientsPlus();
-  };
-
-  const lessServingsHandler = function () {
-    if (numServings === 1) {
-      return;
-    }
-    setNumServings(+numServings - 1);
-    updateIngredientsMinus();
-  };
-
-  const updateIngredientsPlus = function (prevIng) {
-    setIngredients(
-      ingredients.map((ing) => {
-        let num = (
-          (parseFloat(ing.quantity) * numServings) /
-          (numServings - 1)
-        ).toFixed(2);
-        return {
-          quantity: num,
-          unit: ing.unit,
-          description: ing.description,
-        };
-      })
-    );
-  };
-
-  const updateIngredientsMinus = function (prevIng) {
-    console.log(ingredients);
-    if (numServings === 0) {
-      console.log("empty");
-      setIngredients(
-        ingredients.map((ing) => {
-          return {
-            quantity: "0",
-            unit: ing.unit,
-            description: ing.description,
-          };
-        })
-      );
-      return;
-    }
-    setIngredients(
-      ingredients.map((ing) => {
-        let num = (
-          (parseFloat(ing.quantity) * numServings) /
-          (numServings + 1)
-        ).toFixed(2);
-        return {
-          quantity: num,
-          unit: ing.unit,
-          description: ing.description,
-        };
-      })
-    );
-  };
-
   return (
     <div className="recipe">
       <div className="recipe__header">
@@ -93,57 +58,41 @@ function Recipe(props) {
           <span className="recipe__title">{props.title}</span>
         </h1>
       </div>
-
       <div className="recipe__details">
         <div className="recipe__info">
-          <span className="recipe__info-data recipe__info-data--minutes">
-            {props.time}
+          <span className="recipe__info-text">Preparation Time: </span>
+          <span className="recipe__info-data">
+            {" "}
+            <BiTimeFive />
+            {`${props.time} minutes`}
           </span>
-          <span className="recipe__info-text">minutes</span>
-          <BiTimeFive />
         </div>
         <div className="recipe__info">
-          <span className="recipe__info-data recipe__info-data--people">
-            {numServings}
-          </span>
-          <span className="recipe__info-text">servings </span>
-          <div className="recipe__info-buttons">
-            <Button
-              className="btn--tiny btn--update-servings btn--update-servings-plus"
-              onClick={addServingsHandler}
-            >
-              <AiFillPlusCircle />
-            </Button>
-            <Button
-              className="btn--tiny btn--update-servings"
-              onClick={lessServingsHandler}
-            >
-              <AiFillMinusCircle />
-            </Button>
+          <span className="recipe__info-text">The recipe is for: </span>
+          <span className="recipe__info-data">{`${props.servings} servings`}</span>
+        </div>
+        <div className="recipe__info">
+          <span className="recipe__info-text">publisher:</span>
+          <span className="recipe__info-data">{props.publisher}</span>
+        </div>
+      </div>
+      <div className="recipe__flex">
+        <div className="recipe__ingredients">
+          <h2 className="heading--2">Recipe ingredients</h2>
+          <Ingredients data={ingredient} />
+        </div>
+
+        <div className="recipe__directions">
+          <h2 className="heading--2">How to cook it</h2>
+          <div className="recipe__description">
+            <p>{props.description}</p>
           </div>
         </div>
-        <Button className="btn--tiny btn--like ">
-          <AiOutlineLike />
-        </Button>
       </div>
-
-      <div className="recipe__ingredients">
-        <h2 className="heading--2">Recipe ingredients</h2>
-        <Ingredients data={ingredients} />
-      </div>
-
-      <div className="recipe__directions">
-        <h2 className="heading--2">How to cook it</h2>
-        <div className="recipe__description">
-          <p>{props.description}</p>
-          <span className="recipe__publisher">
-            publisher: {props.publisher}
-          </span>
-        </div>
+      <div>
         <Button className="btn--blue btn--blue-direction">
           <a href={props.link} target="_blank">
             <span>Directions</span>
-            {/*<HiArrowNarrowRight />*/}
           </a>
         </Button>
       </div>
@@ -152,3 +101,65 @@ function Recipe(props) {
 }
 
 export default Recipe;
+
+// const [numServings, setNumServings] = useState(props.servings);
+// const [ingredients, setIngredients] = useState(props.ingredients);
+
+// const addServingsHandler = function () {
+//   setNumServings(+numServings + 1);
+//   updateIngredientsPlus();
+// };
+
+// const lessServingsHandler = function () {
+//   if (numServings === 1) {
+//     return;
+//   }
+//   setNumServings(+numServings - 1);
+//   updateIngredientsMinus();
+// };
+
+// const updateIngredientsPlus = function (prevIng) {
+//   setIngredients(
+//     ingredients.map((ing) => {
+//       let num = (
+//         (parseFloat(ing.quantity) * numServings) /
+//         (numServings - 1)
+//       ).toFixed(2);
+//       return {
+//         quantity: num,
+//         unit: ing.unit,
+//         description: ing.description,
+//       };
+//     })
+//   );
+// };
+
+// const updateIngredientsMinus = function (prevIng) {
+//   console.log(ingredients);
+//   if (numServings === 0) {
+//     console.log("empty");
+//     setIngredients(
+//       ingredients.map((ing) => {
+//         return {
+//           quantity: "0",
+//           unit: ing.unit,
+//           description: ing.description,
+//         };
+//       })
+//     );
+//     return;
+//   }
+//   setIngredients(
+//     ingredients.map((ing) => {
+//       let num = (
+//         (parseFloat(ing.quantity) * numServings) /
+//         (numServings + 1)
+//       ).toFixed(2);
+//       return {
+//         quantity: num,
+//         unit: ing.unit,
+//         description: ing.description,
+//       };
+//     })
+//   );
+// };
