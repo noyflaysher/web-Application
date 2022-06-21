@@ -17,24 +17,6 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import Modal from "../map/Modal";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {/* {"Copyright © "} */}
-      <Link color="inherit" href="https://mui.com/">
-        {/* Your Website */}
-      </Link>{" "}
-      {/* {new Date().getFullYear()} */}
-      {"."}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export default function SignIn() {
@@ -75,6 +57,8 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    setShowSign(false);
   };
 
   return (
@@ -86,31 +70,7 @@ export default function SignIn() {
           <AiFillCloseCircle className={classes.icon} />
         </Button>
       }
-      footer={
-        <>
-          <Button
-            disabled={emailError || passwordError}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs sx={{ marginRight: "3rem" }}>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item sx={{ marginRight: "5rem" }}>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </>
-      }
+      footer={<></>}
     >
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -121,7 +81,7 @@ export default function SignIn() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              maxHeight: "10rem",
+              maxHeight: "",
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
@@ -164,9 +124,29 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
+              <Button
+                disabled={emailError || passwordError}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs sx={{ marginRight: "3rem" }}>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item sx={{ marginRight: "5rem" }}>
+                  <Link href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
     </Modal>

@@ -18,23 +18,23 @@ import Modal from "../map/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {/* {"Copyright © "} */}
-      <Link color="inherit" href="https://mui.com/">
-        {/* Your Website */}
-      </Link>{" "}
-      {/* {new Date().getFullYear()} */}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       {/* {"Copyright © "} */}
+//       <Link color="inherit" href="https://mui.com/">
+//         {/* Your Website */}
+//       </Link>{" "}
+//       {/* {new Date().getFullYear()} */}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 const theme = createTheme();
 
@@ -109,6 +109,8 @@ export default function SignUp() {
       password: password,
       name: name,
     });
+
+    setShowSign(false);
   };
 
   return (
@@ -131,7 +133,7 @@ export default function SignUp() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              maxHeight: "30rem",
+              maxHeight: "35rem",
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
@@ -235,7 +237,6 @@ export default function SignUp() {
               </Grid>
             </Box>
           </Box>
-          <Copyright sx={{ mt: 5 }} />
         </Container>
       </ThemeProvider>
     </Modal>
