@@ -55,7 +55,8 @@ export default function RecipeForm() {
       const val = data.get(`Ingrediant${index + 1}`);
       if (val !== "") ingList.push(val);
     });
-    if (!setIngrediantError(ingList.length === 0)) return;
+    setIngrediantError(ingList.length === 0);
+    if (ingList.length === 0) return;
     const newRecipe = {
       title: data.get("recipeTitle"),
       imageSrc: data.get("recipeImage"),
