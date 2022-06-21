@@ -12,6 +12,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function Copyright(props) {
   return (
@@ -34,12 +36,67 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [emailError, setEmailError] = useState(true);
+  const [firstEmail, setFirstEmail] = useState(false);
+
+  const [passwordError, setPasswordError] = useState(true);
+  const [firstPassword, setFirstPassword] = useState(false);
+
+  const [firstNameError, setFirstNameError] = useState(true);
+  const [firstFirstName, setfirstFirstName] = useState(false);
+
+  const [lastNameError, setLastNameError] = useState(true);
+  const [firstLastName, setFirstLastName] = useState(false);
+
+  const changeFirstNameHandler = (event) => {
+    const first = event.target.value;
+    if (first === "") {
+      console.log("first:error");
+      setFirstNameError(true);
+    } else setFirstNameError(false);
+    setfirstFirstName(true);
+  };
+
+  const changeLastNameHandler = (event) => {
+    const last = event.target.value;
+    if (last === "") {
+      console.log("last:error");
+      setLastNameError(true);
+    } else setLastNameError(false);
+    setFirstLastName(true);
+  };
+
+  const changeEmailHandler = (event) => {
+    const email = event.target.value;
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      console.log("email:error");
+      setEmailError(true);
+    } else setEmailError(false);
+    setFirstEmail(true);
+  };
+
+  const changePasswordHandler = (event) => {
+    const password = event.target.value;
+    if (password.length < 6) {
+      console.log("password:error");
+      setPasswordError(true);
+    } else setPasswordError(false);
+    setFirstPassword(true);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const password = data.get("password");
+    const email = data.get("email");
+    const firstName = data.get("firstName");
+    const lastName = data.get("lastName");
+    const name = `${data.get("firstName")} ${data.get("lastName")}`;
+
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      email: email,
+      password: password,
+      name: name,
     });
   };
 
@@ -70,32 +127,43 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={firstFirstName && firstNameError}
+                  onChange={changeFirstNameHandler}
                   autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
+                  // value={firstName}
                   label="First Name"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={firstLastName && lastNameError}
+                  onChange={changeLastNameHandler}
                   required
                   fullWidth
                   id="lastName"
                   label="Last Name"
+                  // value={lasttName}
                   name="lastName"
                   autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={firstEmail && emailError}
+                  onChange={changeEmailHandler}
+                  helperText="Incorrect email."
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
+                  type="email"
+                  // value={email}
                   autoComplete="email"
                 />
               </Grid>
@@ -103,10 +171,13 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  error={firstPassword && passwordError}
+                  onChange={changePasswordHandler}
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
+                  // value={password}
                   autoComplete="new-password"
                 />
               </Grid>
@@ -120,6 +191,9 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
+              disabled={
+                emailError || passwordError || firstNameError || lastNameError
+              }
               type="submit"
               fullWidth
               variant="contained"
