@@ -4,6 +4,7 @@ import Card from "./Component/UI/Card";
 import LogInForm from "./Component/Form/LogInForm";
 import NavBar from "./Component/NavBar/NavBar";
 import SignUp from "./Component/Form/SignUp";
+import LogIn from "./Component/Form/LogIn";
 function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ function App() {
         <Footer />
         <LogInForm />
         <SignUp />
+        <LogIn />
       </Card>
     </div>
   );
