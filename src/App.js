@@ -1,7 +1,7 @@
 import Body from "./Component/body/Body";
 import Footer from "./Component/footer/Footer";
 import Card from "./Component/UI/Card";
-import LogInForm from "./Component/Form/LogInForm";
+// import LogInForm from "./Component/Form/LogInForm";
 import NavBar from "./Component/NavBar/NavBar";
 import SignUp from "./Component/Form/SignUp";
 import LogIn from "./Component/Form/LogIn";
@@ -15,9 +15,9 @@ function App() {
       <Card>
         <Body />
         <Footer />
-        <LogInForm />
+        {/* <LogInForm /> */}
         <SignUp />
-        <LogIn />
+        {/* <LogIn /> */}
       </Card>
     </div>
   );

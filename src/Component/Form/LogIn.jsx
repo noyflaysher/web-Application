@@ -13,6 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
+import { AiFillCloseCircle } from "react-icons/ai";
+import classes from "./SignUp.module.css";
+import Modal from "../map/Modal";
 
 function Copyright(props) {
   return (
@@ -35,6 +38,12 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [showSign, setShowSign] = useState(true);
+
+  // const openMapHandler = () => setShowMap(true);
+
+  const closeSignHandler = () => setShowSign(false);
+
   const [emailError, setEmailError] = useState(true);
   const [firstEmail, setFirstEmail] = useState(false);
 
@@ -69,82 +78,97 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+    <Modal
+      show={showSign}
+      onCancel={closeSignHandler}
+      header={
+        <Button onClick={closeSignHandler}>
+          <AiFillCloseCircle className={classes.icon} />
+        </Button>
+      }
+      footer={
+        <>
+          <Button
+            disabled={emailError || passwordError}
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <TextField
-              error={firstEmail && emailError}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={changeEmailHandler}
-            />
-            <TextField
-              error={firstPassword && passwordError}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={changePasswordHandler}
-            />
-            {/* <FormControlLabel
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs sx={{ marginRight: "3rem" }}>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item sx={{ marginRight: "5rem" }}>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </>
+      }
+    >
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              maxHeight: "10rem",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                error={firstEmail && emailError}
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={changeEmailHandler}
+              />
+              <TextField
+                error={firstPassword && passwordError}
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={changePasswordHandler}
+              />
+              {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
-            <Button
-              disabled={emailError || passwordError}
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </ThemeProvider>
+    </Modal>
   );
 }
