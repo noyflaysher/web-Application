@@ -100,7 +100,7 @@ const ChosenRecipe = () => {
       title={loadedRecipe[0].title}
       time={loadedRecipe[0].time}
       servings={loadedRecipe[0].servings}
-      ingredients={loadedRecipe[0].ingrediants}
+      ingredients={ingredient}
       description={loadedRecipe[0].description}
       publisher={loadedRecipe[0].publisher}
       link={loadedRecipe[0].link}
