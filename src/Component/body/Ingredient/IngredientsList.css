@@ -1,5 +1,5 @@
 .ingredients {
-  padding: 5rem 8rem;
+  padding: 3rem 2rem;
   font-size: 1.6rem;
   line-height: 1.4;
   /* background-color: white; */
@@ -10,7 +10,7 @@
 
 .Ingredients-List {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem 7rem;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1rem 4rem;
   list-style: none;
 }
