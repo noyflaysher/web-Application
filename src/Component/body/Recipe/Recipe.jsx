@@ -88,7 +88,7 @@ function Recipe(props) {
   return (
     <div className="recipe">
       <div className="recipe__header">
-        <img className="recipe__image" src={recipeImage} />
+        <img className="recipe__image" src={props.image} />
         <h1>
           <span className="recipe__title">{props.title}</span>
         </h1>

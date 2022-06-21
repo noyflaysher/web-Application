@@ -1,0 +1,18 @@
+.fav-recipes__contenier {
+  width: 100rem;
+  border-radius: 0;
+}
+.fav-recipes__recipe {
+  margin: 5rem;
+}
+.fav-recipes__header {
+  font-size: 3rem;
+  padding-top: 3rem;
+}
+.fav-recipes__header h2 {
+  background-color: rgba(238, 245, 251, 0.693);
+  padding: 1rem;
+}
+.fav-recipes__header h2:hover {
+  color: #f4aa8a;
+}
