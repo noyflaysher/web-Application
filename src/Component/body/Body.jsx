@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Recipe from "./Recipe/Recipe";
 import Result from "./Result";
 import ChosenRecipe from "./ChosenRecipe";
+import FavoriteRecipe from "./FavoriteRecipe";
 
 import "./Body.css";
 
@@ -105,16 +106,7 @@ function Body() {
           <Switch>
             <div className="body__recipe-continer">
               <Route path="/" exact>
-                <Recipe
-                  image="src\components\body\images\pizza-img.jpg"
-                  title="homemade pizza"
-                  time="45"
-                  servings="4"
-                  ingredients={ingredient}
-                  description="description of the recipe"
-                  publisher="Noy Flaysher"
-                  link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
-                />
+                <FavoriteRecipe />
               </Route>
               <Route path="/:id" exact>
                 <ChosenRecipe />
