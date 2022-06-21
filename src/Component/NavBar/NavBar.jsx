@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../body/Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import "./NavBar.css";
-function NavBar() {
+function NavBar(props) {
   const [isConnected, setIsConnected] = React.useState(false);
   return (
     <>
@@ -14,6 +14,10 @@ function NavBar() {
             <>
               <NavBarButton>log in</NavBarButton>
               <NavBarButton>sign up</NavBarButton>
+              <NavBarButton onClick={() => props.newRecipe(true)}>
+                New Recipe
+              </NavBarButton>
+              <NavBarButton>log out</NavBarButton>
             </>
           )}
           {isConnected && (
@@ -29,6 +33,10 @@ function NavBar() {
 }
 
 function NavBarButton(props) {
-  return <Button className="btn--blue btn--margin">{props.children}</Button>;
+  return (
+    <Button onClick={props.onClick} className="btn--blue btn--margin">
+      {props.children}
+    </Button>
+  );
 }
 export default NavBar;
