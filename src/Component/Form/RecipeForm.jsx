@@ -4,7 +4,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -14,8 +13,8 @@ const Ingrediant = ({ count }) => {
     <Grid item xs={6}>
       <TextField
         fullWidth
-        name="recipeIngredient"
-        label={`Ingrediant#${count + 1}`}
+        name={`Ingrediant${count + 1}`}
+        label={`Ingrediant #${count + 1}`}
         type="textbox"
         id={`Ingrediant${count + 1}`}
       />
@@ -25,7 +24,6 @@ const Ingrediant = ({ count }) => {
 export default function RecipeForm() {
   const [ingrediantList, setIngrediantList] = React.useState([]);
   const addIngrediant = () => {
-    console.log("ADD INGREDIANT");
     setIngrediantList(
       ingrediantList.concat(
         <Ingrediant key={ingrediantList.length} count={ingrediantList.length} />
@@ -36,6 +34,20 @@ export default function RecipeForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const ingList = [];
+    ingrediantList.forEach((ing, index) => {
+      const val = data.get(`Ingrediant${index + 1}`);
+      if (val !== "") ingList.push(val);
+    });
+    const newRecipe = {
+      title: data.get("recipeTitle"),
+      imageSrc: data.get("recipeImage"),
+      servings: data.get("recipeServings"),
+      time: data.get("recipePrepTime"),
+      description: data.get("recipeDescription"),
+      ingrediants: ingList,
+    };
+    console.log(newRecipe);
   };
 
   return (
@@ -50,9 +62,7 @@ export default function RecipeForm() {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
-            Create A New Recipe
-          </Typography>
+          <h2>Create A New Recipe</h2>
           <Box
             component="form"
             noValidate
@@ -76,7 +86,6 @@ export default function RecipeForm() {
                   fullWidth
                   id="recipeImage"
                   label="Link an image..."
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={6}>
