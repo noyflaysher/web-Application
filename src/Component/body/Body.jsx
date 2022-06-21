@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Recipe from "./Recipe/Recipe";
 import Result from "./Result";
 import ChosenRecipe from "./ChosenRecipe";
+
 import "./Body.css";
 
 const ingredient = [
@@ -30,7 +31,7 @@ const RECIPE_ARR = [
     id: "pizza",
     title: "pizza",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "homemade pizza",
     publisher: "Noy",
@@ -47,7 +48,7 @@ const RECIPE_ARR = [
     id: "Paste_with_cream_sauce",
     title: "Paste with cream sauce",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "Paste with cream sauce",
     publisher: "Maya",
@@ -64,7 +65,7 @@ const RECIPE_ARR = [
     id: "Kosher_Burger",
     title: "Kosher Burger",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "Kosher Burger",
     publisher: "SAAR",
@@ -81,7 +82,7 @@ const RECIPE_ARR = [
     id: "Vegetarian_sushi",
     title: "Vegetarian sushi",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "Vegetarian sushi",
     publisher: "Oz",
