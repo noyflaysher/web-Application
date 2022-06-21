@@ -23,6 +23,11 @@ const Ingrediant = ({ count }) => {
 };
 export default function RecipeForm() {
   const [ingrediantList, setIngrediantList] = React.useState([]);
+  const [titleError, setTitleError] = React.useState(false);
+  const [servingsError, setServingsError] = React.useState(false);
+  const [timeError, setTimeError] = React.useState(false);
+  const [ingrediantError, setIngrediantError] = React.useState(false);
+
   const addIngrediant = () => {
     setIngrediantList(
       ingrediantList.concat(
@@ -31,14 +36,26 @@ export default function RecipeForm() {
     );
   };
 
+  const formValidation = (data) => {
+    setTitleError(data.get("recipeTitle") === "");
+    setServingsError(data.get("recipeServings") === "");
+    setTimeError(data.get("recipePrepTime") === "");
+    return !(
+      data.get("recipeTitle") === "" ||
+      data.get("recipeServings") === "" ||
+      data.get("recipePrepTime") === ""
+    );
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    if (!formValidation(data)) return;
     const ingList = [];
     ingrediantList.forEach((ing, index) => {
       const val = data.get(`Ingrediant${index + 1}`);
       if (val !== "") ingList.push(val);
     });
+    if (setIngrediantError(ingList.length === 0)) return;
     const newRecipe = {
       title: data.get("recipeTitle"),
       imageSrc: data.get("recipeImage"),
@@ -73,11 +90,13 @@ export default function RecipeForm() {
               <Grid item xs={6}>
                 <TextField
                   name="recipeTitle"
+                  error={titleError}
                   required
                   fullWidth
                   id="recipeTitle"
                   label="Recipe Title"
                   autoFocus
+                  helperText="Title is required"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -96,6 +115,8 @@ export default function RecipeForm() {
                   type="textbox"
                   id="recipeServings"
                   required
+                  helperText="Servings is required"
+                  error={servingsError}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -106,6 +127,8 @@ export default function RecipeForm() {
                   type="textbox"
                   id="recipePrepTime"
                   required
+                  helperText="Time is required"
+                  error={timeError}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -123,20 +146,15 @@ export default function RecipeForm() {
                 <Button
                   onClick={() => addIngrediant()}
                   fullWidth
-                  variant="text"
-                  sx={{ mt: 3, mb: 2 }}
+                  variant={ingrediantError ? "outlined" : "text"}
+                  color={ingrediantError ? "secondary" : "default"}
                 >
                   Add Ingrediant
                 </Button>
               </Grid>
               {ingrediantList}
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained">
               Publish
             </Button>
           </Box>
