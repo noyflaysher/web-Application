@@ -120,9 +120,9 @@ function Body() {
     <>
       <div className="body__continer">
         <Router>
-          <div className="body__result-continer">
+          <aside className="body__result-continer">
             <Result items={RECIPE_ARR} />
-          </div>
+          </aside>
           <Switch>
             <div className="body__recipe-continer">
               <Route path="/" exact>

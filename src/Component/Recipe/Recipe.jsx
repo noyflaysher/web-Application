@@ -52,6 +52,9 @@ const ingredient = [
 //}
 
 function Recipe(props) {
+  const editHandler = {};
+  const deleteHandler = {};
+
   return (
     <div className="recipe">
       <div className="recipe__header">
@@ -60,13 +63,20 @@ function Recipe(props) {
           <span className="recipe__title">{props.title}</span>
         </h1>
       </div>
+      <div className="bottons">
+        <Button onClick={editHandler} className="btn--blue btn--edit">
+          EDIT
+        </Button>
+        <Button onClick={deleteHandler} className="btn--blue btn--del">
+          DELETE
+        </Button>
+      </div>
       <div className="recipe__details">
         <div className="recipe__info">
           <span className="recipe__info-text">Preparation Time: </span>
           <span className="recipe__info-data">
             {`${props.time} minutes`}
             <div>
-              {" "}
               {"\u00A0"} {"\u00A0"}
             </div>
             <BiTimeFive />
