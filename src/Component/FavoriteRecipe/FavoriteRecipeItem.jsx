@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import { BiTimeFive } from "react-icons/bi";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { Link } from "react-router-dom";
 
 function FavoriteRecipeItem(props) {
   return (
@@ -58,11 +59,13 @@ function FavoriteRecipeItem(props) {
           </div> */}
         </div>
         <div>
-          <Button className="btn--blue btn--blue-direction btn--favoriteRecipe ">
-            <a href="#" target="_blank">
-              <span>To the full recipe</span>
-            </a>
-          </Button>
+          <Link to={`/${props.id}`}>
+            <Button className="btn--blue btn--blue-direction btn--favoriteRecipe ">
+              <a href="#" target="_blank">
+                <span>To the full recipe</span>
+              </a>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

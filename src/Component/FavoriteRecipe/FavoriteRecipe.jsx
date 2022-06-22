@@ -4,6 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 import Recipe from "../Recipe/Recipe";
 import "./FavoriteRecipe.css";
 import FavoriteRecipeItem from "./FavoriteRecipeItem";
+import { Link } from "react-router-dom";
 const ingredient = [
   {
     quantity: "0.5",
@@ -103,6 +104,7 @@ const FavoriteRecipe = () => {
       <Carousel infiniteLoop className="carousel-root">
         <div className="fav-recipes__recipe">
           <FavoriteRecipeItem
+            id={favRecipesArr[0].id}
             image={favRecipesArr[0].imageSrc}
             title={favRecipesArr[0].title}
             time={favRecipesArr[0].time}
@@ -115,6 +117,7 @@ const FavoriteRecipe = () => {
         </div>
         <div className="fav-recipes__recipe">
           <FavoriteRecipeItem
+            id={favRecipesArr[1].id}
             image={favRecipesArr[1].imageSrc}
             title={favRecipesArr[1].title}
             time={favRecipesArr[1].time}
@@ -127,6 +130,7 @@ const FavoriteRecipe = () => {
         </div>
         <div className="fav-recipes__recipe">
           <FavoriteRecipeItem
+            id={favRecipesArr[2].id}
             image={favRecipesArr[2].imageSrc}
             title={favRecipesArr[2].title}
             time={favRecipesArr[2].time}
@@ -139,6 +143,7 @@ const FavoriteRecipe = () => {
         </div>
         <div className="fav-recipes__recipe">
           <FavoriteRecipeItem
+            id={favRecipesArr[3].id}
             image={favRecipesArr[3].imageSrc}
             title={favRecipesArr[3].title}
             time={favRecipesArr[3].time}
