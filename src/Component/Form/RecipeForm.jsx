@@ -6,11 +6,19 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Modal from "../map/Modal";
+import Modal from "../Map/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
+import Avatar from "@mui/material/Avatar";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    htmlFontSize: 10.75,
+    fontFamily: "Lato",
+  },
+});
+
 const Ingrediant = ({ count }) => {
   return (
     <Grid item xs={6}>
@@ -94,12 +102,15 @@ export default function RecipeForm(props) {
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 0,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
+            <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
+              <RestaurantIcon />
+            </Avatar>
             <h2>Create A New Recipe</h2>
             <Box
               component="form"
@@ -117,7 +128,6 @@ export default function RecipeForm(props) {
                     id="recipeTitle"
                     label="Recipe Title"
                     autoFocus
-                    helperText="Title is required"
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -136,7 +146,6 @@ export default function RecipeForm(props) {
                     type="textbox"
                     id="recipeServings"
                     required
-                    helperText="Servings is required"
                     error={servingsError}
                   />
                 </Grid>
@@ -148,7 +157,6 @@ export default function RecipeForm(props) {
                     type="textbox"
                     id="recipePrepTime"
                     required
-                    helperText="Time is required"
                     error={timeError}
                   />
                 </Grid>
