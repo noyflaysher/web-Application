@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import Map from "../map/Map";
 import Card from "../UI/Card";
 import Modal from "../map/Modal";
-import Image from "./ElementUI/Image";
-import Button from "./Button/Button";
+import Image from "../../Images/Image";
+import Button from "../Button/Button";
 import { FaMapMarkerAlt as MapImage } from "react-icons/fa";
 
 import "./RecipeItem.css";

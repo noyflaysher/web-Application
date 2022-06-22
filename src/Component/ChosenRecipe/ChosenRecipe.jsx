@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Recipe from "./Recipe/Recipe";
+import Recipe from "../Recipe/Recipe";
 const ingredient = [
   {
     quantity: "0.5",

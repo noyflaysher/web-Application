@@ -1,5 +1,5 @@
 import React from "react";
-import RecipeItem from "./RecipeItem";
+import RecipeItem from "../RecipeItem/RecipeItem";
 
 import "./Result.css";
 const Result = (props) => {

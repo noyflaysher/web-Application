@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BiTimeFive, BiMinusCircle } from "react-icons/bi";
+import { BiTimeFive } from "react-icons/bi";
 import {
   AiOutlineLike,
   AiFillPlusCircle,

@@ -19,7 +19,7 @@ import Modal from "../map/Modal";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props) {
   const [showSign, setShowSign] = useState(true);
 
   // const openMapHandler = () => setShowMap(true);
@@ -31,6 +31,11 @@ export default function SignIn() {
 
   const [passwordError, setPasswordError] = useState(true);
   const [firstPassword, setFirstPassword] = useState(false);
+
+  const closeFormHandler = (hideForm) => {
+    setShowSign(false);
+    hideForm(false);
+  };
 
   const changeEmailHandler = (event) => {
     const email = event.target.value;
@@ -58,15 +63,15 @@ export default function SignIn() {
       password: data.get("password"),
     });
 
-    setShowSign(false);
+    closeFormHandler(props.closeForm);
   };
 
   return (
     <Modal
       show={showSign}
-      onCancel={closeSignHandler}
+      onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={closeSignHandler}>
+        <Button onClick={() => closeFormHandler(props.closeForm)}>
           <AiFillCloseCircle className={classes.icon} />
         </Button>
       }

@@ -13,32 +13,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import { useEffect } from "react";
 import Modal from "../map/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {/* {"Copyright © "} */}
-//       <Link color="inherit" href="https://mui.com/">
-//         {/* Your Website */}
-//       </Link>{" "}
-//       {/* {new Date().getFullYear()} */}
-//       {"."}
-//     </Typography>
-//   );
-// }
-
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp(props) {
   const [showSign, setShowSign] = useState(true);
 
   // const openMapHandler = () => setShowMap(true);
@@ -56,6 +37,11 @@ export default function SignUp() {
 
   const [lastNameError, setLastNameError] = useState(true);
   const [firstLastName, setFirstLastName] = useState(false);
+
+  const closeFormHandler = (hideForm) => {
+    setShowSign(false);
+    hideForm(false);
+  };
 
   const changeFirstNameHandler = (event) => {
     const first = event.target.value;
@@ -110,15 +96,15 @@ export default function SignUp() {
       name: name,
     });
 
-    setShowSign(false);
+    closeFormHandler(props.closeForm);
   };
 
   return (
     <Modal
       show={showSign}
-      onCancel={closeSignHandler}
+      onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={closeSignHandler}>
+        <Button onClick={() => closeFormHandler(props.closeForm)}>
           <AiFillCloseCircle className={classes.icon} />
         </Button>
       }

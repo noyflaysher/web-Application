@@ -74,13 +74,14 @@
 }
 .recipe__flex {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 }
 
 .recipe__ingredients {
   margin-bottom: 3rem;
   flex: 50%;
+  position: relative;
 }
 
 .heading--2 {
@@ -89,8 +90,10 @@
   text-transform: uppercase;
   text-align: center;
   color: #fff;
-  width: 70%;
-  transform: translate(20%, 0) skewY(-4deg);
+  width: 25%;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0) skewY(-4deg);
   text-align: center;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;

@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Recipe from "./Recipe/Recipe";
-import Result from "./Result";
-import ChosenRecipe from "./ChosenRecipe";
-import FavoriteRecipe from "./FavoriteRecipe";
+import Recipe from "../Recipe/Recipe";
+import Result from "../Result/Result";
+import ChosenRecipe from "../ChosenRecipe/ChosenRecipe";
+import FavoriteRecipe from "../FavoriteRecipe/FavoriteRecipe";
 
 import "./Body.css";
 
