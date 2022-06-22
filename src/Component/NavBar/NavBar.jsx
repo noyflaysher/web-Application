@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
+import { LogContext } from "../../Context/LogContext.jsx";
 import "./NavBar.css";
 function NavBar(props) {
-  const [isConnected, setIsConnected] = React.useState(false);
+  const isConnected = useContext(LogContext);
   return (
     <>
       <nav className="nav-bar flex-container">
         {/* LOGO */}
         <SearchBar />
         <div>
-          {!isConnected && (
+          {!isConnected.isLoggedIn && (
             <>
               <NavBarButton onClick={() => props.login(true)}>
                 log in
@@ -18,16 +19,14 @@ function NavBar(props) {
               <NavBarButton onClick={() => props.signup(true)}>
                 sign up
               </NavBarButton>
+            </>
+          )}
+          {isConnected.isLoggedIn && (
+            <>
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>
-              <NavBarButton>log out</NavBarButton>
-            </>
-          )}
-          {isConnected && (
-            <>
-              <NavBarButton>create a recipe</NavBarButton>
-              <NavBarButton>log out</NavBarButton>
+              <NavBarButton onClick={isConnected.logout}>log out</NavBarButton>
             </>
           )}
         </div>

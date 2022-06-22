@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Body from "./Component/body/Body";
 import Footer from "./Component/Footer/Footer";
 import LogInForm from "./Component/Form/LogIn";
 import NavBar from "./Component/NavBar/NavBar";
 import SignUp from "./Component/Form/SignUp";
 import RecipeForm from "./Component/Form/RecipeForm";
+import { LogContext } from "./Context/LogContext";
 
 const item = {
   imageSrc:
@@ -26,38 +27,48 @@ function App() {
   const [showRecipeForm, setShowRecipeForm] = React.useState(false);
   const [showLoginForm, setShowLoginForm] = React.useState(false);
   const [showSignupForm, setShowSignupForm] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
 
   const toggleRecipe = (state) => setShowRecipeForm(state);
   const toggleLogin = (state) => setShowLoginForm(state);
   const toggleSignup = (state) => setShowSignupForm(state);
 
   return (
-    <div>
-      <div className="body-container">
-        <NavBar
-          newRecipe={toggleRecipe}
-          login={toggleLogin}
-          signup={toggleSignup}
-        />
-
-        {/* <video width="750" height="500" controls>
-          <source src="https://www.youtube.com/watch?v=V2LttnPZW64" />
-        </video>
-
-        <video
-          className="video"
-          src="https:\/\/www.youtube.com\/watch?v=IEDEtZ4UVtI"
-        ></video> */}
-
-        <Body />
-
-        <Footer />
-        {showRecipeForm && <RecipeForm closeForm={toggleRecipe} />}
-        {showLoginForm && <LogInForm closeForm={toggleLogin} />}
-        {showSignupForm && <SignUp closeForm={toggleSignup} />}
+    <LogContext.Provider
+      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+    >
+      <div>
+        <div className="body-container">
+          <NavBar
+            newRecipe={toggleRecipe}
+            login={toggleLogin}
+            signup={toggleSignup}
+          />
+          <Body />
+          <Footer />
+          {showRecipeForm && <RecipeForm closeForm={toggleRecipe} />}
+          {showLoginForm && <LogInForm closeForm={toggleLogin} />}
+          {showSignupForm && <SignUp closeForm={toggleSignup} />}
+        </div>
       </div>
-    </div>
+    </LogContext.Provider>
   );
 }
 
 export default App;
+
+//   {/* <video width="750" height="500" controls>
+//   <source src="https://www.youtube.com/watch?v=V2LttnPZW64" />
+// </video>
+
+// <video
+//   className="video"
+//   src="https:\/\/www.youtube.com\/watch?v=IEDEtZ4UVtI"
+// ></video> */}

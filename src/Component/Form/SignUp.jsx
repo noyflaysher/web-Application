@@ -15,6 +15,7 @@ import { useState } from "react";
 import Modal from "../Map/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
+import { LogContext } from "../../Context/LogContext";
 
 const theme = createTheme({
   typography: {
@@ -25,8 +26,6 @@ const theme = createTheme({
 
 export default function SignUp(props) {
   const [showSign, setShowSign] = useState(true);
-
-  // const openMapHandler = () => setShowMap(true);
 
   const closeSignHandler = () => setShowSign(false);
 
@@ -41,6 +40,8 @@ export default function SignUp(props) {
 
   const [lastNameError, setLastNameError] = useState(true);
   const [firstLastName, setFirstLastName] = useState(false);
+
+  const isConnected = React.useContext(LogContext);
 
   const closeFormHandler = (hideForm) => {
     setShowSign(false);
@@ -192,6 +193,7 @@ export default function SignUp(props) {
                 </Grid>
               </Grid>
               <Button
+                onClick={isConnected.login}
                 disabled={
                   emailError || passwordError || firstNameError || lastNameError
                 }

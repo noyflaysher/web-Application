@@ -16,6 +16,8 @@ import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import Modal from "../Map/Modal";
+import { LogContext } from "../../Context/LogContext";
+
 import "../RecipeItem/RecipeItem.css";
 
 const theme = createTheme({
@@ -27,7 +29,6 @@ const theme = createTheme({
 
 export default function SignIn(props) {
   const [showSign, setShowSign] = useState(true);
-
   const closeSignHandler = () => setShowSign(false);
 
   const [emailError, setEmailError] = useState(true);
@@ -35,6 +36,8 @@ export default function SignIn(props) {
 
   const [passwordError, setPasswordError] = useState(true);
   const [firstPassword, setFirstPassword] = useState(false);
+
+  const isConnected = React.useContext(LogContext);
 
   const closeFormHandler = (hideForm) => {
     setShowSign(false);
@@ -66,7 +69,7 @@ export default function SignIn(props) {
       email: data.get("email"),
       password: data.get("password"),
     });
-
+    isConnected.login();
     closeFormHandler(props.closeForm);
   };
 
