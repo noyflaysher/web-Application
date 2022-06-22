@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Map from "../map/Map";
-import Card from "../UI/Card";
+import Card from "../Card/Card";
 import Modal from "../map/Modal";
 import Image from "../../Images/Image";
 import Button from "../Button/Button";

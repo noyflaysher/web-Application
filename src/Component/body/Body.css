@@ -7,13 +7,13 @@
 }
 .body__result-continer {
   flex: 30%;
-  width: 100%;
+  /* width: 100%; */
   border-radius: 0rem 0rem 0rem 0rem;
   background-color: aliceblue;
 }
 .body__recipe-continer {
   flex: 70%;
-  width: 100%;
+  /* width: 100%; */
   border-radius: 0rem 0rem 0rem 0rem;
   background-color: rgb(226, 237, 245);
 }
