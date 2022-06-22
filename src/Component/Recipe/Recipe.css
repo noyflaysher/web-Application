@@ -118,12 +118,13 @@
   margin-left: 1rem;
 }
 
-.btn--blue-direction {
+/* .btn--blue-direction {
   text-align: center;
   margin-bottom: 3rem;
-}
-.recipe__directions {
+} */
+.recipe__cook {
   flex: 50%;
+  margin-bottom: 2rem;
 }
 
 .bottons {

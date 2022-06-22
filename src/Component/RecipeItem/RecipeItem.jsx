@@ -18,16 +18,14 @@ const RecipeItem = (props) => {
   return (
     <React.Fragment>
       <Modal
+        className="modal-map"
         show={showMap}
         onCancel={closeMapHandler}
         header={props.address}
-        contentClass="recipe-item__modal-content"
+        contentClass="recipe-item__modal-content modal-map"
         footerClass="recipe-item__modal-actions"
         footer={
-          <Button
-            className="btn--blue btn--blue-close"
-            onClick={closeMapHandler}
-          >
+          <Button className="btn btn--blue-close" onClick={closeMapHandler}>
             CLOSE
           </Button>
         }

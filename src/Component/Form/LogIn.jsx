@@ -77,9 +77,10 @@ export default function SignIn(props) {
       footerClass="recipe-item__modal-actions"
       onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={() => closeFormHandler(props.closeForm)}>
-          <AiFillCloseCircle className={classes.icon} />
-        </Button>
+        <AiFillCloseCircle
+          onClick={() => closeFormHandler(props.closeForm)}
+          className={classes.icon}
+        />
       }
       footer={<></>}
     >
@@ -133,6 +134,7 @@ export default function SignIn(props) {
                 disabled={emailError || passwordError}
                 type="submit"
                 fullWidth
+                fullHeight
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >

@@ -91,9 +91,10 @@ export default function RecipeForm(props) {
       show={showForm}
       onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={() => closeFormHandler(props.closeForm)}>
-          <AiFillCloseCircle className={classes.icon} />
-        </Button>
+        <AiFillCloseCircle
+          onClick={() => closeFormHandler(props.closeForm)}
+          className={classes.icon}
+        />
       }
       footer={<></>}
     >

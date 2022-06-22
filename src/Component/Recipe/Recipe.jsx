@@ -64,10 +64,10 @@ function Recipe(props) {
         </h1>
       </div>
       <div className="bottons">
-        <Button onClick={editHandler} className="btn--blue btn--edit">
+        <Button onClick={editHandler} className="btn btn--edit">
           EDIT
         </Button>
-        <Button onClick={deleteHandler} className="btn--blue btn--del">
+        <Button onClick={deleteHandler} className="btn btn--del">
           DELETE
         </Button>
       </div>
@@ -111,7 +111,7 @@ function Recipe(props) {
           <Ingredients data={ingredient} />
         </div>
 
-        <div className="recipe__directions">
+        <div className="recipe__cook">
           <h2 className="heading--2">How to cook it</h2>
           <div className="recipe__description">
             <p>{props.description}</p>
