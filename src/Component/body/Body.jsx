@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Recipe from "./Recipe/Recipe";
 import Result from "./Result";
 import ChosenRecipe from "./ChosenRecipe";
+import FavoriteRecipe from "./FavoriteRecipe";
+
 import "./Body.css";
 
 const ingredient = [
@@ -21,6 +23,26 @@ const ingredient = [
     unit: "tps",
     description: "dry active yeast",
   },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
 ];
 
 const RECIPE_ARR = [
@@ -30,7 +52,7 @@ const RECIPE_ARR = [
     id: "pizza",
     title: "pizza",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "homemade pizza",
     publisher: "Noy",
@@ -47,7 +69,7 @@ const RECIPE_ARR = [
     id: "Paste_with_cream_sauce",
     title: "Paste with cream sauce",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "Paste with cream sauce",
     publisher: "Maya",
@@ -64,7 +86,7 @@ const RECIPE_ARR = [
     id: "Kosher_Burger",
     title: "Kosher Burger",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "Kosher Burger",
     publisher: "SAAR",
@@ -81,7 +103,7 @@ const RECIPE_ARR = [
     id: "Vegetarian_sushi",
     title: "Vegetarian sushi",
     time: 3,
-    servings: "3",
+    servings: 3,
     ingrediants: { ingredient },
     description: "Vegetarian sushi",
     publisher: "Oz",
@@ -104,16 +126,7 @@ function Body() {
           <Switch>
             <div className="body__recipe-continer">
               <Route path="/" exact>
-                <Recipe
-                  image="src\components\body\images\pizza-img.jpg"
-                  title="homemade pizza"
-                  time="45"
-                  servings="4"
-                  ingredients={ingredient}
-                  description="description of the recipe"
-                  publisher="Noy Flaysher"
-                  link="https://www.mako.co.il/food-recipes/recipes_column-bread/Recipe-df29cf2e4721731006.htm"
-                />
+                <FavoriteRecipe />
               </Route>
               <Route path="/:id" exact>
                 <ChosenRecipe />

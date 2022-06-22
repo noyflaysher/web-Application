@@ -17,6 +17,26 @@ const ingredient = [
     unit: "tps",
     description: "dry active yeast",
   },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: " flour",
+  },
+  {
+    quantity: "0.8",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
+  {
+    quantity: "0.5",
+    unit: "cup",
+    description: "bread flour",
+  },
 ];
 
 const RECIPE_ARR = [
@@ -28,8 +48,9 @@ const RECIPE_ARR = [
     time: 3,
     servings: "3",
     ingrediants: { ingredient },
-    description: "homemade pizza",
-    publisher: "Noy",
+    description:
+      "made the bazek!! put all the bazex  in mixer. play the mixer 10 min.",
+    publisher: "Noy Flysher",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
     location: {
@@ -46,7 +67,7 @@ const RECIPE_ARR = [
     servings: "3",
     ingrediants: { ingredient },
     description: "Paste with cream sauce",
-    publisher: "Maya",
+    publisher: "Maya Koma",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
     location: {
@@ -63,7 +84,7 @@ const RECIPE_ARR = [
     servings: "3",
     ingrediants: { ingredient },
     description: "Kosher Burger",
-    publisher: "SAAR",
+    publisher: "SAAR Moseri",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
     location: {
@@ -80,7 +101,7 @@ const RECIPE_ARR = [
     servings: "3",
     ingrediants: { ingredient },
     description: "Vegetarian sushi",
-    publisher: "Oz",
+    publisher: "Oz Gemer",
     link: "#",
     address: "20 W 34th St, New York, NY 10001",
     location: {
@@ -100,7 +121,7 @@ const ChosenRecipe = () => {
       title={loadedRecipe[0].title}
       time={loadedRecipe[0].time}
       servings={loadedRecipe[0].servings}
-      ingredients={loadedRecipe[0].ingrediants}
+      ingredients={ingredient}
       description={loadedRecipe[0].description}
       publisher={loadedRecipe[0].publisher}
       link={loadedRecipe[0].link}
