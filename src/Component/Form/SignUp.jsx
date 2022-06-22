@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 
@@ -113,6 +113,8 @@ export default function SignUp(props) {
           className={classes.icon}
         />
       }
+      contentClass="recipe-item__modal-content"
+      footerClass="recipe-item__modal-actions"
       footer={<></>}
     >
       <ThemeProvider theme={theme}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Map from "../Map/Map";
 import Card from "../Card/Card";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import Image from "../../Images/Image";
 import Button from "../Button/Button";
 import { FaMapMarkerAlt as MapImage } from "react-icons/fa";

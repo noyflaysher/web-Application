@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import "../RecipeItem/RecipeItem.css";
 
 const theme = createTheme({

@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import Avatar from "@mui/material/Avatar";
