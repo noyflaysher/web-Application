@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Recipe from "../Recipe/Recipe";
 import Result from "../Result/Result";
 import ChosenRecipe from "../ChosenRecipe/ChosenRecipe";
 import FavoriteRecipe from "../FavoriteRecipe/FavoriteRecipe";
