@@ -9,15 +9,19 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import Modal from "../map/Modal";
+import Modal from "../Map/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    htmlFontSize: 10.75,
+    fontFamily: "Lato",
+  },
+});
 
 export default function SignUp(props) {
   const [showSign, setShowSign] = useState(true);
@@ -119,15 +123,12 @@ export default function SignUp(props) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              maxHeight: "35rem",
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
+            <h2>Sign up</h2>
             <Box
               component="form"
               noValidate
@@ -144,7 +145,6 @@ export default function SignUp(props) {
                     required
                     fullWidth
                     id="firstName"
-                    // value={firstName}
                     label="First Name"
                     autoFocus
                   />
@@ -190,14 +190,6 @@ export default function SignUp(props) {
                     autoComplete="new-password"
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                  />
-                </Grid>
               </Grid>
               <Button
                 disabled={
@@ -206,7 +198,7 @@ export default function SignUp(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, marginTop: 2 }}
               >
                 Sign Up
               </Button>
@@ -214,13 +206,7 @@ export default function SignUp(props) {
                 container
                 justifyContent="flex-end"
                 sx={{ marginBottom: "1rem" }}
-              >
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
+              ></Grid>
             </Box>
           </Box>
         </Container>

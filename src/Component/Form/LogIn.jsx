@@ -3,10 +3,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+// import Link from "@mui/material/Link";
+// import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -15,14 +15,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
-import Modal from "../map/Modal";
+import Modal from "../Map/Modal";
+import "../RecipeItem/RecipeItem.css";
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    htmlFontSize: 10.75,
+    fontFamily: "Lato",
+  },
+});
 
 export default function SignIn(props) {
   const [showSign, setShowSign] = useState(true);
-
-  // const openMapHandler = () => setShowMap(true);
 
   const closeSignHandler = () => setShowSign(false);
 
@@ -69,6 +73,8 @@ export default function SignIn(props) {
   return (
     <Modal
       show={showSign}
+      contentClass="recipe-item__modal-content"
+      footerClass="recipe-item__modal-actions"
       onCancel={() => closeFormHandler(props.closeForm)}
       header={
         <Button onClick={() => closeFormHandler(props.closeForm)}>
@@ -92,9 +98,7 @@ export default function SignIn(props) {
             <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
+            <h2>Sign in</h2>
             <Box
               component="form"
               onSubmit={handleSubmit}
@@ -125,10 +129,6 @@ export default function SignIn(props) {
                 autoComplete="current-password"
                 onChange={changePasswordHandler}
               />
-              {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
               <Button
                 disabled={emailError || passwordError}
                 type="submit"
@@ -138,18 +138,6 @@ export default function SignIn(props) {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs sx={{ marginRight: "3rem" }}>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item sx={{ marginRight: "5rem" }}>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
           </Box>
         </Container>
