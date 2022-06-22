@@ -125,3 +125,13 @@
 .recipe__directions {
   flex: 50%;
 }
+
+.bottons {
+  position: relative;
+  left: 27rem;
+  top: -5rem;
+}
+
+.btn--edit {
+  margin-right: 2rem;
+}

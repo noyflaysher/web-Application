@@ -40,7 +40,17 @@ function App() {
           signup={toggleSignup}
         />
 
+        {/* <video width="750" height="500" controls>
+          <source src="https://www.youtube.com/watch?v=V2LttnPZW64" />
+        </video>
+
+        <video
+          className="video"
+          src="https:\/\/www.youtube.com\/watch?v=IEDEtZ4UVtI"
+        ></video> */}
+
         <Body />
+
         <Footer />
         {showRecipeForm && <RecipeForm closeForm={toggleRecipe} />}
         {showLoginForm && <LogInForm closeForm={toggleLogin} />}

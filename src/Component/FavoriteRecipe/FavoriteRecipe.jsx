@@ -155,6 +155,14 @@ const FavoriteRecipe = () => {
           />
         </div>
       </Carousel>
+
+      <video
+        src="https://ak.picdn.net/shutterstock/videos/32420266/preview/stock-footage-eating-and-leisure-concept-group-of-people-having-dinner-at-table-with-food.webm"
+        className="video"
+        autoplay
+        loop
+        controls
+      ></video>
     </div>
   );
 };

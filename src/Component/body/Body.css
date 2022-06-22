@@ -4,6 +4,7 @@
   border-radius: 20rem;
   display: flex;
   margin: 0;
+  /* flex-direction: column; */
 }
 .body__result-continer {
   flex: 30%;

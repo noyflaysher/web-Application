@@ -50,3 +50,8 @@
 .carousel .control-prev.control-arrow:before {
   border-right: 8px solid #ff8000;
 }
+
+.video {
+  margin-bottom: 2rem;
+  width: 50rem;
+}
