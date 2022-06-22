@@ -132,6 +132,10 @@
   top: -5rem;
 }
 
-.btn--edit {
+.btn--edit,
+.btn--cancel {
   margin-right: 2rem;
+}
+.recipe__modal-actions {
+  text-align: center;
 }
