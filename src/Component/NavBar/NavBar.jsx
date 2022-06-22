@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../body/Button/Button.jsx";
+import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import "./NavBar.css";
 function NavBar(props) {
@@ -12,8 +12,12 @@ function NavBar(props) {
         <div>
           {!isConnected && (
             <>
-              <NavBarButton>log in</NavBarButton>
-              <NavBarButton>sign up</NavBarButton>
+              <NavBarButton onClick={() => props.login(true)}>
+                log in
+              </NavBarButton>
+              <NavBarButton onClick={() => props.signup(true)}>
+                sign up
+              </NavBarButton>
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>

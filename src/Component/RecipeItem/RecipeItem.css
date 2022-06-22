@@ -1,6 +1,6 @@
 .recipe-item {
-  margin: 2rem 0rem 2rem 1.5rem;
-  width: 90%;
+  /* margin: ; */
+  width: 100%;
   min-width: 17.5rem;
   list-style: none;
   text-align: center;
@@ -22,11 +22,12 @@
   border-radius: 3rem;
   padding: 1rem;
   color: white;
-  background: #b5d8eac2;
+  background: #ffe259;
+  /* background-image: linear-gradient(to right, #ffe259, #ffa751); */
 }
 .recipe-item a:hover,
 .recipe-item a:active {
-  background: #f4aa8a;
+  background: #ffa751;
 }
 .recipe-item__content {
   width: 100%;
@@ -81,4 +82,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.btn-map {
+  color: white;
 }

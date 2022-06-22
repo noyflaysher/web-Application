@@ -8,7 +8,7 @@ export const Footercontainer = styled.div`
   padding: 1rem 32rem 1rem 40rem;
   font-size: 1.5rem;
   border-radius: 0 0 1.8rem 1.8rem;
-  background-color: #b5d8eac2;
+  background-color: white;
 `;
 
 export const FootercontainerTop = styled.div`

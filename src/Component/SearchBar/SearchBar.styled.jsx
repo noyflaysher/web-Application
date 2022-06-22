@@ -34,7 +34,8 @@ export const SearchButton = styled.button`
   height: 3.5rem;
   width: 12rem;
   cursor: pointer;
-  background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
+
+  background-image: linear-gradient(to right, #ffe259, #ffa751);
   border-radius: 1.5rem;
   border: none;
   transition: all 0.2s;
@@ -45,7 +46,6 @@ export const SearchButton = styled.button`
   &:hover {
     transform: scale(1.1);
     font-size: 1.6rem;
-    background: #f4aa8a;
   }
 `;
 
@@ -54,7 +54,7 @@ export const SearchToggle = styled.button`
   width: 5rem;
   border-radius: 50% 0 0 50%;
   border: none;
-  background-image: linear-gradient(to right bottom, #e0ffff, #87cefa);
+  background-image: linear-gradient(to right, #ffe259, #ffa751);
   cursor: pointer;
   padding: 0.3rem 0 0 0.5rem;
   transition: all 0.2s;
@@ -62,7 +62,6 @@ export const SearchToggle = styled.button`
   &:hover {
     transform: scale(1.1);
     font-size: 1.6rem;
-    background: #f4aa8a;
   }
 `;
 

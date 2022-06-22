@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BiTimeFive, BiMinusCircle } from "react-icons/bi";
+import { BiTimeFive } from "react-icons/bi";
 import {
   AiOutlineLike,
   AiFillPlusCircle,
@@ -7,6 +7,8 @@ import {
 } from "react-icons/ai";
 import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 import "./Recipe.css";
 
@@ -62,18 +64,35 @@ function Recipe(props) {
         <div className="recipe__info">
           <span className="recipe__info-text">Preparation Time: </span>
           <span className="recipe__info-data">
-            {" "}
-            <BiTimeFive />
             {`${props.time} minutes`}
+            <div>
+              {" "}
+              {"\u00A0"} {"\u00A0"}
+            </div>
+            <BiTimeFive />
           </span>
         </div>
         <div className="recipe__info">
           <span className="recipe__info-text">The recipe is for: </span>
-          <span className="recipe__info-data">{`${props.servings} servings`}</span>
+          <span className="recipe__info-data">
+            {`${props.servings} servings `}
+            <div>
+              {" "}
+              {"\u00A0"} {"\u00A0"}
+            </div>
+            <PeopleAltIcon />
+          </span>
         </div>
         <div className="recipe__info">
           <span className="recipe__info-text">publisher:</span>
-          <span className="recipe__info-data">{props.publisher}</span>
+          <span className="recipe__info-data">
+            {props.publisher}
+            <div>
+              {" "}
+              {"\u00A0"} {"\u00A0"}
+            </div>
+            <BorderColorIcon />
+          </span>
         </div>
       </div>
       <div className="recipe__flex">
@@ -89,13 +108,13 @@ function Recipe(props) {
           </div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <Button className="btn--blue btn--blue-direction">
           <a href={props.link} target="_blank">
             <span>Directions</span>
           </a>
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

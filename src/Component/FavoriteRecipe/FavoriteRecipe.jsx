@@ -1,8 +1,10 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import Recipe from "./Recipe/Recipe";
+import Recipe from "../Recipe/Recipe";
 import "./FavoriteRecipe.css";
+import FavoriteRecipeItem from "./FavoriteRecipeItem";
+import { Link } from "react-router-dom";
 const ingredient = [
   {
     quantity: "0.5",
@@ -95,25 +97,27 @@ const FavoriteRecipe = () => {
   const favRecipesArr = RECIPE_ARR; // get from db size=4 top recipe
   console.log(favRecipesArr);
   return (
-    <div className="fav-recipes__contenier">
+    <div className="fav-recipes__container">
       <header className="fav-recipes__header">
         <h2>The Favorite Recipes Of The Week</h2>
       </header>
-      <Carousel>
+      <Carousel infiniteLoop className="carousel-root">
         <div className="fav-recipes__recipe">
-          <Recipe
+          <FavoriteRecipeItem
+            id={favRecipesArr[0].id}
             image={favRecipesArr[0].imageSrc}
             title={favRecipesArr[0].title}
             time={favRecipesArr[0].time}
             servings={favRecipesArr[0].servings}
             ingredients={ingredient}
-            description={favRecipesArr[0].description}
-            publisher={favRecipesArr[0].publisher}
-            link={favRecipesArr[0].link}
+            description={favRecipesArr[1].description}
+            publisher={favRecipesArr[1].publisher}
+            link={favRecipesArr[1].link}
           />
         </div>
         <div className="fav-recipes__recipe">
-          <Recipe
+          <FavoriteRecipeItem
+            id={favRecipesArr[1].id}
             image={favRecipesArr[1].imageSrc}
             title={favRecipesArr[1].title}
             time={favRecipesArr[1].time}
@@ -125,7 +129,8 @@ const FavoriteRecipe = () => {
           />
         </div>
         <div className="fav-recipes__recipe">
-          <Recipe
+          <FavoriteRecipeItem
+            id={favRecipesArr[2].id}
             image={favRecipesArr[2].imageSrc}
             title={favRecipesArr[2].title}
             time={favRecipesArr[2].time}
@@ -137,7 +142,8 @@ const FavoriteRecipe = () => {
           />
         </div>
         <div className="fav-recipes__recipe">
-          <Recipe
+          <FavoriteRecipeItem
+            id={favRecipesArr[3].id}
             image={favRecipesArr[3].imageSrc}
             title={favRecipesArr[3].title}
             time={favRecipesArr[3].time}
