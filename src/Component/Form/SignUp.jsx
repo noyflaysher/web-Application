@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import { LogContext } from "../../Context/LogContext";
@@ -109,10 +109,13 @@ export default function SignUp(props) {
       show={showSign}
       onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={() => closeFormHandler(props.closeForm)}>
-          <AiFillCloseCircle className={classes.icon} />
-        </Button>
+        <AiFillCloseCircle
+          onClick={() => closeFormHandler(props.closeForm)}
+          className={classes.icon}
+        />
       }
+      contentClass="recipe-item__modal-content"
+      footerClass="recipe-item__modal-actions"
       footer={<></>}
     >
       <ThemeProvider theme={theme}>
@@ -136,7 +139,7 @@ export default function SignUp(props) {
               onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
-              <Grid container spacing={2}>
+              <Grid container spacing={2} sx={{ marginBottom: 4 }}>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     error={firstFirstName && firstNameError}
@@ -200,7 +203,7 @@ export default function SignUp(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, marginTop: 2 }}
+                sx={{ mt: 3, mb: 2 }}
               >
                 Sign Up
               </Button>

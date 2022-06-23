@@ -5,7 +5,7 @@ import {
   AiFillPlusCircle,
   AiFillMinusCircle,
 } from "react-icons/ai";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
@@ -75,13 +75,10 @@ function Recipe(props) {
         footerClass="recipe__modal-actions"
         footer={
           <React.Fragment>
-            <Button
-              onClick={cancelDeleteHandler}
-              className="btn--blue btn--cancel"
-            >
+            <Button onClick={cancelDeleteHandler} className="btn btn--cancel">
               CANCEL
             </Button>
-            <Button onClick={confirmDeleteHandler} className="btn--blue">
+            <Button onClick={confirmDeleteHandler} className="btn">
               DELETE
             </Button>
           </React.Fragment>
@@ -102,12 +99,12 @@ function Recipe(props) {
         <div className="bottons">
           {isConnected.isLoggedIn && (
             <>
-              <Button onClick={editHandler} className="btn--blue btn--edit">
+              <Button onClick={editHandler} className="btn btn--edit">
                 EDIT
               </Button>
               <Button
                 onClick={showDeteleWarningHandler}
-                className="btn--blue btn--del"
+                className="btn btn--del"
               >
                 DELETE
               </Button>
@@ -174,65 +171,3 @@ function Recipe(props) {
 }
 
 export default Recipe;
-
-// const [numServings, setNumServings] = useState(props.servings);
-// const [ingredients, setIngredients] = useState(props.ingredients);
-
-// const addServingsHandler = function () {
-//   setNumServings(+numServings + 1);
-//   updateIngredientsPlus();
-// };
-
-// const lessServingsHandler = function () {
-//   if (numServings === 1) {
-//     return;
-//   }
-//   setNumServings(+numServings - 1);
-//   updateIngredientsMinus();
-// };
-
-// const updateIngredientsPlus = function (prevIng) {
-//   setIngredients(
-//     ingredients.map((ing) => {
-//       let num = (
-//         (parseFloat(ing.quantity) * numServings) /
-//         (numServings - 1)
-//       ).toFixed(2);
-//       return {
-//         quantity: num,
-//         unit: ing.unit,
-//         description: ing.description,
-//       };
-//     })
-//   );
-// };
-
-// const updateIngredientsMinus = function (prevIng) {
-//   console.log(ingredients);
-//   if (numServings === 0) {
-//     console.log("empty");
-//     setIngredients(
-//       ingredients.map((ing) => {
-//         return {
-//           quantity: "0",
-//           unit: ing.unit,
-//           description: ing.description,
-//         };
-//       })
-//     );
-//     return;
-//   }
-//   setIngredients(
-//     ingredients.map((ing) => {
-//       let num = (
-//         (parseFloat(ing.quantity) * numServings) /
-//         (numServings + 1)
-//       ).toFixed(2);
-//       return {
-//         quantity: num,
-//         unit: ing.unit,
-//         description: ing.description,
-//       };
-//     })
-//   );
-// };

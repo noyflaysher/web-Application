@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Map from "../Map/Map";
 import Card from "../Card/Card";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import Image from "../../Images/Image";
 import Button from "../Button/Button";
 import { FaMapMarkerAlt as MapImage } from "react-icons/fa";
@@ -18,16 +18,14 @@ const RecipeItem = (props) => {
   return (
     <React.Fragment>
       <Modal
+        className="modal-map"
         show={showMap}
         onCancel={closeMapHandler}
         header={props.address}
-        contentClass="recipe-item__modal-content"
+        contentClass="recipe-item__modal-content modal-map"
         footerClass="recipe-item__modal-actions"
         footer={
-          <Button
-            className="btn--blue btn--blue-close"
-            onClick={closeMapHandler}
-          >
+          <Button className="btn btn--blue-close" onClick={closeMapHandler}>
             CLOSE
           </Button>
         }

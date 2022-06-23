@@ -1,9 +1,10 @@
 .icon {
   font-size: 2rem;
-  position: absolute;
-  left: -15rem;
+  position: relative;
+  left: -17rem;
+  color: black;
 }
 
-.icon :hover {
-  color: #f4aa8a;
+.icon:hover {
+  transform: translateY(-0.1rem) scale(1.1);
 }

@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { TiLocationOutline } from "react-icons/ti";
-import { WiThermometerExterior } from "react-icons/wi";
-
 import {
   Footercontainer,
   FootercontainerTop,
@@ -31,30 +29,34 @@ function Footer() {
     <Footercontainer>
       <FootercontainerTop>
         <div>
-          <p>
-            {`Date:  ${moment(weather?.location.localtime).format(
-              "MMM Do YY"
-            )},`}
-            {/* <img
-              width="30"
-              height="30"
-              src={weather?.current.condition.icon}
-              alt={`Icon of ${weather?.location.country}`}
-            /> */}
-            {`  ${moment(weather?.location.localtime).format("h:mm a")}`}
-          </p>
+          <p>Today</p>
+          <p>{moment(weather?.location.localtime).format("h:mm a")}</p>
         </div>
+        {/* <p>{moment(weather?.location.localtime).format("MMM Do YY")}</p> */}
+      </FootercontainerTop>
+      <FootercontainerTop>
+        {/* <div>
+          <p>Today</p>
+          <p>
+            {moment(weather?.location.localtime).format("h:mm a")}
+          </p>
+        </div> */}
+        <p>{moment(weather?.location.localtime).format("MMM Do YY")}</p>
       </FootercontainerTop>
       <FootercontainerMid>
-        <div>
-          <WiThermometerExterior color="#f8c514" />
-          {`Current Temp: ${weather?.current.temp_c} °C`}
-        </div>
+        <span>
+          {weather?.current.temp_c} <span>°C</span>
+        </span>
+        <img
+          width="50"
+          height="50"
+          src={weather?.current.condition.icon}
+          alt={`Icon of ${weather?.location.country}`}
+        />
       </FootercontainerMid>
       <FootercontainerBot>
+        <TiLocationOutline color="#f8c514" />
         <p>
-          <TiLocationOutline color="#f8c514" />
-          {"\u00A0"}
           {weather?.location.country}, {weather?.location.name}
         </p>
       </FootercontainerBot>

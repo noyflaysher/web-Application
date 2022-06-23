@@ -37,7 +37,7 @@ function NavBar(props) {
 
 function NavBarButton(props) {
   return (
-    <Button onClick={props.onClick} className="btn--blue btn--margin">
+    <Button onClick={props.onClick} className="btn btn--margin">
       {props.children}
     </Button>
   );

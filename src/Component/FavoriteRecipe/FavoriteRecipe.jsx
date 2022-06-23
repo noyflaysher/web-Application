@@ -5,6 +5,7 @@ import Recipe from "../Recipe/Recipe";
 import "./FavoriteRecipe.css";
 import FavoriteRecipeItem from "./FavoriteRecipeItem";
 import { Link } from "react-router-dom";
+import SocialSharing from "../Social/SocialSharing";
 const ingredient = [
   {
     quantity: "0.5",
@@ -163,6 +164,7 @@ const FavoriteRecipe = () => {
         loop
         controls
       ></video>
+      <SocialSharing />
     </div>
   );
 };
