@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import { LogContext } from "../../Context/LogContext.jsx";
-import Canvas from "../Canvas";
+import Canvas from "../Canvas.jsx";
 import "./NavBar.css";
 function NavBar(props) {
   const isConnected = useContext(LogContext);
