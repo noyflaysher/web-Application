@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import { LogContext } from "../../Context/LogContext.jsx";
@@ -9,10 +10,9 @@ function NavBar(props) {
   return (
     <>
       <nav className="nav-bar flex-container">
-        {/* LOGO */}
-        <a href="/">
+        <Link to="/">
           <Canvas className="logo" />
-        </a>
+        </Link>
 
         <SearchBar />
         <div className="logButtons">

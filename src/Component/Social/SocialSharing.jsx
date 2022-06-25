@@ -16,6 +16,7 @@ export default function SocialSharing() {
       </TwitterShareButton>
 
       <FacebookShareButton
+        className="facebook"
         url={"https://github.com/"}
         quote={"amazing website, go to watch it"}
         hashtag={["#GoodFood", "#Tasty", "#Yummy"]}
