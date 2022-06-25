@@ -118,21 +118,21 @@ function Body() {
   return (
     <>
       <div className="body__continer">
-        <Router>
-          <aside className="body__result-continer">
-            <Result items={RECIPE_ARR} />
-          </aside>
-          <Switch>
-            <div className="body__recipe-continer">
-              <Route path="/" exact>
-                <FavoriteRecipe />
-              </Route>
-              <Route path="/:id" exact>
-                <ChosenRecipe />
-              </Route>
-            </div>
-          </Switch>
-        </Router>
+        {/* <Router> */}
+        <aside className="body__result-continer">
+          <Result items={RECIPE_ARR} />
+        </aside>
+        <Switch>
+          <div className="body__recipe-continer">
+            <Route path="/" exact>
+              <FavoriteRecipe />
+            </Route>
+            <Route path="/:id" exact>
+              <ChosenRecipe />
+            </Route>
+          </div>
+        </Switch>
+        {/* </Router> */}
       </div>
     </>
   );

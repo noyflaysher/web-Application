@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import Body from "./Component/body/Body";
 import Footer from "./Component/Footer/Footer";
 import LogInForm from "./Component/Form/LogIn";
@@ -44,20 +45,22 @@ function App() {
     <LogContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
-      <div>
-        <div className="body-container">
-          <NavBar
-            newRecipe={toggleRecipe}
-            login={toggleLogin}
-            signup={toggleSignup}
-          />
-          <Body />
-          <Footer />
-          {showRecipeForm && <RecipeForm closeForm={toggleRecipe} />}
-          {showLoginForm && <LogInForm closeForm={toggleLogin} />}
-          {showSignupForm && <SignUp closeForm={toggleSignup} />}
+      <Router>
+        <div>
+          <div className="body-container">
+            <NavBar
+              newRecipe={toggleRecipe}
+              login={toggleLogin}
+              signup={toggleSignup}
+            />
+            <Body />
+            <Footer />
+            {showRecipeForm && <RecipeForm closeForm={toggleRecipe} />}
+            {showLoginForm && <LogInForm closeForm={toggleLogin} />}
+            {showSignupForm && <SignUp closeForm={toggleSignup} />}
+          </div>
         </div>
-      </div>
+      </Router>
     </LogContext.Provider>
   );
 }
