@@ -63,6 +63,7 @@ export default function RecipeForm(props) {
       data.get("recipePrepTime") === ""
     );
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

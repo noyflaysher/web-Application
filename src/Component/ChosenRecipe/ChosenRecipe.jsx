@@ -111,17 +111,22 @@ const RECIPE_ARR = [
   },
 ];
 
+const ingrediants = [
+  "0.5 cup bread flour",
+  "2 lb oil",
+  "3.5 tps dry active yeast",
+];
+
 const ChosenRecipe = () => {
   const id = useParams().id;
   const loadedRecipe = RECIPE_ARR.filter((recipe) => recipe.id === id);
-  console.log(loadedRecipe[0]);
   return (
     <Recipe
       image={loadedRecipe[0].imageSrc}
       title={loadedRecipe[0].title}
       time={loadedRecipe[0].time}
       servings={loadedRecipe[0].servings}
-      ingredients={ingredient}
+      ingrediants={ingrediants}
       description={loadedRecipe[0].description}
       publisher={loadedRecipe[0].publisher}
       link={loadedRecipe[0].link}

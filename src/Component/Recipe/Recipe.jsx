@@ -11,9 +11,8 @@ import Button from "../Button/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { LogContext } from "../../Context/LogContext";
-
 import "./Recipe.css";
-
+import EditRecipe from "./EditRecipe";
 const ingredient = [
   {
     quantity: "0.5",
@@ -56,15 +55,15 @@ const ingredient = [
 function Recipe(props) {
   const isConnected = useContext(LogContext);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
-  const editHandler = {};
-
+  const [editMode, setEditMode] = useState(false);
   const showDeteleWarningHandler = () => setShowConfirmModal(true);
   const cancelDeleteHandler = () => setShowConfirmModal(false);
   const confirmDeleteHandler = () => {
     setShowConfirmModal(false);
     console.log("DELETING...");
   };
+
+  const editHandler = () => setEditMode(!editMode);
 
   return (
     <>
@@ -111,60 +110,64 @@ function Recipe(props) {
             </>
           )}
         </div>
-        <div className="recipe__details">
-          <div className="recipe__info">
-            <span className="recipe__info-text">Preparation Time: </span>
-            <span className="recipe__info-data">
-              {`${props.time} minutes`}
-              <div>
-                {"\u00A0"} {"\u00A0"}
-              </div>
-              <BiTimeFive />
-            </span>
-          </div>
-          <div className="recipe__info">
-            <span className="recipe__info-text">The recipe is for: </span>
-            <span className="recipe__info-data">
-              {`${props.servings} servings `}
-              <div>
-                {" "}
-                {"\u00A0"} {"\u00A0"}
-              </div>
-              <PeopleAltIcon />
-            </span>
-          </div>
-          <div className="recipe__info">
-            <span className="recipe__info-text">publisher:</span>
-            <span className="recipe__info-data">
-              {props.publisher}
-              <div>
-                {" "}
-                {"\u00A0"} {"\u00A0"}
-              </div>
-              <BorderColorIcon />
-            </span>
-          </div>
-        </div>
-        <div className="recipe__flex">
-          <div className="recipe__ingredients">
-            <h2 className="heading--2">Recipe ingredients</h2>
-            <Ingredients data={ingredient} />
-          </div>
+        {editMode ? (
+          <EditRecipe {...props} exitEditMode={editHandler} />
+        ) : (
+          <ShowRecipe {...props} />
+        )}
+      </div>
+    </>
+  );
+}
 
-          <div className="recipe__directions">
-            <h2 className="heading--2">How to cook it</h2>
-            <div className="recipe__description">
-              <p>{props.description}</p>
+function ShowRecipe(props) {
+  return (
+    <>
+      <div className="recipe__details">
+        <div className="recipe__info">
+          <span className="recipe__info-text">Preparation Time: </span>
+          <span className="recipe__info-data">
+            {`${props.time} minutes`}
+            <div>
+              {"\u00A0"} {"\u00A0"}
             </div>
+            <BiTimeFive />
+          </span>
+        </div>
+        <div className="recipe__info">
+          <span className="recipe__info-text">The recipe is for: </span>
+          <span className="recipe__info-data">
+            {`${props.servings} servings `}
+            <div>
+              {" "}
+              {"\u00A0"} {"\u00A0"}
+            </div>
+            <PeopleAltIcon />
+          </span>
+        </div>
+        <div className="recipe__info">
+          <span className="recipe__info-text">publisher:</span>
+          <span className="recipe__info-data">
+            {props.publisher}
+            <div>
+              {" "}
+              {"\u00A0"} {"\u00A0"}
+            </div>
+            <BorderColorIcon />
+          </span>
+        </div>
+      </div>
+      <div className="recipe__flex">
+        <div className="recipe__ingredients">
+          <h2 className="heading--2">Recipe ingredients</h2>
+          <Ingredients data={ingredient} />
+        </div>
+        <div className="recipe__directions">
+          <h2 className="heading--2">How to cook it</h2>
+          <div className="recipe__description">
+            <p>{props.description}</p>
           </div>
         </div>
-        {/* <div>
-        <Button className="btn--blue btn--blue-direction">
-          <a href={props.link} target="_blank">
-            <span>Directions</span>
-          </a>
-        </Button>
-      </div> */}
       </div>
     </>
   );

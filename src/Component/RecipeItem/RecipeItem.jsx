@@ -14,7 +14,6 @@ const RecipeItem = (props) => {
   const openMapHandler = () => setShowMap(true);
 
   const closeMapHandler = () => setShowMap(false);
-  console.log(props);
   return (
     <React.Fragment>
       <Modal
