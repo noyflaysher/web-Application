@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Recipe from "../Recipe/Recipe";
 import Result from "../Result/Result";
 import ChosenRecipe from "../ChosenRecipe/ChosenRecipe";
 import FavoriteRecipe from "../FavoriteRecipe/FavoriteRecipe";
@@ -119,21 +118,21 @@ function Body() {
   return (
     <>
       <div className="body__continer">
-        <Router>
-          <div className="body__result-continer">
-            <Result items={RECIPE_ARR} />
+        {/* <Router> */}
+        <aside className="body__result-continer">
+          <Result items={RECIPE_ARR} />
+        </aside>
+        <Switch>
+          <div className="body__recipe-continer">
+            <Route path="/" exact>
+              <FavoriteRecipe />
+            </Route>
+            <Route path="/:id" exact>
+              <ChosenRecipe />
+            </Route>
           </div>
-          <Switch>
-            <div className="body__recipe-continer">
-              <Route path="/" exact>
-                <FavoriteRecipe />
-              </Route>
-              <Route path="/:id" exact>
-                <ChosenRecipe />
-              </Route>
-            </div>
-          </Switch>
-        </Router>
+        </Switch>
+        {/* </Router> */}
       </div>
     </>
   );

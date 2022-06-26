@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
 import {
   AiOutlineLike,
   AiFillPlusCircle,
   AiFillMinusCircle,
 } from "react-icons/ai";
+import Modal from "../Modal-Backdrop/Modal";
 import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-
+import { LogContext } from "../../Context/LogContext";
 import "./Recipe.css";
-
+import EditRecipe from "./EditRecipe";
 const ingredient = [
   {
     quantity: "0.5",
@@ -52,21 +53,82 @@ const ingredient = [
 //}
 
 function Recipe(props) {
+  const isConnected = useContext(LogContext);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const showDeteleWarningHandler = () => setShowConfirmModal(true);
+  const cancelDeleteHandler = () => setShowConfirmModal(false);
+  const confirmDeleteHandler = () => {
+    setShowConfirmModal(false);
+    console.log("DELETING...");
+  };
+
+  const editHandler = () => setEditMode(!editMode);
+
   return (
-    <div className="recipe">
-      <div className="recipe__header">
-        <img className="recipe__image" src={props.image} />
-        <h1>
-          <span className="recipe__title">{props.title}</span>
-        </h1>
+    <>
+      <Modal
+        show={showConfirmModal}
+        onCancel={cancelDeleteHandler}
+        header="Are you sure?"
+        footerClass="recipe__modal-actions"
+        footer={
+          <React.Fragment>
+            <Button onClick={cancelDeleteHandler} className="btn btn--cancel">
+              CANCEL
+            </Button>
+            <Button onClick={confirmDeleteHandler} className="btn">
+              DELETE
+            </Button>
+          </React.Fragment>
+        }
+      >
+        <p>
+          Do you want to proceed and delete this recipe? Please note that it
+          can't be undone thereafter.
+        </p>
+      </Modal>
+      <div className="recipe">
+        <div className="recipe__header">
+          <img className="recipe__image" src={props.image} />
+          <h1>
+            <span className="recipe__title">{props.title}</span>
+          </h1>
+        </div>
+        <div className="bottons">
+          {isConnected.isLoggedIn && (
+            <>
+              <Button onClick={editHandler} className="btn btn--edit">
+                EDIT
+              </Button>
+              <Button
+                onClick={showDeteleWarningHandler}
+                className="btn btn--del"
+              >
+                DELETE
+              </Button>
+            </>
+          )}
+        </div>
+        {editMode ? (
+          <EditRecipe {...props} exitEditMode={editHandler} />
+        ) : (
+          <ShowRecipe {...props} />
+        )}
       </div>
+    </>
+  );
+}
+
+function ShowRecipe(props) {
+  return (
+    <>
       <div className="recipe__details">
         <div className="recipe__info">
           <span className="recipe__info-text">Preparation Time: </span>
           <span className="recipe__info-data">
             {`${props.time} minutes`}
             <div>
-              {" "}
               {"\u00A0"} {"\u00A0"}
             </div>
             <BiTimeFive />
@@ -100,7 +162,6 @@ function Recipe(props) {
           <h2 className="heading--2">Recipe ingredients</h2>
           <Ingredients data={ingredient} />
         </div>
-
         <div className="recipe__directions">
           <h2 className="heading--2">How to cook it</h2>
           <div className="recipe__description">
@@ -108,77 +169,8 @@ function Recipe(props) {
           </div>
         </div>
       </div>
-      {/* <div>
-        <Button className="btn--blue btn--blue-direction">
-          <a href={props.link} target="_blank">
-            <span>Directions</span>
-          </a>
-        </Button>
-      </div> */}
-    </div>
+    </>
   );
 }
 
 export default Recipe;
-
-// const [numServings, setNumServings] = useState(props.servings);
-// const [ingredients, setIngredients] = useState(props.ingredients);
-
-// const addServingsHandler = function () {
-//   setNumServings(+numServings + 1);
-//   updateIngredientsPlus();
-// };
-
-// const lessServingsHandler = function () {
-//   if (numServings === 1) {
-//     return;
-//   }
-//   setNumServings(+numServings - 1);
-//   updateIngredientsMinus();
-// };
-
-// const updateIngredientsPlus = function (prevIng) {
-//   setIngredients(
-//     ingredients.map((ing) => {
-//       let num = (
-//         (parseFloat(ing.quantity) * numServings) /
-//         (numServings - 1)
-//       ).toFixed(2);
-//       return {
-//         quantity: num,
-//         unit: ing.unit,
-//         description: ing.description,
-//       };
-//     })
-//   );
-// };
-
-// const updateIngredientsMinus = function (prevIng) {
-//   console.log(ingredients);
-//   if (numServings === 0) {
-//     console.log("empty");
-//     setIngredients(
-//       ingredients.map((ing) => {
-//         return {
-//           quantity: "0",
-//           unit: ing.unit,
-//           description: ing.description,
-//         };
-//       })
-//     );
-//     return;
-//   }
-//   setIngredients(
-//     ingredients.map((ing) => {
-//       let num = (
-//         (parseFloat(ing.quantity) * numServings) /
-//         (numServings + 1)
-//       ).toFixed(2);
-//       return {
-//         quantity: num,
-//         unit: ing.unit,
-//         description: ing.description,
-//       };
-//     })
-//   );
-// };

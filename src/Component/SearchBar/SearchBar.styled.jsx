@@ -4,18 +4,17 @@ export const DisclosureContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 36rem;
+  width: 100%;
 `;
 
 export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 36rem;
 `;
 
 export const Search = styled.input`
-  width: 25rem;
-  height: 3.5rem;
+  width: 30rem;
+  height: 5rem;
   background: none;
   border: none;
   font-size: 1.2rem;
@@ -31,12 +30,12 @@ export const SearchButton = styled.button`
   font-size: 1.5rem;
   font-family: inherit;
   font-weight: bold;
-  height: 3.5rem;
-  width: 12rem;
+  height: 5rem;
+  width: 13rem;
   cursor: pointer;
 
   background-image: linear-gradient(to right, #ffe259, #ffa751);
-  border-radius: 1.5rem;
+  border-radius: 4rem;
   border: none;
   transition: all 0.2s;
   right: 2rem;
@@ -50,8 +49,8 @@ export const SearchButton = styled.button`
 `;
 
 export const SearchToggle = styled.button`
-  height: 3.5rem;
-  width: 5rem;
+  height: 5rem;
+  width: 6rem;
   border-radius: 50% 0 0 50%;
   border: none;
   background-image: linear-gradient(to right, #ffe259, #ffa751);
@@ -67,10 +66,9 @@ export const SearchToggle = styled.button`
 
 export const FiltersContainer = styled.div`
   position: absolute;
-  left: 0;
-  top: 4rem;
+  top: 5.5rem;
   background: #f9f5f3;
-  width: 34rem;
+  width: 45rem;
   padding: 0.5rem 1.5rem;
   border-radius: 1.5rem;
   z-index: 1;

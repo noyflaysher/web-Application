@@ -5,6 +5,7 @@ import Recipe from "../Recipe/Recipe";
 import "./FavoriteRecipe.css";
 import FavoriteRecipeItem from "./FavoriteRecipeItem";
 import { Link } from "react-router-dom";
+import SocialSharing from "../Social/SocialSharing";
 const ingredient = [
   {
     quantity: "0.5",
@@ -155,6 +156,15 @@ const FavoriteRecipe = () => {
           />
         </div>
       </Carousel>
+
+      <video
+        src="https://ak.picdn.net/shutterstock/videos/32420266/preview/stock-footage-eating-and-leisure-concept-group-of-people-having-dinner-at-table-with-food.webm"
+        className="video"
+        autoplay
+        loop
+        controls
+      ></video>
+      <SocialSharing />
     </div>
   );
 };

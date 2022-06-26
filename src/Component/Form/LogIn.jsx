@@ -10,7 +10,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
-import Modal from "../Map/Modal";
+import { LogContext } from "../../Context/LogContext";
+
+import Modal from "../Modal-Backdrop/Modal";
 import "../RecipeItem/RecipeItem.css";
 
 const theme = createTheme({
@@ -22,13 +24,14 @@ const theme = createTheme({
 
 export default function SignIn(props) {
   const [showSign, setShowSign] = useState(true);
-
   const closeSignHandler = () => setShowSign(false);
 
   const [emailError, setEmailError] = useState(true);
   const [firstEmail, setFirstEmail] = useState(false);
   const [passwordError, setPasswordError] = useState(true);
   const [firstPassword, setFirstPassword] = useState(false);
+
+  const isConnected = React.useContext(LogContext);
 
   const closeFormHandler = (hideForm) => {
     setShowSign(false);
@@ -60,7 +63,7 @@ export default function SignIn(props) {
       email: data.get("email"),
       password: data.get("password"),
     });
-
+    isConnected.login();
     closeFormHandler(props.closeForm);
   };
 
@@ -71,9 +74,10 @@ export default function SignIn(props) {
       footerClass="recipe-item__modal-actions"
       onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={() => closeFormHandler(props.closeForm)}>
-          <AiFillCloseCircle className={classes.icon} />
-        </Button>
+        <AiFillCloseCircle
+          onClick={() => closeFormHandler(props.closeForm)}
+          className={classes.icon}
+        />
       }
       footer={<></>}
     >
@@ -127,6 +131,7 @@ export default function SignIn(props) {
                 disabled={emailError || passwordError}
                 type="submit"
                 fullWidth
+                fullHeight
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >

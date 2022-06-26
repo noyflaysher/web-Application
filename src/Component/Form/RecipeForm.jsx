@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Modal from "../Map/Modal";
+import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import Avatar from "@mui/material/Avatar";
@@ -63,6 +63,7 @@ export default function RecipeForm(props) {
       data.get("recipePrepTime") === ""
     );
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -91,9 +92,10 @@ export default function RecipeForm(props) {
       show={showForm}
       onCancel={() => closeFormHandler(props.closeForm)}
       header={
-        <Button onClick={() => closeFormHandler(props.closeForm)}>
-          <AiFillCloseCircle className={classes.icon} />
-        </Button>
+        <AiFillCloseCircle
+          onClick={() => closeFormHandler(props.closeForm)}
+          className={classes.icon}
+        />
       }
       footer={<></>}
     >

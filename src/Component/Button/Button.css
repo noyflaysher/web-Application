@@ -1,4 +1,4 @@
-.btn--tiny {
+/* .btn--tiny {
   font-size: 2.5rem;
   background-color: transparent;
   border: none;
@@ -7,11 +7,11 @@
 
 .btn--tiny:hover {
   transform: translateY(-0.4rem);
-  /* color: white; */
+  
   transform: scale(1.3);
-}
+} */
 
-.btn--blue {
+.btn {
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: bold;
@@ -31,27 +31,17 @@
 .btn--favoriteRecipe {
   width: 18rem;
   height: 4rem;
+  margin-bottom: 5rem;
 }
 
-.btn--blue a,
-.btn--blue a:link {
+.btn a,
+.btn a:link {
   text-decoration: none;
   color: black;
 }
 
-.btn--blue:hover {
+.btn:hover {
   transform: scale(1.1);
-}
-
-.btn--blue-direction {
-  cursor: pointer;
-  margin-top: 3rem;
-  transition: all 0.2s;
-}
-.btn--blue-direction:hover,
-.btn--blue:hover {
-  transform: scale(1.1);
-  font-size: 1.6rem;
 }
 
 .btn--blue-close {

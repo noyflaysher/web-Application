@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
+import { LogContext } from "../../Context/LogContext.jsx";
+import Canvas from "../Canvas.jsx";
 import "./NavBar.css";
 function NavBar(props) {
-  const [isConnected, setIsConnected] = React.useState(false);
+  const isConnected = useContext(LogContext);
   return (
     <>
       <nav className="nav-bar flex-container">
-        {/* LOGO */}
+        <Link to="/">
+          <Canvas className="logo" />
+        </Link>
+
         <SearchBar />
-        <div>
-          {!isConnected && (
+        <div className="logButtons">
+          {!isConnected.isLoggedIn && (
             <>
               <NavBarButton onClick={() => props.login(true)}>
                 log in
@@ -18,16 +24,14 @@ function NavBar(props) {
               <NavBarButton onClick={() => props.signup(true)}>
                 sign up
               </NavBarButton>
+            </>
+          )}
+          {isConnected.isLoggedIn && (
+            <>
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>
-              <NavBarButton>log out</NavBarButton>
-            </>
-          )}
-          {isConnected && (
-            <>
-              <NavBarButton>create a recipe</NavBarButton>
-              <NavBarButton>log out</NavBarButton>
+              <NavBarButton onClick={isConnected.logout}>log out</NavBarButton>
             </>
           )}
         </div>
@@ -38,7 +42,7 @@ function NavBar(props) {
 
 function NavBarButton(props) {
   return (
-    <Button onClick={props.onClick} className="btn--blue btn--margin">
+    <Button onClick={props.onClick} className="btn btn--margin nav-btn">
       {props.children}
     </Button>
   );

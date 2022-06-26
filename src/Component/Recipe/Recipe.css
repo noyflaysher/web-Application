@@ -118,10 +118,34 @@
   margin-left: 1rem;
 }
 
-.btn--blue-direction {
+/* .btn--blue-direction {
   text-align: center;
   margin-bottom: 3rem;
-}
-.recipe__directions {
+} */
+.recipe__cook {
   flex: 50%;
+  margin-bottom: 2rem;
+}
+
+.bottons {
+  position: relative;
+  margin: 0 2rem 0 auto;
+  top: -5rem;
+}
+
+.btn--edit,
+.btn--cancel {
+  margin-right: 1rem;
+}
+.recipe__modal-actions {
+  text-align: center;
+}
+
+.edit-from-container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.btn--add-ingrediant {
+  width: 15rem;
 }

@@ -60,7 +60,7 @@ function FavoriteRecipeItem(props) {
         </div>
         <div>
           <Link to={`/${props.id}`}>
-            <Button className="btn--blue btn--blue-direction btn--favoriteRecipe ">
+            <Button className="btn btn--favoriteRecipe ">
               <a href="#" target="_blank">
                 <span>To the full recipe</span>
               </a>

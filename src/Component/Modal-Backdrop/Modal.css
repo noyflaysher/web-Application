@@ -11,10 +11,14 @@
   width: 40rem;
 }
 
+.modal-map {
+  width: 60rem;
+}
+
 .modal__header {
   width: 100%;
   padding: 1rem 0.5rem;
-  background: #59bcf5;
+  background: #ffe259;
   color: white;
   border-radius: 8px 8px 0 0;
 }
@@ -58,4 +62,12 @@
   transform: translateY(-10rem);
   opacity: 0;
   transition: all 200ms;
+}
+
+/* .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  display: none;
+} */
+
+.MuiTouchRipple-root {
+  display: none;
 }
