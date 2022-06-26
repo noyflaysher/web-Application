@@ -1,44 +1,45 @@
 const HttpError = require("../models/httpError");
 const { v4: uuid } = require("uuid");
 const getCoordsForAddress = require("../util/location");
+const Recipe = require("../models/recipe");
 
-const ingredient = [
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "2",
-    unit: "lb",
-    description: "oil",
-  },
-  {
-    quantity: "3.5",
-    unit: "tps",
-    description: "dry active yeast",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-];
+// const ingredient = [
+//   {
+//     quantity: "0.5",
+//     unit: "cup",
+//     description: "bread flour",
+//   },
+//   {
+//     quantity: "2",
+//     unit: "lb",
+//     description: "oil",
+//   },
+//   {
+//     quantity: "3.5",
+//     unit: "tps",
+//     description: "dry active yeast",
+//   },
+//   {
+//     quantity: "0.5",
+//     unit: "cup",
+//     description: "bread flour",
+//   },
+//   {
+//     quantity: "0.5",
+//     unit: "cup",
+//     description: "bread flour",
+//   },
+//   {
+//     quantity: "0.5",
+//     unit: "cup",
+//     description: "bread flour",
+//   },
+//   {
+//     quantity: "0.5",
+//     unit: "cup",
+//     description: "bread flour",
+//   },
+// ];
 
 const RECIPE_ARR = [
   {
@@ -84,21 +85,25 @@ const addRecipe = async (req, res, next) => {
     return next(error);
   }
 
-  const createdRecipe = {
-    id: uuid(),
-    imageSrc,
+  const createdRecipe = new Recipe({
     title,
     time,
+    imageSrc:
+      "https://media.istockphoto.com/photos/fresh-homemade-pizza-margherita-picture-id1278998606?s=2048x2048",
     servings,
     ingrediants,
     description,
-    identifiers,
     publisher,
+    identifiers,
     address,
     location: coordinates,
-  };
-
-  RECIPE_ARR.push(createdRecipe);
+  });
+  try {
+    await createdRecipe.save();
+  } catch (err) {
+    const error = new HttpError("Creating place failed, please try again", 500);
+    return next(error);
+  }
 
   res.status(200).json({ recipe: createdRecipe });
 };
