@@ -14,7 +14,7 @@ function NavBar(props) {
       <nav className="nav-bar flex-container">
         <Link to="/">
           <Canvas className="logo" />
-          <img src={miniLogo} width={50} className="alt-logo" />
+          <img src={miniLogo} width={60} className="alt-logo" />
         </Link>
 
         <SearchBar />

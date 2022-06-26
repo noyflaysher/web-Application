@@ -38,12 +38,12 @@
   display: none;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
   .logo {
     display: none;
   }
   .alt-logo {
-    margin-left: 5rem;
+    margin-left: 7.5rem;
     display: inline-block;
   }
 }
