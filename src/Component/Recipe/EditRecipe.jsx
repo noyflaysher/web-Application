@@ -48,9 +48,25 @@ function EditRecipe({
     );
   };
 
+  const [titleError, setTitleError] = React.useState(false);
+  const [servingsError, setServingsError] = React.useState(false);
+  const [timeError, setTimeError] = React.useState(false);
+
+  const formValidation = (data) => {
+    setTitleError(data.get("recipeTitle") === "");
+    setServingsError(data.get("recipeServings") === "");
+    setTimeError(data.get("recipePrepTime") === "");
+    return !(
+      data.get("recipeTitle") === "" ||
+      data.get("recipeServings") === "" ||
+      data.get("recipePrepTime") === ""
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    if (!formValidation(data)) return;
     const ingList = [];
     ingrediantList.forEach((ing, index) => {
       const val = data.get(`Ingrediant${index + 1}`);
@@ -142,7 +158,12 @@ function EditRecipe({
             </Button>
           </Grid>
         </Grid>
-        <Button type="submit" fullWidth variant="contained">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          className="btn btn--submit"
+        >
           Publish
         </Button>
       </Box>

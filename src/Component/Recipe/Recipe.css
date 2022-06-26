@@ -149,3 +149,7 @@
 .btn--add-ingrediant {
   width: 15rem;
 }
+
+.btn--submit {
+  margin: 2rem 0;
+}
