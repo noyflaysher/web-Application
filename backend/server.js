@@ -7,7 +7,8 @@ const HttpError = require("./models/httpError");
 const app = express();
 app.use(bodyParser.json());
 
-app.use("/user", usersRouter);
+app.use("/users", usersRouter);
+app.use("/recipe", recipeRouter);
 
 app.use((req, res, next) => {
   const error = new HttpError("Cold  not find this route", 404);

@@ -11,6 +11,10 @@ let DUMMY_USERS = [
   },
 ];
 
+const getUsers = (req, res, next) => {
+  res.json({ users: DUMMY_USERS });
+};
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -41,5 +45,21 @@ const signup = (req, res, next) => {
   res.status(200).json({ user: createdUser });
 };
 
+const updateUser = (req, res, next) => {
+  const { name, email, password } = req.body;
+  const userId = req.params.uid;
+
+  const updateUser = { ...DUMMY_USERS.find((r) => r.id === userId) };
+  const userIndex = DUMMY_USERS.findIndex((r) => r.id === userId);
+  updateUser.name = name;
+  updateUser.email = title;
+  updateUser.password = password;
+
+  DUMMY_USERS[userIndex] = updateUser;
+  res.status(200).json({ user: updateUser });
+};
+
 exports.login = login;
 exports.signup = signup;
+exports.getUsers = getUsers;
+exports.updateUser = updateUser;
