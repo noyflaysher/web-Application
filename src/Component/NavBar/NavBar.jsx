@@ -4,6 +4,7 @@ import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import { LogContext } from "../../Context/LogContext.jsx";
 import Canvas from "../Canvas.jsx";
+import UserGroupButton from "../Button/UserGroupButton.jsx";
 import "./NavBar.css";
 function NavBar(props) {
   const isConnected = useContext(LogContext);
@@ -31,7 +32,7 @@ function NavBar(props) {
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>
-              <NavBarButton onClick={isConnected.logout}>log out</NavBarButton>
+              <UserGroupButton />
             </>
           )}
         </div>
@@ -40,9 +41,12 @@ function NavBar(props) {
   );
 }
 
-function NavBarButton(props) {
+export function NavBarButton(props) {
   return (
-    <Button onClick={props.onClick} className="btn btn--margin nav-btn">
+    <Button
+      onClick={props.onClick}
+      className={`btn btn--margin nav-btn ${props.className}`}
+    >
       {props.children}
     </Button>
   );

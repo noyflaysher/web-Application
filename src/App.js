@@ -7,7 +7,6 @@ import NavBar from "./Component/NavBar/NavBar";
 import SignUp from "./Component/Form/SignUp";
 import RecipeForm from "./Component/Form/RecipeForm";
 import { LogContext } from "./Context/LogContext";
-
 const item = {
   imageSrc:
     "https://do94x2ubilg42sdsl48mfdqk-wpengine.netdna-ssl.com/wp-content/uploads/44890096345_3612433c15_b.jpg",

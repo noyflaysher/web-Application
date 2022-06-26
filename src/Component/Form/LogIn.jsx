@@ -11,7 +11,6 @@ import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import { LogContext } from "../../Context/LogContext";
-
 import Modal from "../Modal-Backdrop/Modal";
 import "../RecipeItem/RecipeItem.css";
 
