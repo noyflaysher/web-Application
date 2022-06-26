@@ -1,5 +1,6 @@
 const HttpError = require("../models/httpError");
 const { v4: uuid } = require("uuid");
+const bcrypt = require("bcrypt-nodejs");
 
 let DUMMY_USERS = [
   {
