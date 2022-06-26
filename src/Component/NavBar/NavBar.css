@@ -35,3 +35,16 @@
   height: 5rem;
   border-radius: 4rem;
 }
+.alt-logo {
+  display: none;
+}
+
+@media (max-width: 1300px) {
+  .logo {
+    display: none;
+  }
+  .alt-logo {
+    margin-left: 5rem;
+    display: inline-block;
+  }
+}

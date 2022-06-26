@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { LogContext } from "../../Context/LogContext.jsx";
 import Canvas from "../Canvas.jsx";
 import "./NavBar.css";
+import miniLogo from "../../Images/mini-logo.png";
 function NavBar(props) {
   const isConnected = useContext(LogContext);
   return (
@@ -12,6 +13,7 @@ function NavBar(props) {
       <nav className="nav-bar flex-container">
         <Link to="/">
           <Canvas className="logo" />
+          <img src={miniLogo} width={50} className="alt-logo" />
         </Link>
 
         <SearchBar />
