@@ -4,14 +4,14 @@ const router = express.Router();
 
 router.get("/", recipeController.getRecipe);
 
-router.post("/search/:filter", recipeController.search);
+router.post("/search", recipeController.getRecipeByFilters);
 
-router.post("/search/:title", recipeController.search);
-
-router.post("/search/:userId", recipeController.search);
+router.post("/myRecipe", recipeController.getRecipeByUserId);
 
 router.patch("/update/:id", recipeController.updateRecipe);
 
 router.post("/add", recipeController.addRecipe);
+
+router.delete("/delete/:id", recipeController.deleteRecipe);
 
 module.exports = router;

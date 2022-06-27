@@ -10,7 +10,13 @@ const recipeSchema = new Schema({
   description: { type: String, required: true },
   publisher: { type: String, required: true },
   publisherId: { type: Number, required: true },
-  identifiers: { type: Array, required: true },
+  identifiers: {
+    type: String,
+    required: true,
+    // spicy: { type: Boolean, default: false },
+    // sweet: { type: Boolean, default: false },
+    // salty: { type: Boolean, default: false },
+  },
   address: { type: String, required: true },
   location: {
     lat: { type: Number, required: true },
