@@ -9,7 +9,7 @@ const recipeSchema = new Schema({
   ingrediants: { type: Array, required: true },
   description: { type: String, required: true },
   publisher: { type: String, required: true },
-  publisherId: { type: Number, required: true },
+  userNameId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   identifiers: {
     type: String,
     required: true,

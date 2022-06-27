@@ -2,7 +2,8 @@ const HttpError = require("../models/httpError");
 const { v4: uuid } = require("uuid");
 const getCoordsForAddress = require("../util/location");
 const Recipe = require("../models/recipe");
-
+const User = require("../models/user");
+const mongoose = require("mongoose");
 const addRecipe = async (req, res, next) => {
   const {
     imageSrc,
@@ -12,6 +13,7 @@ const addRecipe = async (req, res, next) => {
     ingrediants,
     description,
     publisher,
+    userNameId,
     identifiers,
     address,
   } = req.body;
@@ -31,13 +33,38 @@ const addRecipe = async (req, res, next) => {
     ingrediants,
     description,
     publisher,
-    publisherId: 1,
+    userNameId,
     identifiers,
     address,
     location: coordinates,
   });
+
+  let user;
   try {
-    await createdRecipe.save();
+    user = await User.findById(userNameId);
+  } catch (err) {
+    const error = new HttpError(
+      "Creating recipe failed, please try again",
+      500
+    );
+    return next(error);
+  }
+  if (!user) {
+    const error = new HttpError(
+      "Creating recipe failed, please try again",
+      404
+    );
+    return next(error);
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    console.log(createdRecipe);
+    await createdRecipe.save({ session: sess }); //create unique id to recipe
+    user.recipes.push(createdRecipe);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "Creating recipe failed, please try again",
@@ -66,7 +93,7 @@ const updateRecipe = async (req, res, next) => {
     recipe = await Recipe.findById(recipeId);
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, cannot update update recipe",
+      "Something went wrong, cannot update recipe",
       500
     );
     return next(error);
@@ -155,7 +182,7 @@ const deleteRecipe = async (req, res, next) => {
 
   try {
     //find the relevant recipe from db
-    recipe = await Recipe.findById(recipeId);
+    recipe = await Recipe.findById(recipeId).populate("userNameId");
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, cannot delete recipe",
@@ -164,8 +191,19 @@ const deleteRecipe = async (req, res, next) => {
     return next(error);
   }
 
+  if (!recipe) {
+    const error = new HttpError("Could not find recipe for this id", 404);
+    return next(error);
+  }
+
   try {
-    await recipe.remove();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await recipe.remove({ session: sess });
+
+    recipe.userNameId.recipes.pull(recipe); //remove the recipe from the user recipes array
+    await recipe.userNameId.save({ session: sess }); //save after the changes
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, cannot delete recipe",

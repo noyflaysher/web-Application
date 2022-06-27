@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const recipeRouter = require("./routers/recipe-router");
+const bookmarkRouter = require("./routers/bookmark-router");
 const usersRouter = require("./routers/users-router");
 const HttpError = require("./models/httpError");
 const mongoose = require("mongoose");
@@ -10,6 +11,7 @@ app.use(bodyParser.json());
 
 app.use("/users", usersRouter);
 app.use("/recipe", recipeRouter);
+app.use("/bookmark", bookmarkRouter);
 
 app.use((req, res, next) => {
   const error = new HttpError("Cold  not find this route", 404);
