@@ -1,12 +1,5 @@
+import "./SearchBar.css";
 import { Disclosure } from "@headlessui/react";
-import {
-  Search,
-  SearchToggle,
-  SearchButton,
-  FiltersContainer,
-  SearchContainer,
-  DisclosureContainer,
-} from "./SearchBar.styled";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -15,40 +8,52 @@ import FilterIcon from "../../Images/filter.png";
 
 function SearchBar() {
   return (
-    <DisclosureContainer>
+    <div>
       <Disclosure>
-        <SearchContainer>
-          <Disclosure.Button as={SearchToggle}>
-            <img src={FilterIcon} width={30} alt="filter" />
-          </Disclosure.Button>
-          <Search placeholder=" search over 10,000+ recipes..." />
-          <SearchButton>
+        <div className="search-container">
+          <Disclosure.Button as={SearchToggle} />
+          <input className="search" placeholder=" search for a recipe..." />
+          <button className="search-button grow">
             <>
               <img src={SearchIcon} width={35} alt="search" />
               SEARCH
             </>
-          </SearchButton>
-        </SearchContainer>
-        <Disclosure.Panel as={FiltersContainer}>
-          <FormGroup>
-            <FormControlLabel control={<FilterBox />} label="spicy" />
-            <FormControlLabel control={<FilterBox />} label="vegetarian" />
-            <FormControlLabel control={<FilterBox />} label="vegan" />
-          </FormGroup>
-        </Disclosure.Panel>
+          </button>
+        </div>
+        <Disclosure.Panel as={FiltersContainer} />
       </Disclosure>
-    </DisclosureContainer>
+    </div>
+  );
+}
+
+function FiltersContainer() {
+  return (
+    <div className="filter-container">
+      <FormGroup>
+        <FormControlLabel control={<FilterBox />} label="spicy" />
+        <FormControlLabel control={<FilterBox />} label="vegetarian" />
+        <FormControlLabel control={<FilterBox />} label="vegan" />
+      </FormGroup>
+    </div>
+  );
+}
+
+function SearchToggle(props) {
+  return (
+    <button className="search-toggle grow" onClick={props.onClick}>
+      <img src={FilterIcon} width={30} alt="filter" />
+    </button>
   );
 }
 
 function FilterBox() {
   return (
     <Checkbox
-      size="medium"
+      size="small"
       sx={{
-        color: "#ffa751",
+        color: "#F59583",
         "&.Mui-checked": {
-          color: "#ffa751",
+          color: "#F8BB86",
         },
       }}
     />
