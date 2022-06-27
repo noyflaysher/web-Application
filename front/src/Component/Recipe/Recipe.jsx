@@ -1,10 +1,5 @@
 import React, { useContext, useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
-import {
-  AiOutlineLike,
-  AiFillPlusCircle,
-  AiFillMinusCircle,
-} from "react-icons/ai";
 import Modal from "../Modal-Backdrop/Modal";
 import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
@@ -90,7 +85,7 @@ function Recipe(props) {
       </Modal>
       <div className="recipe">
         <div className="recipe__header">
-          <img className="recipe__image" src={props.image} />
+          <img className="recipe__image" alt=" " src={props.image} />
           <h1>
             <span className="recipe__title">{props.title}</span>
           </h1>

@@ -24,7 +24,6 @@ const theme = createTheme({
 
 export default function SignIn(props) {
   const [showSign, setShowSign] = useState(true);
-  const closeSignHandler = () => setShowSign(false);
 
   const [emailError, setEmailError] = useState(true);
   const [firstEmail, setFirstEmail] = useState(false);
@@ -90,7 +89,6 @@ export default function SignIn(props) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              maxHeight: "",
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
@@ -131,7 +129,6 @@ export default function SignIn(props) {
                 disabled={emailError || passwordError}
                 type="submit"
                 fullWidth
-                fullHeight
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >

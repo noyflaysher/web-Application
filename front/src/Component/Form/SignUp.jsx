@@ -3,9 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import { Button } from "@material-ui/core";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -27,7 +24,6 @@ const theme = createTheme({
 export default function SignUp(props) {
   const [showSign, setShowSign] = useState(true);
 
-  const closeSignHandler = () => setShowSign(false);
 
   const [emailError, setEmailError] = useState(true);
   const [firstEmail, setFirstEmail] = useState(false);
@@ -89,11 +85,7 @@ export default function SignUp(props) {
     const data = new FormData(event.currentTarget);
     const password = data.get("password");
     const email = data.get("email");
-    const firstName = data.get("firstName");
-    const lastName = data.get("lastName");
     const name = `${data.get("firstName")} ${data.get("lastName")}`;
-
-    console.log("................");
 
     console.log({
       email: email,
