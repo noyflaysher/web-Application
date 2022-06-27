@@ -9,6 +9,7 @@ const recipeSchema = new Schema({
   ingrediants: { type: Array, required: true },
   description: { type: String, required: true },
   publisher: { type: String, required: true },
+  publisherId: { type: Number, required: true },
   identifiers: { type: Array, required: true },
   address: { type: String, required: true },
   location: {

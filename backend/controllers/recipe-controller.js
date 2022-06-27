@@ -52,6 +52,7 @@ const RECIPE_ARR = [
     ingrediants: ["1", "2", "3"],
     description: "Homemade Pizza",
     publisher: "Noy",
+    publisherId: 123,
     identifiers: ["spicy, sweet"],
     address: "20 W 34th St, New York, NY 10001",
     location: {
@@ -94,6 +95,7 @@ const addRecipe = async (req, res, next) => {
     ingrediants,
     description,
     publisher,
+    publisherId: 123,
     identifiers,
     address,
     location: coordinates,
@@ -136,6 +138,11 @@ const updateRecipe = (req, res, next) => {
 
 const getRecipe = (req, res, next) => {
   res.json({ recipes: RECIPE_ARR });
+};
+
+const getRecipeById = (req, res, next) => {
+  const userId = req.params.userId;
+  const recipe = Recipe.findById();
 };
 
 exports.addRecipe = addRecipe;
