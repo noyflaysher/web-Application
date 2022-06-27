@@ -1,10 +1,8 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import Recipe from "../Recipe/Recipe";
 import "./FavoriteRecipe.css";
 import FavoriteRecipeItem from "./FavoriteRecipeItem";
-import { Link } from "react-router-dom";
 import SocialSharing from "../Social/SocialSharing";
 const ingredient = [
   {
@@ -94,15 +92,15 @@ const RECIPE_ARR = [
     },
   },
 ];
+
 const FavoriteRecipe = () => {
   const favRecipesArr = RECIPE_ARR; // get from db size=4 top recipe
-  console.log(favRecipesArr);
   return (
     <div className="fav-recipes__container">
       <header className="fav-recipes__header">
         <h2>The Favorite Recipes Of The Week</h2>
       </header>
-      <Carousel infiniteLoop className="carousel-root">
+      <Carousel infiniteLoop className="carousel-root" showThumbs={false}>
         <div className="fav-recipes__recipe">
           <FavoriteRecipeItem
             id={favRecipesArr[0].id}
@@ -160,7 +158,7 @@ const FavoriteRecipe = () => {
       <video
         src="https://ak.picdn.net/shutterstock/videos/32420266/preview/stock-footage-eating-and-leisure-concept-group-of-people-having-dinner-at-table-with-food.webm"
         className="video"
-        autoplay
+        autoPlay
         loop
         controls
       ></video>

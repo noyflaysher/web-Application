@@ -11,13 +11,13 @@ function SearchBar() {
     <div>
       <Disclosure>
         <div className="search-container">
-          <Disclosure.Button as={SearchToggle} />
+          <Disclosure.Button className="search-toggle grow">
+          <img src={FilterIcon} width={30} alt="filter" />
+          </Disclosure.Button>
           <input className="search" placeholder=" search for a recipe..." />
           <button className="search-button grow">
-            <>
               <img src={SearchIcon} width={35} alt="search" />
               SEARCH
-            </>
           </button>
         </div>
         <Disclosure.Panel as={FiltersContainer} />
@@ -38,13 +38,6 @@ function FiltersContainer() {
   );
 }
 
-function SearchToggle(props) {
-  return (
-    <button className="search-toggle grow" onClick={props.onClick}>
-      <img src={FilterIcon} width={30} alt="filter" />
-    </button>
-  );
-}
 
 function FilterBox() {
   return (

@@ -10,7 +10,7 @@ function FavoriteRecipeItem(props) {
     <div>
       <div className="recipe">
         <div className="recipe__header">
-          <img className="recipe__image" src={props.image} />
+          <img className="recipe__image" alt="" src={props.image} />
           <h1>
             <span className="recipe__title">{props.title}</span>
           </h1>
@@ -50,20 +50,10 @@ function FavoriteRecipeItem(props) {
             </span>
           </div>
         </div>
-        <div className="recipe__flex">
-          {/* <div className="recipe__directions">
-            <h2 className="heading--2">How to cook it</h2>
-            <div className="recipe__description">
-              <p>{props.item.description}</p>
-            </div>
-          </div> */}
-        </div>
         <div>
           <Link to={`/${props.id}`}>
             <Button className="btn btn--favoriteRecipe ">
-              <a href="#" target="_blank">
                 <span>To the full recipe</span>
-              </a>
             </Button>
           </Link>
         </div>
