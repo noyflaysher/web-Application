@@ -4,23 +4,6 @@ import { Carousel } from "react-responsive-carousel";
 import "./FavoriteRecipe.css";
 import FavoriteRecipeItem from "./FavoriteRecipeItem";
 import SocialSharing from "../Social/SocialSharing";
-const ingredient = [
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "2",
-    unit: "lb",
-    description: "oil",
-  },
-  {
-    quantity: "3.5",
-    unit: "tps",
-    description: "dry active yeast",
-  },
-];
 
 const RECIPE_ARR = [
   {
@@ -30,7 +13,11 @@ const RECIPE_ARR = [
     title: "pizza",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "homemade pizza",
     publisher: "Noy",
     link: "#",
@@ -47,7 +34,11 @@ const RECIPE_ARR = [
     title: "Paste with cream sauce",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "Paste with cream sauce",
     publisher: "Maya",
     link: "#",
@@ -64,7 +55,11 @@ const RECIPE_ARR = [
     title: "Kosher Burger",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "Kosher Burger",
     publisher: "SAAR",
     link: "#",
@@ -81,7 +76,11 @@ const RECIPE_ARR = [
     title: "Vegetarian sushi",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "Vegetarian sushi",
     publisher: "Oz",
     link: "#",
@@ -101,60 +100,22 @@ const FavoriteRecipe = () => {
         <h2>The Favorite Recipes Of The Week</h2>
       </header>
       <Carousel infiniteLoop className="carousel-root" showThumbs={false}>
-        <div className="fav-recipes__recipe">
-          <FavoriteRecipeItem
-            id={favRecipesArr[0].id}
-            image={favRecipesArr[0].imageSrc}
-            title={favRecipesArr[0].title}
-            time={favRecipesArr[0].time}
-            servings={favRecipesArr[0].servings}
-            ingredients={ingredient}
-            description={favRecipesArr[1].description}
-            publisher={favRecipesArr[1].publisher}
-            link={favRecipesArr[1].link}
-          />
-        </div>
-        <div className="fav-recipes__recipe">
-          <FavoriteRecipeItem
-            id={favRecipesArr[1].id}
-            image={favRecipesArr[1].imageSrc}
-            title={favRecipesArr[1].title}
-            time={favRecipesArr[1].time}
-            servings={favRecipesArr[1].servings}
-            ingredients={ingredient}
-            description={favRecipesArr[1].description}
-            publisher={favRecipesArr[1].publisher}
-            link={favRecipesArr[1].link}
-          />
-        </div>
-        <div className="fav-recipes__recipe">
-          <FavoriteRecipeItem
-            id={favRecipesArr[2].id}
-            image={favRecipesArr[2].imageSrc}
-            title={favRecipesArr[2].title}
-            time={favRecipesArr[2].time}
-            servings={favRecipesArr[2].servings}
-            ingredients={ingredient}
-            description={favRecipesArr[2].description}
-            publisher={favRecipesArr[2].publisher}
-            link={favRecipesArr[2].link}
-          />
-        </div>
-        <div className="fav-recipes__recipe">
-          <FavoriteRecipeItem
-            id={favRecipesArr[3].id}
-            image={favRecipesArr[3].imageSrc}
-            title={favRecipesArr[3].title}
-            time={favRecipesArr[3].time}
-            servings={favRecipesArr[3].servings}
-            ingredients={ingredient}
-            description={favRecipesArr[3].description}
-            publisher={favRecipesArr[3].publisher}
-            link={favRecipesArr[3].link}
-          />
-        </div>
+        {favRecipesArr.map((recp, index) => {
+          return (
+            <div key={index} className="fav-recipes__recipe">
+              <FavoriteRecipeItem
+                key={index}
+                id={recp.id}
+                image={recp.imageSrc}
+                title={recp.title}
+                time={recp.time}
+                servings={recp.servings}
+                publisher={recp.publisher}
+              />
+            </div>
+          );
+        })}
       </Carousel>
-
       <video
         src="https://ak.picdn.net/shutterstock/videos/32420266/preview/stock-footage-eating-and-leisure-concept-group-of-people-having-dinner-at-table-with-food.webm"
         className="video"

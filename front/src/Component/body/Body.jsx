@@ -20,7 +20,7 @@ function Body() {
             <FavoriteRecipe />
           </Route>
           <Route path="/:id" exact>
-            <ChosenRecipe />
+            <ChosenRecipe items={items} />
           </Route>
         </Switch>
       </div>

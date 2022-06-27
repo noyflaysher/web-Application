@@ -53,7 +53,7 @@ function FavoriteRecipeItem(props) {
         <div>
           <Link to={`/${props.id}`}>
             <Button className="btn btn--favoriteRecipe ">
-                <span>To the full recipe</span>
+              <span>To the full recipe</span>
             </Button>
           </Link>
         </div>
