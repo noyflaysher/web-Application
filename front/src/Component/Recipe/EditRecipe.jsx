@@ -18,10 +18,11 @@ function EditRecipe({
 
   React.useEffect(() => {
     setIngrediantList(
-      ingrediants.map((i) => (
-        <Ingrediant count={ingrediantList.length} value={i} />
+      ingrediants.map((i,index) => (
+        <Ingrediant count={index} value={i} />
       ))
     );
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function addIngrediant() {
@@ -48,14 +49,14 @@ function EditRecipe({
     );
   };
 
-  const [titleError, setTitleError] = React.useState(false);
-  const [servingsError, setServingsError] = React.useState(false);
-  const [timeError, setTimeError] = React.useState(false);
+  // const [titleError, setTitleError] = React.useState(false);
+  // const [servingsError, setServingsError] = React.useState(false);
+  // const [timeError, setTimeError] = React.useState(false);
 
   const formValidation = (data) => {
-    setTitleError(data.get("recipeTitle") === "");
-    setServingsError(data.get("recipeServings") === "");
-    setTimeError(data.get("recipePrepTime") === "");
+    // setTitleError(data.get("recipeTitle") === "");
+    // setServingsError(data.get("recipeServings") === "");
+    // setTimeError(data.get("recipePrepTime") === "");
     return !(
       data.get("recipeTitle") === "" ||
       data.get("recipeServings") === "" ||
