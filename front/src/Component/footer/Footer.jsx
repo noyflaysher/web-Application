@@ -1,12 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { TiLocationOutline } from "react-icons/ti";
-import {
-  Footercontainer,
-  FootercontainerTop,
-  FootercontainerBot,
-  FootercontainerMid,
-} from "./Footer.styled";
+import "./Footer.css";
 import moment from "moment";
 
 function Footer() {
@@ -26,24 +21,16 @@ function Footer() {
     } catch (err) {}
   }
   return (
-    <Footercontainer>
-      <FootercontainerTop>
-        <div>
+    <div className="footercontainer">
+
+      <div className="footercontainerTop">
           <p>Today</p>
           <p>{moment(weather?.location.localtime).format("h:mm a")}</p>
-        </div>
-        {/* <p>{moment(weather?.location.localtime).format("MMM Do YY")}</p> */}
-      </FootercontainerTop>
-      <FootercontainerTop>
-        {/* <div>
-          <p>Today</p>
-          <p>
-            {moment(weather?.location.localtime).format("h:mm a")}
-          </p>
-        </div> */}
+       </div>
+      <div className="footercontainerTop">
         <p>{moment(weather?.location.localtime).format("MMM Do YY")}</p>
-      </FootercontainerTop>
-      <FootercontainerMid>
+      </div >
+      <div className="footercontainerMid">
         <span>
           {weather?.current.temp_c} <span>°C</span>
         </span>
@@ -53,14 +40,14 @@ function Footer() {
           src={weather?.current.condition.icon}
           alt={`Icon of ${weather?.location.country}`}
         />
-      </FootercontainerMid>
-      <FootercontainerBot>
+      </div>
+      <div className="footercontainerBot">
         <TiLocationOutline color="#f8c514" />
         <p>
           {weather?.location.country}, {weather?.location.name}
         </p>
-      </FootercontainerBot>
-    </Footercontainer>
+      </div>
+    </div>
   );
 }
 
