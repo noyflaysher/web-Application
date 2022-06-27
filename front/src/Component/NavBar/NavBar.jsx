@@ -1,12 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
-import { LogContext } from "../../Context/LogContext.jsx";
 import Canvas from "../Canvas.jsx";
+import { UseLoginState,UseUpdateLoginState } from "../../Context/Session.jsx";
 import "./NavBar.css";
 function NavBar(props) {
-  const isConnected = useContext(LogContext);
+
+  const toggleLogIn = UseUpdateLoginState();
+  const loginState = UseLoginState();
+
   return (
     <>
       <nav className="nav-bar flex-container">
@@ -16,7 +19,7 @@ function NavBar(props) {
 
         <SearchBar />
         <div className="logButtons">
-          {!isConnected.isLoggedIn && (
+          {!loginState && (
             <>
               <NavBarButton onClick={() => props.login(true)}>
                 log in
@@ -26,12 +29,12 @@ function NavBar(props) {
               </NavBarButton>
             </>
           )}
-          {isConnected.isLoggedIn && (
+          {loginState && (
             <>
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>
-              <NavBarButton onClick={isConnected.logout}>log out</NavBarButton>
+              <NavBarButton onClick={toggleLogIn}>log out</NavBarButton>
             </>
           )}
         </div>
