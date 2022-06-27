@@ -27,11 +27,23 @@
 }
 
 .logButtons {
-  margin-right: 7%;
   display: flex;
 }
 
 .nav-btn {
   height: 5rem;
   border-radius: 4rem;
+}
+.alt-logo {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .logo {
+    display: none;
+  }
+  .alt-logo {
+    margin-left: 7.5rem;
+    display: inline-block;
+  }
 }

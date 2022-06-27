@@ -7,9 +7,9 @@ export default function Canvas({ width, height }) {
     const context = myCanvas.current.getContext("2d");
     const image = new Image();
 
-    image.src = "https://i.ibb.co/q1Ydr1d/Logo.png";
+    image.src = "https://i.imgur.com/Vx1t6WR.png?1";
     image.onload = () => {
-      context.drawImage(image, 30, -50, 300, 300);
+      context.drawImage(image, 75, 35, 125, 113);
     };
   });
 
