@@ -33,9 +33,9 @@ const RecipeItem = (props) => {
           <Map center={props.coordinates} zoom={16} />
         </div>
       </Modal>
-      <li key={props.id} className="recipe-item">
+      <li className="recipe-item">
         <Card className="recipe-item__content">
-          <Link to={`/${props.id}`}>
+          <Link to={`/${props.index}`}>
             <div className="recipe-item__publisher-image">
               <Image image={props.imageSrc} alt={props.title} />
             </div>

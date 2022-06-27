@@ -8,44 +8,6 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { LogContext } from "../../Context/LogContext";
 import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
-const ingredient = [
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "2",
-    unit: "lb",
-    description: "oil",
-  },
-  {
-    quantity: "3.5",
-    unit: "tps",
-    description: "dry active yeast",
-  },
-];
-
-//Json Recipe{
-// imageSrc:
-// title:
-// time:
-// servings:
-//ingrediants[]:
-//description:
-//publisher:
-// link
-//}
 
 function Recipe(props) {
   const isConnected = useContext(LogContext);
@@ -155,7 +117,7 @@ function ShowRecipe(props) {
       <div className="recipe__flex">
         <div className="recipe__ingredients">
           <h2 className="heading--2">Recipe ingredients</h2>
-          <Ingredients data={ingredient} />
+          <Ingredients data={props.ingrediants} />
         </div>
         <div className="recipe__directions">
           <h2 className="heading--2">How to cook it</h2>

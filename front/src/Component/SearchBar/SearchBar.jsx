@@ -7,43 +7,6 @@ import SearchIcon from "../../Images/search.png";
 import FilterIcon from "../../Images/filter.png";
 import { UseSearch } from "../../Context/Session.jsx";
 
-const ingredient = [
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "2",
-    unit: "lb",
-    description: "oil",
-  },
-  {
-    quantity: "3.5",
-    unit: "tps",
-    description: "dry active yeast",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-  {
-    quantity: "0.5",
-    unit: "cup",
-    description: "bread flour",
-  },
-];
 const RECIPE_ARR = [
   {
     imageSrc:
@@ -52,7 +15,11 @@ const RECIPE_ARR = [
     title: "pizza",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "homemade pizza",
     publisher: "Noy",
     link: "#",
@@ -69,7 +36,11 @@ const RECIPE_ARR = [
     title: "Paste with cream sauce",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "Paste with cream sauce",
     publisher: "Maya",
     link: "#",
@@ -86,7 +57,11 @@ const RECIPE_ARR = [
     title: "Kosher Burger",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "Kosher Burger",
     publisher: "SAAR",
     link: "#",
@@ -103,7 +78,11 @@ const RECIPE_ARR = [
     title: "Vegetarian sushi",
     time: 3,
     servings: 3,
-    ingrediants: { ingredient },
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
     description: "Vegetarian sushi",
     publisher: "Oz",
     link: "#",

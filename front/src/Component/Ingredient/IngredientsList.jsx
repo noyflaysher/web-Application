@@ -7,12 +7,7 @@ function Ingredients(props) {
     <div className="ingredients">
       <ul className="Ingredients-List">
         {props.data.map((ing, index) => (
-          <IngredientItem
-            key={index}
-            quantity={ing.quantity}
-            unit={ing.unit}
-            description={ing.description}
-          />
+          <IngredientItem key={index} description={ing} />
         ))}
       </ul>
     </div>
