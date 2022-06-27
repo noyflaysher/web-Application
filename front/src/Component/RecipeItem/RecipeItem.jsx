@@ -33,7 +33,7 @@ const RecipeItem = (props) => {
           <Map center={props.coordinates} zoom={16} />
         </div>
       </Modal>
-      <li className="recipe-item">
+      <li key={props.id} className="recipe-item">
         <Card className="recipe-item__content">
           <Link to={`/${props.id}`}>
             <div className="recipe-item__publisher-image">

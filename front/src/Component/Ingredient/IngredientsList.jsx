@@ -6,8 +6,9 @@ function Ingredients(props) {
   return (
     <div className="ingredients">
       <ul className="Ingredients-List">
-        {props.data.map((ing) => (
+        {props.data.map((ing, index) => (
           <IngredientItem
+            key={index}
             quantity={ing.quantity}
             unit={ing.unit}
             description={ing.description}
