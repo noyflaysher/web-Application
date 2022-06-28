@@ -38,20 +38,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "My Recipes info",
-    },
-  },
-};
-
 export const data2 = {
   labels: ["Spicy", "Vegaterian", "Vegan", "Dairy", "Glutten-free"],
   datasets: [
@@ -64,7 +50,7 @@ export const data2 = {
 };
 
 export function BarChart() {
-  return <Bar options={options} data={data2} />;
+  return <Bar data={data2} />;
 }
 
 function Charts() {
