@@ -56,7 +56,7 @@ export const data2 = {
   labels: ["Spicy", "Vegaterian", "Vegan", "Dairy", "Glutten-free"],
   datasets: [
     {
-      label: "# published",
+      label: "Identifiers",
       data: [2, 3, 1, 4, 1],
       backgroundColor: "rgba(75, 192, 192, 0.7)",
     },

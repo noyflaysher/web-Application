@@ -45,7 +45,7 @@ function NavBar(props) {
   );
 }
 
-function NavBarButton(props) {
+export function NavBarButton(props) {
   return (
     <Button onClick={props.onClick} className="btn btn--margin nav-btn">
       {props.children}

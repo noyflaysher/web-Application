@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import Button from "../Button/Button";
 import { UseUpdateLoginState } from "../../Context/Session.jsx";
-import { NavBarButton } from "../NavBar/NavBar";
-import "./Button.css";
+import "./UserGroupButton.css";
 
 function UserGroupButton(props) {
   const [buttonList, setButtonList] = React.useState(false);
@@ -10,7 +9,10 @@ function UserGroupButton(props) {
   return (
     <div className="right">
       <Button className="btn button-dots" onClick={buttonListToggle}>
-        <img src="https://img.icons8.com/ios/50/000000/menu-2.png" width={30} />
+        <img
+          src="https://img.icons8.com/fluency-systems-filled/48/000000/drag-list-down.png"
+          width={35}
+        />
       </Button>
       <div className="buttons-popup">{buttonList && <ButtonGroup />}</div>
     </div>
@@ -21,11 +23,11 @@ function ButtonGroup(props) {
   const toggleLogIn = UseUpdateLoginState();
   return (
     <div className="button-group">
-      <NavBarButton className="user-button" onClick={toggleLogIn}>
+      <Button className="btn user-button" onClick={toggleLogIn}>
         log out
-      </NavBarButton>
-      <NavBarButton className="btn user-button">change password</NavBarButton>
-      <NavBarButton className="btn user-button">delete account</NavBarButton>
+      </Button>
+      <Button className="btn user-button">change password</Button>
+      <Button className="btn user-button">delete account</Button>
     </div>
   );
 }
