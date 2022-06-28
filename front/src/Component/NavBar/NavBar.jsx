@@ -33,7 +33,10 @@ function NavBar(props) {
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>
-              <NavBarButton onClick={toggleLogIn}>log out</NavBarButton>
+              {/* <NavBarButton onClick={toggleLogIn}>log out</NavBarButton> */}
+              <Link to="/profile">
+                <NavBarButton>Profile</NavBarButton>
+              </Link>
             </>
           )}
         </div>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import Button from "./Button";
-import { LogContext } from "../../Context/LogContext";
+import Button from "../Button/Button";
+import { UseUpdateLoginState } from "../../Context/Session.jsx";
 import { NavBarButton } from "../NavBar/NavBar";
 import "./Button.css";
 
@@ -18,10 +18,10 @@ function UserGroupButton(props) {
 }
 
 function ButtonGroup(props) {
-  const isConnected = useContext(LogContext);
+  const toggleLogIn = UseUpdateLoginState();
   return (
     <div className="button-group">
-      <NavBarButton className="user-button" onClick={isConnected.logout}>
+      <NavBarButton className="user-button" onClick={toggleLogIn}>
         log out
       </NavBarButton>
       <NavBarButton className="btn user-button">change password</NavBarButton>
