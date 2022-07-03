@@ -8,7 +8,7 @@ export default function SocialSharing() {
     <div className="social">
       <TwitterShareButton
         className="twitter"
-        title={"amazing website"}
+        title={"come to see "}
         url={"https://peing.net/ja/"}
         hashtags={["#GoodFood", "#Tasty", "#Yummy"]}
       >
@@ -18,7 +18,7 @@ export default function SocialSharing() {
       <FacebookShareButton
         className="facebook"
         url={"https://github.com/"}
-        quote={"amazing website, go to watch it"}
+        quote={"good website"}
         hashtag={["#GoodFood", "#Tasty", "#Yummy"]}
         description={"amazing website, go to watch it"}
       >

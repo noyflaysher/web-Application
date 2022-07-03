@@ -28,7 +28,6 @@ export default function SignIn(props) {
   const [passwordError, setPasswordError] = useState(true);
   const [firstPassword, setFirstPassword] = useState(false);
 
-
   const closeFormHandler = (hideForm) => {
     setShowSign(false);
     hideForm(false);
@@ -54,7 +53,7 @@ export default function SignIn(props) {
 
   const toggleLogIn = UseUpdateLoginState();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
