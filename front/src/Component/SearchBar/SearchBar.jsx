@@ -8,7 +8,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import SearchIcon from "../../Images/search.png";
 import FilterIcon from "../../Images/filter.png";
-import { UseSearch } from "../../Context/Session.jsx";
+import { UseSearch, UseSession } from "../../Context/Session.jsx";
 import { orange } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
