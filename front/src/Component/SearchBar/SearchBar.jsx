@@ -6,6 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import SearchIcon from "../../Images/search.png";
 import FilterIcon from "../../Images/filter.png";
 import { UseSearch } from "../../Context/Session.jsx";
+import React, { useEffect } from "react";
 
 const RECIPE_ARR = [
   {

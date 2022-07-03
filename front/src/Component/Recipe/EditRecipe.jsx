@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "../Button/Button";
+import { useHttpClient } from "../hooks/http-hook";
 
 function EditRecipe({
   title,
@@ -18,11 +19,9 @@ function EditRecipe({
 
   React.useEffect(() => {
     setIngrediantList(
-      ingrediants.map((i,index) => (
-        <Ingrediant count={index} value={i} />
-      ))
+      ingrediants.map((i, index) => <Ingrediant count={index} value={i} />)
     );
-       // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function addIngrediant() {

@@ -13,6 +13,9 @@ import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import { LogContext } from "../../Context/LogContext";
+import ErrorModal from "../Modal-Backdrop/ErrorModal";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useHttpClient } from "../hooks/http-hook";
 
 const theme = createTheme({
   typography: {
@@ -23,7 +26,6 @@ const theme = createTheme({
 
 export default function SignUp(props) {
   const [showSign, setShowSign] = useState(true);
-
 
   const [emailError, setEmailError] = useState(true);
   const [firstEmail, setFirstEmail] = useState(false);
@@ -36,6 +38,8 @@ export default function SignUp(props) {
 
   const [lastNameError, setLastNameError] = useState(true);
   const [firstLastName, setFirstLastName] = useState(false);
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const isConnected = React.useContext(LogContext);
 
@@ -80,134 +84,152 @@ export default function SignUp(props) {
     setFirstPassword(true);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const password = data.get("password");
     const email = data.get("email");
     const name = `${data.get("firstName")} ${data.get("lastName")}`;
 
-    console.log({
-      email: email,
-      password: password,
-      name: name,
-    });
+    try {
+      await sendRequest(
+        "http://localhost:3000/users/signup",
+        "POST",
+        JSON.stringify({
+          name,
+          email,
+          password,
+          userName: "1",
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+    } catch (err) {}
 
     closeFormHandler(props.closeForm);
+    //to do:connect to log in toogle
   };
 
   return (
-    <Modal
-      show={showSign}
-      onCancel={() => closeFormHandler(props.closeForm)}
-      header={
-        <AiFillCloseCircle
-          onClick={() => closeFormHandler(props.closeForm)}
-          className={classes.icon}
-        />
-      }
-      contentClass="recipe-item__modal-content"
-      footerClass="recipe-item__modal-actions"
-      footer={<></>}
-    >
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 0,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <h2>Sign up</h2>
+    <>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <LoadingSpinner asOverlay />}
+      <Modal
+        show={showSign}
+        onCancel={() => closeFormHandler(props.closeForm)}
+        header={
+          <AiFillCloseCircle
+            onClick={() => closeFormHandler(props.closeForm)}
+            className={classes.icon}
+          />
+        }
+        contentClass="recipe-item__modal-content"
+        footerClass="recipe-item__modal-actions"
+        footer={<></>}
+      >
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
             <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
+              sx={{
+                marginTop: 0,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-              <Grid container spacing={2} sx={{ marginBottom: 4 }}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    error={firstFirstName && firstNameError}
-                    onChange={changeFirstNameHandler}
-                    autoComplete="given-name"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    error={firstLastName && lastNameError}
-                    onChange={changeLastNameHandler}
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    // value={lasttName}
-                    name="lastName"
-                    autoComplete="family-name"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    error={firstEmail && emailError}
-                    onChange={changeEmailHandler}
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    type="email"
-                    // value={email}
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    error={firstPassword && passwordError}
-                    onChange={changePasswordHandler}
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    // value={password}
-                    autoComplete="new-password"
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                onClick={isConnected.login}
-                disabled={
-                  emailError || passwordError || firstNameError || lastNameError
-                }
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+              <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <h2>Sign up</h2>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
               >
-                Sign Up
-              </Button>
-              <Grid
-                container
-                justifyContent="flex-end"
-                sx={{ marginBottom: "1rem" }}
-              ></Grid>
+                <Grid container spacing={2} sx={{ marginBottom: 4 }}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      error={firstFirstName && firstNameError}
+                      onChange={changeFirstNameHandler}
+                      autoComplete="given-name"
+                      name="firstName"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      error={firstLastName && lastNameError}
+                      onChange={changeLastNameHandler}
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      // value={lasttName}
+                      name="lastName"
+                      autoComplete="family-name"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      error={firstEmail && emailError}
+                      onChange={changeEmailHandler}
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      type="email"
+                      // value={email}
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      error={firstPassword && passwordError}
+                      onChange={changePasswordHandler}
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      // value={password}
+                      autoComplete="new-password"
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  onClick={isConnected.login}
+                  disabled={
+                    emailError ||
+                    passwordError ||
+                    firstNameError ||
+                    lastNameError
+                  }
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign Up
+                </Button>
+                <Grid
+                  container
+                  justifyContent="flex-end"
+                  sx={{ marginBottom: "1rem" }}
+                ></Grid>
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </Modal>
+          </Container>
+        </ThemeProvider>
+      </Modal>
+    </>
   );
 }
