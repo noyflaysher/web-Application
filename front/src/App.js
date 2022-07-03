@@ -7,6 +7,7 @@ import NavBar from "./Component/NavBar/NavBar";
 import SignUp from "./Component/Form/SignUp";
 import RecipeForm from "./Component/Form/RecipeForm";
 import { Session } from "./Context/Session";
+import Chat from "./Component/Chat/Chat";
 
 function App() {
   const [showRecipeForm, setShowRecipeForm] = React.useState(false);
@@ -35,6 +36,7 @@ function App() {
           </div>
         </div>
       </Router>
+      <Chat />
     </Session>
   );
 }
