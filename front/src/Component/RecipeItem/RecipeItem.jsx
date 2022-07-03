@@ -35,7 +35,7 @@ const RecipeItem = (props) => {
       </Modal>
       <li className="recipe-item">
         <Card className="recipe-item__content">
-          <Link to={`/${props.index}`}>
+          <Link to={`/recipe/${props.index}`}>
             <div className="recipe-item__publisher-image">
               <Image image={props.imageSrc} alt={props.title} />
             </div>

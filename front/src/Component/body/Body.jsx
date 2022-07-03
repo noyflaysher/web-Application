@@ -4,7 +4,7 @@ import Result from "../Result/Result";
 import ChosenRecipe from "../ChosenRecipe/ChosenRecipe";
 import FavoriteRecipe from "../FavoriteRecipe/FavoriteRecipe";
 import { UseSearch } from "../../Context/Session.jsx";
-
+import Profile from "../UserProfile/Profile";
 import "./Body.css";
 
 function Body() {
@@ -19,8 +19,11 @@ function Body() {
           <Route path="/" exact>
             <FavoriteRecipe />
           </Route>
-          <Route path="/:id" exact>
+          <Route path="/recipe/:id" exact>
             <ChosenRecipe items={items} />
+          </Route>
+          <Route path="/profile" exact>
+            <Profile />
           </Route>
         </Switch>
       </div>

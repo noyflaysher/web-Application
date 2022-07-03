@@ -33,7 +33,10 @@ function NavBar(props) {
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
               </NavBarButton>
-              <NavBarButton onClick={toggleLogIn}>log out</NavBarButton>
+              {/* <NavBarButton onClick={toggleLogIn}>log out</NavBarButton> */}
+              <Link to="/profile">
+                <NavBarButton>Profile</NavBarButton>
+              </Link>
             </>
           )}
         </div>
@@ -42,7 +45,7 @@ function NavBar(props) {
   );
 }
 
-function NavBarButton(props) {
+export function NavBarButton(props) {
   return (
     <Button onClick={props.onClick} className="btn btn--margin nav-btn">
       {props.children}
