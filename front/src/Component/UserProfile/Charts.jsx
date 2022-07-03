@@ -18,7 +18,7 @@ const data = {
   datasets: [
     {
       label: "# of Recipes",
-      data: [1, 3],
+      data: [3, 8],
       backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
       borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
       borderWidth: 1,
@@ -43,7 +43,7 @@ export const data2 = {
   datasets: [
     {
       label: "Identifiers",
-      data: [2, 3, 1, 4, 1],
+      data: [2, 0, 1, 0, 0],
       backgroundColor: "rgba(75, 192, 192, 0.7)",
     },
   ],

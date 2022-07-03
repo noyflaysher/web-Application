@@ -71,11 +71,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 .radio-container {
-  max-width: 60%;
+  max-width: 65% !important;
 }
 /* .filter-container span {
   padding: 0.25rem;
@@ -83,5 +83,5 @@
 } */
 
 .grow:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }

@@ -72,7 +72,7 @@ function ShowRecipes({ list }) {
   return (
     <ul>
       {list.map((e, index) => (
-        <li>{e.title}</li>
+        <li key={index}>{e.title}</li>
       ))}
     </ul>
   );
@@ -82,10 +82,10 @@ function ShowBookmarks({ list }) {
   return (
     <ul>
       {list.map((e, index) => (
-        <li className="book-li">
+        <li className="book-li" key={index}>
           {e.title}
           <Link to={`/recipe/${index}`}>
-            <Button className="btn book-btn">
+            <Button className="btn book-btn" key={index}>
               <img
                 width={30}
                 src="https://img.icons8.com/external-those-icons-fill-those-icons/48/000000/external-glasses-retro-those-icons-fill-those-icons.png"

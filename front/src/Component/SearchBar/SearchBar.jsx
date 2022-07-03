@@ -133,8 +133,7 @@ const identifiers = [
   "none",
 ];
 function FiltersContainer() {
-  const [value, setValue] = React.useState("spicy");
-
+  const [value, setValue] = React.useState("none");
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -150,11 +149,12 @@ function FiltersContainer() {
           onChange={handleChange}
           className="radio-group"
         >
-          {identifiers.map((t) => {
+          {identifiers.map((t, index) => {
             return (
               <FormControlLabel
                 value={t}
                 label={t}
+                key={index}
                 control={
                   <Radio
                     sx={{
