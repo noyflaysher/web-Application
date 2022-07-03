@@ -4,6 +4,17 @@ const getCoordsForAddress = require("../util/location");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
 const mongoose = require("mongoose");
+
+const identifiers = [
+  "spicy",
+  "sweet",
+  "salty",
+  "vegan",
+  "vegeterian",
+  "dairy",
+  "gluten free",
+];
+
 const addRecipe = async (req, res, next) => {
   const {
     imageSrc,
@@ -123,6 +134,12 @@ const getRecipe = async (req, res, next) => {
   res.json({ recipe: recipe });
 };
 
+const getIdentifiers = (req, res, next) => {
+  res.json({
+    identifiers: identifiers,
+  });
+};
+
 const getRecipeByUserId = async (req, res, next) => {
   const userId = req.params.userId;
   console.log(userId);
@@ -150,13 +167,15 @@ const getRecipeByUserId = async (req, res, next) => {
 };
 
 const getRecipeByFilters = async (req, res, next) => {
-  const { identifiers, userId, servings } = req.body;
+  const { identifiers, title, servings } = req.body;
   let recipe;
   try {
     recipe = await Recipe.find({
-      publisherId: userId,
-      servings: servings,
-      identifiers: identifiers,
+      $or: [
+        { title: title },
+        { servings: servings },
+        { identifiers: identifiers },
+      ],
     });
   } catch (err) {
     const error = new HttpError(
@@ -215,9 +234,44 @@ const deleteRecipe = async (req, res, next) => {
   res.status(200).json({ message: "Deleted recipe" });
 };
 
+const getCountIdentifier = async (req, res, next) => {
+  let counter = [];
+  let recipe;
+
+  try {
+    for (let i = 0; i < identifiers.length; i++) {
+      console.log(`${identifiers[i]}`);
+      recipe = await Recipe.find({
+        identifiers: identifiers[i],
+      });
+
+      if (!recipe || recipe.length === 0) {
+        //there are not recipes
+        counter[i] = 0;
+        console.log(`no recipe for this identifier, ${identifiers[i]}`);
+      } else {
+        counter[i] = recipe.length;
+        console.log(counter[i]);
+      }
+
+      console.log(`recipe: ${recipe}`);
+    }
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+
+  res.json({ counter });
+};
+
 exports.addRecipe = addRecipe;
+exports.getIdentifiers = getIdentifiers;
 exports.updateRecipe = updateRecipe;
 exports.getRecipeByUserId = getRecipeByUserId;
 exports.getRecipe = getRecipe;
 exports.getRecipeByFilters = getRecipeByFilters;
 exports.deleteRecipe = deleteRecipe;
+exports.getCountIdentifier = getCountIdentifier;

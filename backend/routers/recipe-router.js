@@ -4,6 +4,10 @@ const router = express.Router();
 
 router.get("/", recipeController.getRecipe);
 
+router.get("/identifiers", recipeController.getIdentifiers);
+
+router.get("/countIdentifier", recipeController.getCountIdentifier);
+
 router.post("/search", recipeController.getRecipeByFilters);
 
 router.post("/myRecipe", recipeController.getRecipeByUserId);
