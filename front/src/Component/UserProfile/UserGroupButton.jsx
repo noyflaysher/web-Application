@@ -4,7 +4,7 @@ import { UseUpdateLoginState } from "../../Context/Session.jsx";
 import { Link } from "react-router-dom";
 import "./UserGroupButton.css";
 
-function UserGroupButton(props) {
+function UserGroupButton({ changePass }) {
   const [buttonList, setButtonList] = React.useState(false);
   const buttonListToggle = () => setButtonList(!buttonList);
   return (
@@ -15,13 +15,16 @@ function UserGroupButton(props) {
           width={35}
         />
       </Button>
-      <div className="buttons-popup">{buttonList && <ButtonGroup />}</div>
+      <div className="buttons-popup">
+        {buttonList && <ButtonGroup changePass={changePass} />}
+      </div>
     </div>
   );
 }
 
-function ButtonGroup(props) {
+function ButtonGroup({ changePass }) {
   const toggleLogIn = UseUpdateLoginState();
+
   return (
     <div className="button-group">
       <Link to="/">
@@ -29,9 +32,12 @@ function ButtonGroup(props) {
           log out
         </Button>
       </Link>
-      <Button className="btn user-button">change password</Button>
+      <Button className="btn user-button" onClick={changePass}>
+        change password
+      </Button>
       <Button className="btn user-button">delete account</Button>
     </div>
   );
 }
+
 export default UserGroupButton;
