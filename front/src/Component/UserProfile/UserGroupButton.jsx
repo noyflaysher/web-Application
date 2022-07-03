@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Button/Button";
 import { UseUpdateLoginState } from "../../Context/Session.jsx";
+import { Link } from "react-router-dom";
 import "./UserGroupButton.css";
 
 function UserGroupButton(props) {
@@ -23,9 +24,11 @@ function ButtonGroup(props) {
   const toggleLogIn = UseUpdateLoginState();
   return (
     <div className="button-group">
-      <Button className="btn user-button" onClick={toggleLogIn}>
-        log out
-      </Button>
+      <Link to="/">
+        <Button className="btn user-button" onClick={toggleLogIn}>
+          log out
+        </Button>
+      </Link>
       <Button className="btn user-button">change password</Button>
       <Button className="btn user-button">delete account</Button>
     </div>

@@ -10,6 +10,7 @@
 
 .right {
   float: right;
+  transform: translateY(-100%);
   margin: 1rem;
 }
 

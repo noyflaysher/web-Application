@@ -6,9 +6,24 @@
 }
 
 .profile-info {
-  border: 4px solid rebeccapurple;
-  width: 100%;
-  height: 200px;
+  margin-top: 2rem;
+  width: 50%;
+}
+
+.profile-info .user-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-info .user-recipes {
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.profile-info .user-recipes ul {
+  margin: 1rem 2rem;
 }
 
 .profile-statistics {
@@ -21,9 +36,8 @@
 }
 
 .profile-bookmarks {
-  border: 4px solid darkolivegreen;
-  width: 100%;
-  height: 200px;
+  margin-top: 2rem;
+  width: 50%;
 }
 
 .profile-button {
@@ -47,7 +61,7 @@
   font-size: 3rem;
   text-align: center;
   box-decoration-break: clone;
-  padding: 1.3rem 2rem;
+  padding: 1.3rem;
   background: #ffdf59;
 }
 
@@ -61,4 +75,16 @@
   text-align: center;
   padding: 0.5rem 2rem;
   background-image: linear-gradient(to right bottom, #e9d5cd, #ffa751);
+}
+
+.book-li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.book-btn {
+  width: auto;
+  padding: 0.5rem 1rem;
 }
