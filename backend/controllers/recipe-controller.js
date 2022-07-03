@@ -1,5 +1,4 @@
 const HttpError = require("../models/httpError");
-const { v4: uuid } = require("uuid");
 const getCoordsForAddress = require("../util/location");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
