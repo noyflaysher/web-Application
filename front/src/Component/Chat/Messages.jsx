@@ -20,7 +20,7 @@ function Messages({ socket }) {
         return newMessages;
       });
     };
-
+    
     socket.on("message", messageListener);
     socket.on("deleteMessage", deleteMessageListener);
     socket.emit("getMessages");

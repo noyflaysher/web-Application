@@ -3,9 +3,30 @@ const uuidv4 = require("uuid").v4;
 const messages = new Set();
 const users = new Map();
 
+const defaultMessages = {
+  0:
+    "1. For help adding a new recipe\n" +
+    "2.For help editing a new recipe\n" +
+    "3. For technical support\n",
+  1:
+    "Click the 'New Recipe' button in the nav bar, fill in the recipe details and finally click the 'Publish' button.\n" +
+    "For the main menu, press 0\n",
+  2:
+    "Navigate to the recipe you want to edit.\n" +
+    "Click the 'Edit Recipe' button in the body of the recipe, edit the recipe details and finally click the 'Save' button" +
+    "For the main menu, press 0\n",
+  3:
+    "Contact us by email: Recipe4U@cs.colman.ac.il" +
+    "For the main menu, press 0\n",
+};
+
 const defaultUser = {
   id: "anon",
   name: "Anonymous",
+};
+const SystemDefaultUser = {
+  id: uuidv4(),
+  name: "Recipe4U",
 };
 
 const messageExpirationTimeMS = 5 * 60 * 1000;
@@ -18,23 +39,47 @@ class Connection {
     socket.on("getMessages", () => this.getMessages());
     socket.on("message", (value) => this.handleMessage(value));
     socket.on("disconnect", () => this.disconnect());
+    socket.on("addUser", (user) => this.addUser(user));
     socket.on("connect_error", (err) => {
       console.log(`connect_error due to ${err.message}`);
     });
   }
-
+  async addUser(user) {
+    await new Promise((resolve) => resolve(users.set(this.socket, user))).then(
+      () => this.handleMessage(defaultMessages[0], true)
+    );
+  }
   sendMessage(message) {
-    this.io.sockets.emit("message", message);
+    if (message.user.id === users.get(this.socket).id) {
+      this.socket.emit("message", message);
+      this.handleMessage(defaultMessages[message.value], true);
+    } else if (
+      message.user.id === SystemDefaultUser.id &&
+      message.to.id === users.get(this.socket).id
+    ) {
+      this.socket.emit("message", message);
+    }
   }
 
   getMessages() {
     messages.forEach((message) => this.sendMessage(message));
   }
 
-  handleMessage(value) {
+  handleMessage(value, systemMessage) {
+    var user = null;
+    var toUser = null;
+    if (systemMessage) {
+      user = SystemDefaultUser;
+      toUser = users.get(this.socket) || defaultUser;
+    } else {
+      user = users.get(this.socket) || defaultUser;
+      toUser = SystemDefaultUser;
+    }
+
     const message = {
       id: uuidv4(),
-      user: users.get(this.socket) || defaultUser,
+      user: user,
+      to: toUser,
       value,
       time: Date.now(),
     };
