@@ -12,7 +12,7 @@ import { useState } from "react";
 import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
-import { LogContext } from "../../Context/LogContext";
+import { UseSession } from "../../Context/Session";
 import ErrorModal from "../Modal-Backdrop/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
@@ -41,11 +41,11 @@ export default function SignUp(props) {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const isConnected = React.useContext(LogContext);
+  const session = UseSession();
 
-  const closeFormHandler = (hideForm) => {
+  const closeFormHandler = () => {
     setShowSign(false);
-    hideForm(false);
+    props.closeForm();
   };
 
   const changeFirstNameHandler = (event) => {
@@ -92,7 +92,7 @@ export default function SignUp(props) {
     const name = `${data.get("firstName")} ${data.get("lastName")}`;
 
     try {
-      await sendRequest(
+      const request = await sendRequest(
         "http://localhost:3000/users/signup",
         "POST",
         JSON.stringify({
@@ -105,9 +105,11 @@ export default function SignUp(props) {
           "Content-Type": "application/json",
         }
       );
+
+      closeFormHandler();
+      session.setSession({ userId: request.user.id, name: request.user.name });
     } catch (err) {}
 
-    closeFormHandler(props.closeForm);
     //to do:connect to log in toogle
   };
 
@@ -117,10 +119,10 @@ export default function SignUp(props) {
       {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showSign}
-        onCancel={() => closeFormHandler(props.closeForm)}
+        onCancel={closeFormHandler}
         header={
           <AiFillCloseCircle
-            onClick={() => closeFormHandler(props.closeForm)}
+            onClick={closeFormHandler}
             className={classes.icon}
           />
         }
@@ -206,7 +208,6 @@ export default function SignUp(props) {
                   </Grid>
                 </Grid>
                 <Button
-                  onClick={isConnected.login}
                   disabled={
                     emailError ||
                     passwordError ||

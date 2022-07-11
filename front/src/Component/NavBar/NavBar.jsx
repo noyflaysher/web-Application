@@ -4,9 +4,17 @@ import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import Canvas from "../Canvas.jsx";
 import { UseSession } from "../../Context/Session.jsx";
+import LogInForm from "../Form/LogIn";
+import SignUp from "../Form/SignUp";
+import RecipeForm from "../Form/RecipeForm";
 import "./NavBar.css";
-function NavBar(props) {
+
+function NavBar() {
+  const [showRecipeForm, setShowRecipeForm] = React.useState(false);
+  const [showLoginForm, setShowLoginForm] = React.useState(false);
+  const [showSignupForm, setShowSignupForm] = React.useState(false);
   const [buttonList, setButtonList] = React.useState(false);
+
   const buttonListToggle = () => setButtonList(!buttonList);
   const session = UseSession();
   return (
@@ -20,21 +28,19 @@ function NavBar(props) {
         <div className="logButtons">
           {session.session === null && (
             <>
-              <NavBarButton onClick={() => props.login(true)}>
+              <NavBarButton onClick={() => setShowLoginForm(true)}>
                 Log In
               </NavBarButton>
-              <NavBarButton onClick={() => props.signup(true)}>
+              <NavBarButton onClick={() => setShowSignupForm(true)}>
                 Sign up
               </NavBarButton>
             </>
           )}
           {session.session !== null && (
             <>
-              <NavBarButton onClick={() => props.newRecipe(true)}>
+              <NavBarButton onClick={() => setShowRecipeForm(true)}>
                 New Recipe
               </NavBarButton>
-              {/* <NavBarButton onClick={toggleLogIn}>log out</NavBarButton> */}
-
               <NavBarButton className="profile-btn" onClick={buttonListToggle}>
                 <img
                   width={30}
@@ -47,6 +53,15 @@ function NavBar(props) {
             </>
           )}
         </div>
+        {showRecipeForm && (
+          <RecipeForm closeForm={() => setShowRecipeForm(false)} />
+        )}
+        {showLoginForm && (
+          <LogInForm closeForm={() => setShowLoginForm(false)} />
+        )}
+        {showSignupForm && (
+          <SignUp closeForm={() => setShowSignupForm(false)} />
+        )}
       </nav>
     </>
   );

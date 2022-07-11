@@ -35,9 +35,9 @@ export default function SignIn(props) {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const closeFormHandler = (hideForm) => {
+  const closeFormHandler = () => {
     setShowSign(false);
-    hideForm(false);
+    props.closeForm();
   };
 
   const changeEmailHandler = (event) => {
@@ -61,7 +61,6 @@ export default function SignIn(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
     try {
       const request = await sendRequest(
         "http://localhost:3000/users/login",
@@ -72,20 +71,12 @@ export default function SignIn(props) {
         }),
         { "Content-Type": "application/json" }
       );
-      session.setSession({ userId: request.user.id }); //
-
-      console.log(session);
-      console.log(session.session.userId);
-
-      closeFormHandler(props.closeForm);
-      //to do:connect to log in toogle
-    } catch (err) {}
+      closeFormHandler();
+      session.setSession({ userId: request.user.id, name: request.user.name });
+    } catch (err) {
+      return;
+    }
   };
-  // fetch('http://localhost:3000/users/login');
-  // console.log({
-  //   email: data.get("email"),
-  //   password: data.get("password"),
-  // });
 
   return (
     <>
@@ -95,10 +86,10 @@ export default function SignIn(props) {
         show={showSign}
         contentClass="recipe-item__modal-content"
         footerClass="recipe-item__modal-actions"
-        onCancel={() => closeFormHandler(props.closeForm)}
+        onCancel={closeFormHandler}
         header={
           <AiFillCloseCircle
-            onClick={() => closeFormHandler(props.closeForm)}
+            onClick={closeFormHandler}
             className={classes.icon}
           />
         }
