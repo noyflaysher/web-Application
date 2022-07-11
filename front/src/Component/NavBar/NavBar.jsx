@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import Canvas from "../Canvas.jsx";
-import { UseLoginState, UseUpdateLoginState } from "../../Context/Session.jsx";
+import { UseSession } from "../../Context/Session.jsx";
 import "./NavBar.css";
 function NavBar(props) {
-  const toggleLogIn = UseUpdateLoginState();
-  const loginState = UseLoginState();
-
   const [buttonList, setButtonList] = React.useState(false);
   const buttonListToggle = () => setButtonList(!buttonList);
-
+  const session = UseSession();
   return (
     <>
       <nav className="nav-bar flex-container">
@@ -21,7 +18,7 @@ function NavBar(props) {
 
         <SearchBar />
         <div className="logButtons">
-          {!loginState && (
+          {session.session === null && (
             <>
               <NavBarButton onClick={() => props.login(true)}>
                 Log In
@@ -31,7 +28,7 @@ function NavBar(props) {
               </NavBarButton>
             </>
           )}
-          {loginState && (
+          {session.session !== null && (
             <>
               <NavBarButton onClick={() => props.newRecipe(true)}>
                 New Recipe
@@ -45,7 +42,7 @@ function NavBar(props) {
                 />
               </NavBarButton>
               <div className="buttons-popup">
-                {buttonList && <ProfileSlider logout={toggleLogIn} />}
+                {buttonList && <ProfileSlider logout={session.setSession} />}
               </div>
             </>
           )}
@@ -63,7 +60,7 @@ function ProfileSlider({ logout }) {
           <Button className="btn user-button">My Profile</Button>
         </Link>
         <Link to="/">
-          <Button className="btn user-button" onClick={logout}>
+          <Button className="btn user-button" onClick={() => logout(null)}>
             Log Out
           </Button>
         </Link>

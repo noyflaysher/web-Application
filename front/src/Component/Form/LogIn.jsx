@@ -10,7 +10,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
-import { UseUpdateLoginState } from "../../Context/Session.jsx";
 import Modal from "../Modal-Backdrop/Modal";
 import "../RecipeItem/RecipeItem.css";
 import ErrorModal from "../Modal-Backdrop/ErrorModal";
@@ -59,8 +58,6 @@ export default function SignIn(props) {
     setFirstPassword(true);
   };
 
-  const toggleLogIn = UseUpdateLoginState();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -75,9 +72,6 @@ export default function SignIn(props) {
         }),
         { "Content-Type": "application/json" }
       );
-
-      toggleLogIn();
-
       session.setSession({ userId: request.user.id }); //
 
       console.log(session);
