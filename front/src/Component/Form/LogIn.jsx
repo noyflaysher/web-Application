@@ -10,7 +10,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
-import { UseUpdateLoginState } from "../../Context/Session.jsx";
 import Modal from "../Modal-Backdrop/Modal";
 import "../RecipeItem/RecipeItem.css";
 import ErrorModal from "../Modal-Backdrop/ErrorModal";
@@ -36,15 +35,14 @@ export default function SignIn(props) {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const closeFormHandler = (hideForm) => {
+  const closeFormHandler = () => {
     setShowSign(false);
-    hideForm(false);
+    props.closeForm();
   };
 
   const changeEmailHandler = (event) => {
     const email = event.target.value;
     if (!/^\S+@\S+\.\S+$/.test(email)) {
-      console.log("email:error");
       setEmailError(true);
     } else setEmailError(false);
     setFirstEmail(true);
@@ -53,18 +51,14 @@ export default function SignIn(props) {
   const changePasswordHandler = (event) => {
     const password = event.target.value;
     if (password.length < 6) {
-      console.log("password:error");
       setPasswordError(true);
     } else setPasswordError(false);
     setFirstPassword(true);
   };
 
-  const toggleLogIn = UseUpdateLoginState();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
     try {
       const request = await sendRequest(
         "http://localhost:3000/users/login",
@@ -75,17 +69,11 @@ export default function SignIn(props) {
         }),
         { "Content-Type": "application/json" }
       );
-
-      toggleLogIn();
-
-      session.setSession({ userId: request.user.id }); //
-
-      console.log(session);
-      console.log(session.session.userId);
-
-      closeFormHandler(props.closeForm);
-      //to do:connect to log in toogle
-    } catch (err) {}
+      closeFormHandler();
+      session.setSession({ userId: request.user.id, name: request.user.name });
+    } catch (err) {
+      return;
+    }
   };
 
   return (
@@ -96,10 +84,10 @@ export default function SignIn(props) {
         show={showSign}
         contentClass="recipe-item__modal-content"
         footerClass="recipe-item__modal-actions"
-        onCancel={() => closeFormHandler(props.closeForm)}
+        onCancel={closeFormHandler}
         header={
           <AiFillCloseCircle
-            onClick={() => closeFormHandler(props.closeForm)}
+            onClick={closeFormHandler}
             className={classes.icon}
           />
         }

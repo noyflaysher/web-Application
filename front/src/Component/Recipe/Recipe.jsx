@@ -5,12 +5,11 @@ import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { LogContext } from "../../Context/LogContext";
+import { UseSession } from "../../Context/Session";
 import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
 
 function Recipe(props) {
-  const isConnected = useContext(LogContext);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const showDeteleWarningHandler = () => setShowConfirmModal(true);
@@ -19,8 +18,8 @@ function Recipe(props) {
     setShowConfirmModal(false);
     console.log("DELETING...");
   };
-
   const editHandler = () => setEditMode(!editMode);
+  const session = UseSession();
 
   return (
     <>
@@ -53,7 +52,7 @@ function Recipe(props) {
           </h1>
         </div>
         <div className="bottons">
-          {isConnected.isLoggedIn && (
+          {session.session !== null && (
             <>
               <Button onClick={editHandler} className="btn btn--edit">
                 EDIT
