@@ -29,6 +29,7 @@ const Result = (props) => {
               link={recipe.link}
               address={recipe.address}
               coordinates={recipe.location}
+              onDelete={props.onDeleteRecipe}
             />
           );
         })

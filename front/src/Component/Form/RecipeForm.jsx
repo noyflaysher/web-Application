@@ -85,27 +85,16 @@ export default function RecipeForm(props) {
     });
     setIngrediantError(ingList.length === 0);
     if (ingList.length === 0) return;
-    const newRecipe = {
-      author: data.get("recipeAuthor"),
-      title: data.get("recipeTitle"),
-      imageSrc: data.get("recipeImage"),
-      servings: data.get("recipeServings"),
-      time: data.get("recipePrepTime"),
-      description: data.get("recipeDescription"),
-      ingrediants: ingList,
-      address: data.get("recipeAddress"),
-    };
-
-    // imageSrc,
-    //   title,
-    //   time,
-    //   servings,
-    //   ingrediants,
-    //   description,
-    //   publisher,
-    //   userNameId,
-    //   identifiers,
-    //   address,
+    // const newRecipe = {
+    //   author: session.session.name,
+    //   title: data.get("recipeTitle"),
+    //   imageSrc: data.get("recipeImage"),
+    //   servings: data.get("recipeServings"),
+    //   time: data.get("recipePrepTime"),
+    //   description: data.get("recipeDescription"),
+    //   ingrediants: ingList,
+    //   address: data.get("recipeAddress"),
+    // };
 
     try {
       await sendRequest(
@@ -118,7 +107,7 @@ export default function RecipeForm(props) {
           servings: data.get("recipeServings"),
           ingrediants: ingList,
           description: data.get("recipeDescription"),
-          publisher: "noy",
+          publisher: session.session.name,
           userNameId: session.session.userId,
           identifiers: "salty",
           address: "20 W 34th St, New York, NY 10001",
@@ -156,7 +145,6 @@ export default function RecipeForm(props) {
                 alignItems: "center",
               }}
             >
-
               <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
                 <RestaurantIcon />
               </Avatar>
@@ -168,16 +156,6 @@ export default function RecipeForm(props) {
                 sx={{ mt: 3 }}
               >
                 <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    name="recipeAuthor"
-                    error={titleError}
-                    required
-                    fullWidth
-                    id="recipeAuthor"
-                    label="author's name"
-                  />
-                </Grid>
                   <Grid item xs={6}>
                     <TextField
                       name="recipeTitle"
@@ -241,15 +219,15 @@ export default function RecipeForm(props) {
                     </Button>
                   </Grid>
                   {ingrediantList}
-                 <Grid item xs={12}>
-                  <TextField
-                    name="recipeAddress"
-                    fullWidth
-                    id="recipeAddress"
-                    label="address"
-                  />
+                  <Grid item xs={12}>
+                    <TextField
+                      name="recipeAddress"
+                      fullWidth
+                      id="recipeAddress"
+                      label="address"
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
                 <Button type="submit" fullWidth variant="contained">
                   Publish
                 </Button>

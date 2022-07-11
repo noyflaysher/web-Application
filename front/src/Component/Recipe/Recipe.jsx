@@ -8,21 +8,35 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { UseSession } from "../../Context/Session";
 import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useHttpClient } from "../hooks/http-hook";
 
 function Recipe(props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   const showDeteleWarningHandler = () => setShowConfirmModal(true);
-  const cancelDeleteHandler = () => setShowConfirmModal(false);
-  const confirmDeleteHandler = () => {
+  const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
-    console.log("DELETING...");
+    console.log(props.id);
+  };
+
+  const confirmDeleteHandler = async () => {
+    setShowConfirmModal(false);
+    try {
+      await sendRequest(
+        `http://localhost:3000/recipe/delete/${props.id}`,
+        "DELETE"
+      );
+    } catch (err) {}
   };
   const editHandler = () => setEditMode(!editMode);
   const session = UseSession();
 
   return (
     <>
+      {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
