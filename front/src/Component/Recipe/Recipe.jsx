@@ -10,6 +10,8 @@ import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
+import { useParams } from "react-router-dom";
+
 
 function Recipe(props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -31,7 +33,7 @@ function Recipe(props) {
       );
     } catch (err) {}
   };
-  const editHandler = () => setEditMode(!editMode);
+  const editHandler = () => setEditMode((prev) => !prev);
   const session = UseSession();
 
   return (
