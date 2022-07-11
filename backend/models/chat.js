@@ -20,10 +20,10 @@ const defaultMessages = {
     "For the main menu, press 0\n",
 };
 
-const defaultUser = {
-  id: "anon",
-  name: "Anonymous",
-};
+// const defaultUser = {
+//   id: "anon",
+//   name: "Anonymous",
+// };
 const SystemDefaultUser = {
   id: uuidv4(),
   name: "Recipe4U",

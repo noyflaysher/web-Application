@@ -78,6 +78,7 @@ export default function SignIn(props) {
       session.setSession({
         userId: request.user.id,
         name: request.user.name,
+        email: request.user.email,
         bookmarks: bookmarks,
       });
     } catch (err) {

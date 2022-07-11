@@ -6,14 +6,23 @@ import { v4 as uuidv4 } from "uuid";
 import "./Chat.css";
 import Card from "../Card/Card";
 import { Button } from "@mui/material";
+import { UseSession } from "../../Context/Session";
 
 function Chat() {
+  const session = UseSession();
   const [socket, setSocket] = useState(null);
   const [clicked, setClicked] = useState(false);
-  const [userID, setUserID] = useState({
-    id: uuidv4(),
-    name: "Saar",
-  });
+  const [userID, setUserID] = useState(
+    session.session !== null
+      ? {
+          id: session.session.userId,
+          name: session.session.name,
+        }
+      : {
+          id: uuidv4(),
+          name: "Anonymous",
+        }
+  );
 
   useEffect(() => {
     const newSocket = io(`http://${window.location.hostname}:3000`);
