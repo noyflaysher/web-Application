@@ -6,6 +6,8 @@ import Button from "../Button/Button";
 import ErrorModal from "../Modal-Backdrop/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
+import { UseSearch } from "../../Context/Session";
+import { useParams } from "react-router-dom";
 
 function EditRecipe({
   id,
@@ -19,17 +21,23 @@ function EditRecipe({
 }) {
   const [ingrediantList, setIngrediantList] = React.useState([]);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
+  const index = useParams().index;
   React.useEffect(() => {
     setIngrediantList(
-      ingrediants.map((i, index) => <Ingrediant count={index} value={i} />)
+      ingrediants.map((i, index) => (
+        <Ingrediant key={index} count={index} value={i} />
+      ))
     );
   }, []);
-
+  const search = UseSearch();
   function addIngrediant() {
     setIngrediantList(
       ingrediantList.concat(
-        <Ingrediant count={ingrediantList.length} value={""} />
+        <Ingrediant
+          key={ingrediantList.length}
+          count={ingrediantList.length}
+          value={""}
+        />
       )
     );
   }
@@ -58,7 +66,7 @@ function EditRecipe({
     );
   };
 
-  const handleSubmit = async (event) => {
+  const HandleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (!formValidation(data)) return;
@@ -83,6 +91,21 @@ function EditRecipe({
         }),
         { "Content-Type": "application/json" }
       );
+      let tempRecpie = search.result[index];
+      tempRecpie = {
+        ...tempRecpie,
+        imageSrc: data.get("recipeImage"),
+        title: data.get("recipeTitle"),
+        time: data.get("recipePrepTime"),
+        servings: data.get("recipeServings"),
+        ingrediants: ingList,
+        identifiers: "sweet",
+        description: data.get("recipeDescription"),
+      };
+
+      let tempResult = JSON.parse(JSON.stringify(search.result));
+      tempResult[index] = tempRecpie;
+      search.setResult(tempResult);
       exitEditMode();
     } catch (err) {}
   };
@@ -94,7 +117,7 @@ function EditRecipe({
       <Box
         component="form"
         noValidate
-        onSubmit={handleSubmit}
+        onSubmit={HandleSubmit}
         className="edit-from-container"
       >
         <Grid container spacing={2}>
