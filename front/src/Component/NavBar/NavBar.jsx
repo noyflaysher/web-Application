@@ -26,7 +26,7 @@ function NavBar() {
 
         <SearchBar />
         <div className="logButtons">
-          {session.session === null && (
+          {session.session.userId === null && (
             <>
               <NavBarButton onClick={() => setShowLoginForm(true)}>
                 Log In
@@ -36,7 +36,7 @@ function NavBar() {
               </NavBarButton>
             </>
           )}
-          {session.session !== null && (
+          {session.session.userId !== null && (
             <>
               <NavBarButton onClick={() => setShowRecipeForm(true)}>
                 New Recipe
@@ -75,7 +75,17 @@ function ProfileSlider({ logout }) {
           <Button className="btn user-button">My Profile</Button>
         </Link>
         <Link to="/">
-          <Button className="btn user-button" onClick={() => logout(null)}>
+          <Button
+            className="btn user-button"
+            onClick={() =>
+              logout({
+                userId: null,
+                name: null,
+                email: null,
+                bookmarks: null,
+              })
+            }
+          >
             Log Out
           </Button>
         </Link>
