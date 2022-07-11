@@ -12,13 +12,12 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 import { useParams } from "react-router-dom";
 
-
 function Recipe(props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const showDeteleWarningHandler = () => setShowConfirmModal(true);
+  const showDeleteHandler = () => setShowConfirmModal(true);
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
     console.log(props.id);
@@ -73,10 +72,7 @@ function Recipe(props) {
               <Button onClick={editHandler} className="btn btn--edit">
                 EDIT
               </Button>
-              <Button
-                onClick={showDeteleWarningHandler}
-                className="btn btn--del"
-              >
+              <Button onClick={showDeleteHandler} className="btn btn--del">
                 DELETE
               </Button>
             </>
