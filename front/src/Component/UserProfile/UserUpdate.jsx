@@ -37,6 +37,7 @@ function UserUpdate({ toggle }) {
           className="edit-from-container"
         >
           <TextField
+            type="password"
             name="update-password"
             required
             fullWidth
@@ -45,6 +46,7 @@ function UserUpdate({ toggle }) {
           />
           <div className="text-space"></div>
           <TextField
+            type="password"
             name="update-verify"
             required
             fullWidth
