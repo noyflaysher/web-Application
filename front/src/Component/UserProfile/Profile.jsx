@@ -25,6 +25,7 @@ function Profile(props) {
   const [userRecipes, setUserRecipes] = React.useState([]);
   const session = UseSession();
   React.useEffect(() => {
+    userInfo();
     const requestOption = {
       //request to the json db server (this is a format)
       method: "POST",
@@ -58,10 +59,6 @@ function Profile(props) {
       setEmail(userI.user.email);
     } catch (err) {}
   };
-
-  useEffect(() => {
-    userInfo();
-  }, []);
 
   return (
     <div className="profile-flex">
