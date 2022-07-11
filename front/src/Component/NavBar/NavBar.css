@@ -28,6 +28,7 @@
 
 .logButtons {
   display: flex;
+  margin-right: 1em;
 }
 
 .nav-btn {
