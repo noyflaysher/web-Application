@@ -43,25 +43,10 @@ function Profile(props) {
       });
   }, []);
 
-  const [email, setEmail] = React.useState(null);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const toggleUpdate = () => {
     setUpdateInfo((prev) => !prev);
     console.log("toggle: " + updateInfo);
   };
-
-  const userInfo = async () => {
-    try {
-      const userI = await sendRequest(
-        `http://localhost:3000/users/info/${session.session.userId}`
-      );
-      setEmail(userI.user.email);
-    } catch (err) {}
-  };
-
-  useEffect(() => {
-    userInfo();
-  }, []);
 
   return (
     <div className="profile-flex">
@@ -78,7 +63,7 @@ function Profile(props) {
       <div className="profile-info">
         <div className="user-info">
           <span>name: {session.session.name}</span>
-          <span>email: {email}</span>
+          <span>email: {session.session.email}</span>
         </div>
         <span className="profile-subtitle">My Recipes: </span>
         <div className="user-recipes">
