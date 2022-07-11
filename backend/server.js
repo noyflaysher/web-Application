@@ -56,6 +56,6 @@ mongoose
     "mongodb+srv://noyflaysher:noyflaysher7@cluster0.2rxt4ia.mongodb.net/mern?retryWrites=true&w=majority"
   )
   .then(() => {
-    server.listen(3001, () => console.log("listen to port 3001"));
+    server.listen(3000, () => console.log("listen to port 3000"));
   })
   .catch((err) => console.log(err));

@@ -16,7 +16,7 @@ function Chat() {
   });
 
   useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3001`);
+    const newSocket = io(`http://${window.location.hostname}:3000`);
     setSocket(newSocket);
     newSocket.emit("addUser", userID);
     return () => newSocket.close();
