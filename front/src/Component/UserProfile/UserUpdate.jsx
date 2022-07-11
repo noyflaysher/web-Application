@@ -5,15 +5,34 @@ import Box from "@mui/material/Box";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "../Form/SignUp.module.css";
 import { Button } from "@material-ui/core";
+import ErrorModal from "../Modal-Backdrop/ErrorModal";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useHttpClient } from "../hooks/http-hook";
+import { UseSession } from "../../Context/Session";
 
 function UserUpdate({ toggle }) {
-  const handleSubmit = (event) => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const session = UseSession();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const newPass = data.get("update-password").trim();
     const verPass = data.get("update-verify").trim();
-    if (!(newPass !== "" && verPass !== "" && newPass == verPass)) return;
-    console.log({ password: newPass });
+    if (!(newPass.length > 6 && verPass.lenght > 6 && newPass === verPass))
+      return;
+
+    try {
+      await sendRequest(
+        `http://localhost:3000/users/update/${session.session.userId}`,
+        "PATCH",
+        JSON.stringify({
+          password: newPass,
+        }),
+        { "Content-Type": "application/json" }
+      );
+    } catch (err) {}
+
     toggle();
   };
   return (
