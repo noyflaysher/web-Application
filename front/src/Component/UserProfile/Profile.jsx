@@ -1,15 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Charts from "./Charts";
 import UserGroupButton from "./UserGroupButton";
 import "./Profile.css";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import UserUpdate from "./UserUpdate";
-
-const userInfo = {
-  name: "John Doe",
-  email: "jdoe@gmail.com",
-};
+import { UseSession } from "../../Context/Session";
+import { useHttpClient } from "../hooks/http-hook";
 
 const userRecipes = [
   {
@@ -37,10 +34,37 @@ const userBookmarks = [
 
 function Profile(props) {
   const [updateInfo, setUpdateInfo] = React.useState(false);
+  const [email, setEmail] = React.useState(null);
+  const [loading, setloading] = React.useState(true);
+  const [recipes, setRecipes] = React.useState(null);
+
+  const session = UseSession();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const toggleUpdate = () => {
     setUpdateInfo((prev) => !prev);
     console.log("toggle: " + updateInfo);
   };
+
+  const userInfo = async () => {
+    try {
+      const userI = await sendRequest(
+        `http://localhost:3000/users/info/${session.session.userId}`
+      );
+      setEmail(userI.user.email);
+    } catch (err) {}
+    try {
+      const recipeArr = await sendRequest(
+        `http://localhost:3000/recipe/myRecipe/${session.session.userId}`
+      );
+      setRecipes(recipeArr.recipe);
+      console.log(recipeArr.recipe);
+      setloading(false);
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    userInfo();
+  }, []);
 
   return (
     <div className="profile-flex">
@@ -56,12 +80,18 @@ function Profile(props) {
       <span className="profile-subtitle">My Info.</span>
       <div className="profile-info">
         <div className="user-info">
-          <span>name: {userInfo.name}</span>
-          <span>email: {userInfo.email}</span>
+          <span>name: {session.session.name}</span>
+          <span>email: {email}</span>
         </div>
+        <span className="profile-subtitle">My Recipes: </span>
         <div className="user-recipes">
-          <span>My Recipes: </span>
-          <ShowRecipes list={userRecipes} />
+          {!loading && recipes.length !== 0 ? (
+            <>
+              <ShowRecipes list={recipes} />
+            </>
+          ) : (
+            <p>You don't have any recipe, maybe create one?</p>
+          )}
         </div>
       </div>
       <span className="profile-subtitle">Bookmarks</span>
