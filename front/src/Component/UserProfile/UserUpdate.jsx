@@ -19,7 +19,7 @@ function UserUpdate({ toggle }) {
     const data = new FormData(event.currentTarget);
     const newPass = data.get("update-password").trim();
     const verPass = data.get("update-verify").trim();
-    if (!(newPass.length > 6 && verPass.lenght > 6 && newPass === verPass))
+    if (!(newPass.length > 6 && verPass.length > 6 && newPass == verPass))
       return;
 
     try {
@@ -32,7 +32,6 @@ function UserUpdate({ toggle }) {
         { "Content-Type": "application/json" }
       );
     } catch (err) {}
-
     toggle();
   };
   return (
