@@ -97,7 +97,7 @@ export default function RecipeForm(props) {
     // };
 
     try {
-      await sendRequest(
+      const newRecipe = await sendRequest(
         "http://localhost:3000/recipe/add",
         "POST",
         JSON.stringify({
@@ -110,13 +110,13 @@ export default function RecipeForm(props) {
           publisher: session.session.name,
           userNameId: session.session.userId,
           identifiers: "salty",
-          address: "20 W 34th St, New York, NY 10001",
+          address: data.get("recipeAddress"),
         }),
         { "Content-Type": "application/json" }
       );
+      console.log(newRecipe);
     } catch (err) {}
     closeFormHandler(props.closeForm);
-    console.log(session);
   };
 
   return (

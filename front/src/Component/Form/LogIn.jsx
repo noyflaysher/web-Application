@@ -69,8 +69,17 @@ export default function SignIn(props) {
         }),
         { "Content-Type": "application/json" }
       );
+      let bookmarks = [];
+      fetch(`http://localhost:3000/bookmark/get/${request.user.id}`)
+        .then((res) => (res.ok ? res.json() : {}))
+        .then((data) => bookmarks.concat(data.user))
+        .then(console.log(bookmarks));
       closeFormHandler();
-      session.setSession({ userId: request.user.id, name: request.user.name });
+      session.setSession({
+        userId: request.user.id,
+        name: request.user.name,
+        bookmarks: bookmarks,
+      });
     } catch (err) {
       return;
     }

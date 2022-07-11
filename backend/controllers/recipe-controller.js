@@ -226,7 +226,7 @@ const getIdentifiers = (req, res, next) => {
 };
 
 const getRecipeByUserId = async (req, res, next) => {
-  const userId = req.params.userId;
+  const userId = req.body.userId;
   console.log(userId);
   let recipe;
   try {

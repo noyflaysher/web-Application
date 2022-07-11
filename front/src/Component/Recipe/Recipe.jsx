@@ -10,6 +10,7 @@ import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
+import { BookmarkButton } from "./BookmarkButton";
 import { useParams } from "react-router-dom";
 
 function Recipe(props) {
@@ -33,10 +34,27 @@ function Recipe(props) {
     } catch (err) {}
   };
   const editHandler = () => setEditMode((prev) => !prev);
-  const session = UseSession();
 
+  const session = UseSession();
+  const bookmarkHandler = () => {
+    const requestOption = {
+      //request to the json db server (this is a format)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: session.session.userId,
+        recipeId: props.id,
+      }),
+    };
+
+    fetch("http://localhost:3000/bookmark/add", requestOption) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : { recipe: [] }));
+  };
   return (
     <>
+      {console.log(session.session.bookmarks)}
       {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showConfirmModal}
@@ -75,6 +93,10 @@ function Recipe(props) {
               <Button onClick={showDeleteHandler} className="btn btn--del">
                 DELETE
               </Button>
+              <BookmarkButton
+                selected={true}
+                updateBookmark={bookmarkHandler}
+              ></BookmarkButton>
             </>
           )}
         </div>
