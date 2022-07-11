@@ -13,11 +13,17 @@ export function UseSearch() {
 export function Session({ children }) {
   const [userSession, setUserSession] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
+  const [favoriteRecipe, setFavoriteRecipe] = useState([]);
   const setResultState = (arrResult) => setSearchResults(arrResult);
 
   return (
     <SessionContext.Provider
-      value={{ session: userSession, setSession: setUserSession }}
+      value={{
+        session: userSession,
+        setSession: setUserSession,
+        favoriteRecipe: favoriteRecipe,
+        setFavoriteRecipe: setFavoriteRecipe,
+      }}
     >
       <SearchContext.Provider
         value={{ result: searchResults, setResult: setResultState }}

@@ -6,6 +6,8 @@ router.get("/", recipeController.getRecipe);
 
 router.get("/identifiers", recipeController.getIdentifiers);
 
+router.get("/fav", recipeController.getDefaultFavoriteRecipes);
+
 router.get("/countIdentifier", recipeController.getCountIdentifier);
 
 router.post("/search", recipeController.getRecipeByFilters);

@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import Recipe from "../Recipe/Recipe";
 
 const ChosenRecipe = (props) => {
-  const id = useParams().id;
-  const loadedRecipe = props.items[id];
+  const index = useParams().index;
+  const loadedRecipe = props.items[index];
   return (
     <>
       {loadedRecipe && (

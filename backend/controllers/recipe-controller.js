@@ -3,6 +3,7 @@ const getCoordsForAddress = require("../util/location");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
 const mongoose = require("mongoose");
+const uuidv4 = require("uuid").v4;
 
 const identifiers = [
   "spicy",
@@ -13,6 +14,92 @@ const identifiers = [
   "dairy",
   "gluten free",
   "none",
+];
+const DefaultFavoriteRecipes = [
+  {
+    imageSrc:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkm8s8JbMGJejw7OZMFu_Qmf4oPKTtNQ9sA&usqp=CAU",
+    id: uuidv4(),
+    title: "pizza",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "homemade pizza",
+    publisher: "Noy",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
+  {
+    imageSrc:
+      "https://www.thechunkychef.com/wp-content/uploads/2016/02/Roasted-Garlic-Cream-Sauce-7-feat-500x375.jpg",
+    id: uuidv4(),
+    title: "Paste with cream sauce",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "Paste with cream sauce",
+    publisher: "Maya",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
+  {
+    imageSrc:
+      "https://media-cdn.tripadvisor.com/media/photo-s/12/e2/7f/9b/hamburger-with-foie-gras.jpg",
+    id: uuidv4(),
+    title: "Kosher Burger",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "Kosher Burger",
+    publisher: "SAAR",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
+  {
+    imageSrc:
+      "https://do94x2ubilg42sdsl48mfdqk-wpengine.netdna-ssl.com/wp-content/uploads/44890096345_3612433c15_b.jpg",
+    id: uuidv4(),
+    title: "Vegetarian sushi",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "Vegetarian sushi",
+    publisher: "Oz",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
 ];
 
 const addRecipe = async (req, res, next) => {
@@ -264,6 +351,11 @@ const getCountIdentifier = async (req, res, next) => {
 
   res.json({ counter });
 };
+const getDefaultFavoriteRecipes = async (req, res, next) => {
+  res.json({
+    DefaultFavoriteRecipes: DefaultFavoriteRecipes,
+  });
+};
 
 exports.addRecipe = addRecipe;
 exports.getIdentifiers = getIdentifiers;
@@ -273,3 +365,4 @@ exports.getRecipe = getRecipe;
 exports.getRecipeByFilters = getRecipeByFilters;
 exports.deleteRecipe = deleteRecipe;
 exports.getCountIdentifier = getCountIdentifier;
+exports.getDefaultFavoriteRecipes = getDefaultFavoriteRecipes;
