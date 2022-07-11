@@ -25,7 +25,6 @@ export function Session({ children }) {
   }
   const [userSession, setUserSession] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
-  const activateUserSession = (user) => setUserSession(user);
   const setResultState = (arrResult) => setSearchResults(arrResult);
 
   return (
@@ -40,7 +39,6 @@ export function Session({ children }) {
             {children}
           </SearchContext.Provider>
         </SessionContext.Provider>
-        //{" "}
       </UpdateLoginContext.Provider>
       //{" "}
     </LoginContext.Provider>

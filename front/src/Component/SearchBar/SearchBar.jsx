@@ -1,12 +1,18 @@
 import "./SearchBar.css";
+import React from "react";
 import { Disclosure } from "@headlessui/react";
-import FormGroup from "@mui/material/FormGroup";
+import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import Radio from "@mui/material/Radio";
 import SearchIcon from "../../Images/search.png";
 import FilterIcon from "../../Images/filter.png";
-import { UseSearch } from "../../Context/Session.jsx";
-import React, { useEffect } from "react";
+import { UseSearch, UseSession } from "../../Context/Session.jsx";
+import { orange } from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+
 
 const RECIPE_ARR = [
   {
@@ -119,30 +125,61 @@ function SearchBar() {
   );
 }
 
+const identifiers = [
+  "spicy",
+  "vegan",
+  "vegeterian",
+  "dairy",
+  "gluten free",
+  "none",
+];
 function FiltersContainer() {
+  const [value, setValue] = React.useState("none");
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
     <div className="filter-container">
-      <FormGroup>
-        <FormControlLabel control={<FilterBox />} label="spicy" />
-        <FormControlLabel control={<FilterBox />} label="vegetarian" />
-        <FormControlLabel control={<FilterBox />} label="vegan" />
-      </FormGroup>
+      <FormControl className="radio-container">
+        <FormLabel id="demo-controlled-radio-buttons-group">Filters:</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-controlled-radio-buttons-group"
+          name="controlled-radio-buttons-group"
+          value={value}
+          onChange={handleChange}
+          className="radio-group"
+        >
+          {identifiers.map((t, index) => {
+            return (
+              <FormControlLabel
+                value={t}
+                label={t}
+                key={index}
+                control={
+                  <Radio
+                    sx={{
+                      color: orange[500],
+                      "&.Mui-checked": {
+                        color: orange[400],
+                      },
+                    }}
+                  />
+                }
+              />
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+      <Box className="servings">
+        <TextField
+          id="servings"
+          type="number"
+          label="No. of servings"
+          variant="standard"
+        />
+      </Box>
     </div>
   );
 }
-
-function FilterBox() {
-  return (
-    <Checkbox
-      size="small"
-      sx={{
-        color: "#F59583",
-        "&.Mui-checked": {
-          color: "#F8BB86",
-        },
-      }}
-    />
-  );
-}
-
 export default SearchBar;
