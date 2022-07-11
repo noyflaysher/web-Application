@@ -17,7 +17,7 @@ import ErrorModal from "../Modal-Backdrop/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 import { UseSession } from "../../Context/Session";
-import { responsiveFontSizes } from "@material-ui/core";
+// import { responsiveFontSizes } from "@material-ui/core";
 
 const theme = createTheme({
   typography: {
@@ -87,11 +87,6 @@ export default function SignIn(props) {
       //to do:connect to log in toogle
     } catch (err) {}
   };
-  // fetch('http://localhost:3000/users/login');
-  // console.log({
-  //   email: data.get("email"),
-  //   password: data.get("password"),
-  // });
 
   return (
     <>

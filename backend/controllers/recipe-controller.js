@@ -163,6 +163,28 @@ const getRecipeByUserId = async (req, res, next) => {
   res.json({ recipe });
 };
 
+const getRecipeById = async (req, res, next) => {
+  const recipeId = req.params.id;
+  let recipe;
+  try {
+    recipe = await Recipe.findById(recipeId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+  if (!recipe || recipe.length === 0) {
+    const error = new HttpError(
+      "Could not find recipe for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ recipe: recipe.toObject({ getters: true }) });
+};
+
 const getRecipeByFilters = async (req, res, next) => {
   const { identifiers, title, servings } = req.body;
   let recipe;
@@ -193,7 +215,6 @@ const getRecipeByFilters = async (req, res, next) => {
 
 const deleteRecipe = async (req, res, next) => {
   const recipeId = req.params.id;
-
   let recipe;
 
   try {
@@ -272,3 +293,4 @@ exports.getRecipe = getRecipe;
 exports.getRecipeByFilters = getRecipeByFilters;
 exports.deleteRecipe = deleteRecipe;
 exports.getCountIdentifier = getCountIdentifier;
+exports.getRecipeById = getRecipeById;
