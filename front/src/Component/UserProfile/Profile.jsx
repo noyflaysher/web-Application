@@ -5,23 +5,12 @@ import "./Profile.css";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import UserUpdate from "./UserUpdate";
+import { UseSession } from "../../Context/Session.jsx";
 
 const userInfo = {
   name: "John Doe",
   email: "jdoe@gmail.com",
 };
-
-const userRecipes = [
-  {
-    title: "recipe 1",
-  },
-  {
-    title: "recipe 2",
-  },
-  {
-    title: "recipe 3",
-  },
-];
 
 const userBookmarks = [
   {
@@ -37,6 +26,27 @@ const userBookmarks = [
 
 function Profile(props) {
   const [updateInfo, setUpdateInfo] = React.useState(false);
+  const [userRecipes, setUserRecipes] = React.useState([]);
+  const session = UseSession();
+  React.useEffect(() => {
+    const requestOption = {
+      //request to the json db server (this is a format)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: session.session.userId,
+      }),
+    };
+
+    fetch("http://localhost:3000/recipe/myRecipe", requestOption) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
+      .then((data) => {
+        setUserRecipes(data.recipe.map((r) => r.title));
+      });
+  }, []);
+
   const toggleUpdate = () => {
     setUpdateInfo((prev) => !prev);
     console.log("toggle: " + updateInfo);
@@ -80,7 +90,7 @@ function ShowRecipes({ list }) {
   return (
     <ul>
       {list.map((e, index) => (
-        <li key={index}>{e.title}</li>
+        <li key={index}>{e}</li>
       ))}
     </ul>
   );
