@@ -11,11 +11,17 @@ export function UseSearch() {
 }
 
 export function Session({ children }) {
-  const [userSession, setUserSession] = useState(null);
+  const [userSession, setUserSession] = useState(
+    localStorage.getItem("userSession")
+  );
   const [searchResults, setSearchResults] = useState([]);
   const [favoriteRecipe, setFavoriteRecipe] = useState([]);
   const setResultState = (arrResult) => setSearchResults(arrResult);
-
+  React.useEffect(() => {
+    userSession === null
+      ? localStorage.removeItem("userSession")
+      : localStorage.setItem("userSession", userSession);
+  }, [userSession]);
   return (
     <SessionContext.Provider
       value={{
