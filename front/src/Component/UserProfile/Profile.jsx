@@ -8,7 +8,6 @@ import UserUpdate from "./UserUpdate";
 import { UseSession } from "../../Context/Session";
 import { useHttpClient } from "../hooks/http-hook";
 
-
 const userBookmarks = [
   {
     title: "bookmark 1",
@@ -83,13 +82,7 @@ function Profile(props) {
         </div>
         <span className="profile-subtitle">My Recipes: </span>
         <div className="user-recipes">
-          {!loading && recipes.length !== 0 ? (
-            <>
-              <ShowRecipes list={recipes} />
-            </>
-          ) : (
-            <p>You don't have any recipe, maybe create one?</p>
-          )}
+          <ShowRecipes list={userRecipes} />
         </div>
       </div>
       <span className="profile-subtitle">Bookmarks</span>
