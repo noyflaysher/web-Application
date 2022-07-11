@@ -12,6 +12,7 @@ const identifiers = [
   "vegeterian",
   "dairy",
   "gluten free",
+  "none",
 ];
 
 const addRecipe = async (req, res, next) => {

@@ -43,7 +43,6 @@ export default function SignIn(props) {
   const changeEmailHandler = (event) => {
     const email = event.target.value;
     if (!/^\S+@\S+\.\S+$/.test(email)) {
-      console.log("email:error");
       setEmailError(true);
     } else setEmailError(false);
     setFirstEmail(true);
@@ -52,7 +51,6 @@ export default function SignIn(props) {
   const changePasswordHandler = (event) => {
     const password = event.target.value;
     if (password.length < 6) {
-      console.log("password:error");
       setPasswordError(true);
     } else setPasswordError(false);
     setFirstPassword(true);
