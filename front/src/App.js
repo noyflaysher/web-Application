@@ -4,6 +4,7 @@ import Body from "./Component/body/Body";
 import Footer from "./Component/Footer/Footer";
 import NavBar from "./Component/NavBar/NavBar";
 import { Session } from "./Context/Session";
+import Chat from "./Component/Chat/Chat";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           </div>
         </div>
       </Router>
+      <Chat />
     </Session>
   );
 }
