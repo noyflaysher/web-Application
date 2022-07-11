@@ -20,4 +20,6 @@ router.post("/add", recipeController.addRecipe);
 
 router.delete("/delete/:id", recipeController.deleteRecipe);
 
+router.get("/:id", recipeController.getRecipeById);
+
 module.exports = router;

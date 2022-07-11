@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "../Button/Button";
+import ErrorModal from "../Modal-Backdrop/ErrorModal";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 
 function EditRecipe({
+  id,
   title,
   image,
   time,
   servings,
-  publisher,
   description,
   ingrediants,
   exitEditMode,
 }) {
   const [ingrediantList, setIngrediantList] = React.useState([]);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   React.useEffect(() => {
     setIngrediantList(
       ingrediants.map((i, index) => <Ingrediant count={index} value={i} />)
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function addIngrediant() {
@@ -48,14 +50,7 @@ function EditRecipe({
     );
   };
 
-  // const [titleError, setTitleError] = React.useState(false);
-  // const [servingsError, setServingsError] = React.useState(false);
-  // const [timeError, setTimeError] = React.useState(false);
-
   const formValidation = (data) => {
-    // setTitleError(data.get("recipeTitle") === "");
-    // setServingsError(data.get("recipeServings") === "");
-    // setTimeError(data.get("recipePrepTime") === "");
     return !(
       data.get("recipeTitle") === "" ||
       data.get("recipeServings") === "" ||
@@ -63,7 +58,7 @@ function EditRecipe({
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (!formValidation(data)) return;
@@ -73,20 +68,29 @@ function EditRecipe({
       if (val !== "") ingList.push(val);
     });
     if (ingList.length === 0) return;
-    const newRecipe = {
-      title: data.get("recipeTitle"),
-      imageSrc: data.get("recipeImage"),
-      servings: data.get("recipeServings"),
-      time: data.get("recipePrepTime"),
-      description: data.get("recipeDescription"),
-      ingrediants: ingList,
-    };
-    console.log(newRecipe);
-    exitEditMode();
+    try {
+      await sendRequest(
+        `http://localhost:3000/recipe/update/${id}`,
+        "PATCH",
+        JSON.stringify({
+          imageSrc: data.get("recipeImage"),
+          title: data.get("recipeTitle"),
+          time: data.get("recipePrepTime"),
+          servings: data.get("recipeServings"),
+          ingrediants: ingList,
+          identifiers: "sweet",
+          description: data.get("recipeDescription"),
+        }),
+        { "Content-Type": "application/json" }
+      );
+      exitEditMode();
+    } catch (err) {}
   };
 
   return (
     <>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <LoadingSpinner asOverlay />}
       <Box
         component="form"
         noValidate

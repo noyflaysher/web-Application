@@ -16,7 +16,7 @@ import ErrorModal from "../Modal-Backdrop/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 import { UseSession } from "../../Context/Session";
-import { responsiveFontSizes } from "@material-ui/core";
+// import { responsiveFontSizes } from "@material-ui/core";
 
 const theme = createTheme({
   typography: {
