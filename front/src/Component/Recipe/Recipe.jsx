@@ -8,6 +8,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { UseSession } from "../../Context/Session";
 import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
+import { useParams } from "react-router-dom";
 
 function Recipe(props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -18,11 +19,12 @@ function Recipe(props) {
     setShowConfirmModal(false);
     console.log("DELETING...");
   };
-  const editHandler = () => setEditMode(!editMode);
+  const editHandler = () => setEditMode((prev) => !prev);
   const session = UseSession();
 
   return (
     <>
+      {/* {console.log(useParams().index)} */}
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
