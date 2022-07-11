@@ -9,6 +9,7 @@ const ChosenRecipe = (props) => {
     <>
       {loadedRecipe && (
         <Recipe
+          id={loadedRecipe._id}
           image={loadedRecipe.imageSrc}
           title={loadedRecipe.title}
           time={loadedRecipe.time}

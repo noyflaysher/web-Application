@@ -21,7 +21,6 @@ function FavoriteRecipeItem(props) {
             <span className="recipe__info-data">
               {`${props.time} minutes`}
               <div>
-                {" "}
                 {"\u00A0"} {"\u00A0"}
               </div>
               <BiTimeFive />
@@ -32,7 +31,6 @@ function FavoriteRecipeItem(props) {
             <span className="recipe__info-data">
               {`${props.servings} servings `}
               <div>
-                {" "}
                 {"\u00A0"} {"\u00A0"}
               </div>
               <PeopleAltIcon />

@@ -8,7 +8,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 
 function EditRecipe({
-  recipeId,
+  id,
   title,
   image,
   time,
@@ -68,10 +68,9 @@ function EditRecipe({
       if (val !== "") ingList.push(val);
     });
     if (ingList.length === 0) return;
-
     try {
       await sendRequest(
-        `http://localhost:3000/recipe/update/${recipeId}`,
+        `http://localhost:3000/recipe/update/${id}`,
         "PATCH",
         JSON.stringify({
           imageSrc: data.get("recipeImage"),
@@ -84,8 +83,8 @@ function EditRecipe({
         }),
         { "Content-Type": "application/json" }
       );
+      exitEditMode();
     } catch (err) {}
-    exitEditMode();
   };
 
   return (
