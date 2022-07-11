@@ -9,6 +9,16 @@ const mongoose = require("mongoose");
 const app = express();
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); //every port can send
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE"); //type of http rew
+  next();
+});
+
 app.use("/users", usersRouter);
 app.use("/recipe", recipeRouter);
 app.use("/bookmark", bookmarkRouter);
@@ -28,7 +38,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://noyflaysher:noyflaysher7@cluster0.2rxt4ia.mongodb.net/recipes?retryWrites=true&w=majority"
+    "mongodb+srv://noyflaysher:noyflaysher7@cluster0.2rxt4ia.mongodb.net/mern?retryWrites=true&w=majority"
   )
   .then(() => {
     app.listen(3000, () => console.log("listen to port 3000"));

@@ -37,8 +37,7 @@ const addRecipe = async (req, res, next) => {
   const createdRecipe = new Recipe({
     title,
     time,
-    imageSrc:
-      "https://media.istockphoto.com/photos/fresh-homemade-pizza-margherita-picture-id1278998606?s=2048x2048",
+    imageSrc,
     servings,
     ingrediants,
     description,
@@ -54,30 +53,29 @@ const addRecipe = async (req, res, next) => {
     user = await User.findById(userNameId);
   } catch (err) {
     const error = new HttpError(
-      "Creating recipe failed, please try again",
+      "Creating recipe failed, please try again 1",
       500
     );
     return next(error);
   }
   if (!user) {
     const error = new HttpError(
-      "Creating recipe failed, please try again",
+      "Creating recipe failed, please try again 2",
       404
     );
     return next(error);
   }
-
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
-    console.log(createdRecipe);
     await createdRecipe.save({ session: sess }); //create unique id to recipe
     user.recipes.push(createdRecipe);
-    await user.save({ session: sess });
+    const recArr = user.recipes;
+    await user.update({ recipes: recArr });
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      "Creating recipe failed, please try again",
+      "Creating recipe failed, please try again 3",
       500
     );
     return next(error);

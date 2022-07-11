@@ -40,6 +40,7 @@ export function Session({ children }) {
           </SearchContext.Provider>
         </SessionContext.Provider>
       </UpdateLoginContext.Provider>
+      //{" "}
     </LoginContext.Provider>
   );
 }

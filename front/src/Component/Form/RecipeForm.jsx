@@ -11,6 +11,10 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "./SignUp.module.css";
 import Avatar from "@mui/material/Avatar";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
+import { useHttpClient } from "../hooks/http-hook";
+import { UseSession } from "../../Context/Session";
+import ErrorModal from "../Modal-Backdrop/ErrorModal";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const theme = createTheme({
   typography: {
@@ -40,6 +44,9 @@ export default function RecipeForm(props) {
   const [timeError, setTimeError] = React.useState(false);
   const [ingrediantError, setIngrediantError] = React.useState(false);
   const [showForm, setShowForm] = React.useState(true);
+  const session = UseSession();
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const closeFormHandler = (hideForm) => {
     setShowForm(false);
@@ -67,7 +74,7 @@ export default function RecipeForm(props) {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (!formValidation(data)) return;
@@ -88,44 +95,79 @@ export default function RecipeForm(props) {
       ingrediants: ingList,
       address: data.get("recipeAddress"),
     };
-    console.log(newRecipe);
+
+    // imageSrc,
+    //   title,
+    //   time,
+    //   servings,
+    //   ingrediants,
+    //   description,
+    //   publisher,
+    //   userNameId,
+    //   identifiers,
+    //   address,
+
+    try {
+      await sendRequest(
+        "http://localhost:3000/recipe/add",
+        "POST",
+        JSON.stringify({
+          imageSrc: data.get("recipeImage"),
+          title: data.get("recipeTitle"),
+          time: data.get("recipePrepTime"),
+          servings: data.get("recipeServings"),
+          ingrediants: ingList,
+          description: data.get("recipeDescription"),
+          publisher: "noy",
+          userNameId: session.session.userId,
+          identifiers: "salty",
+          address: "20 W 34th St, New York, NY 10001",
+        }),
+        { "Content-Type": "application/json" }
+      );
+    } catch (err) {}
     closeFormHandler(props.closeForm);
+    console.log(session);
   };
 
   return (
-    <Modal
-      show={showForm}
-      onCancel={() => closeFormHandler(props.closeForm)}
-      header={
-        <AiFillCloseCircle
-          onClick={() => closeFormHandler(props.closeForm)}
-          className={classes.icon}
-        />
-      }
-      footer={<></>}
-    >
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 0,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
-              <RestaurantIcon />
-            </Avatar>
-            <h2>Create A New Recipe</h2>
+    <>
+      <ErrorModal error={error} onClear={clearError} />
+      <Modal
+        show={showForm}
+        onCancel={() => closeFormHandler(props.closeForm)}
+        header={
+          <AiFillCloseCircle
+            onClick={() => closeFormHandler(props.closeForm)}
+            className={classes.icon}
+          />
+        }
+        footer={<></>}
+      >
+        {isLoading && <LoadingSpinner asOverlay />}
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
             <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
+              sx={{
+                marginTop: 0,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-              <Grid container spacing={2}>
+
+              <Avatar sx={{ m: 1, bgcolor: "#f4aa8a" }}>
+                <RestaurantIcon />
+              </Avatar>
+              <h2>Create A New Recipe</h2>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
+                <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     name="recipeAuthor"
@@ -136,85 +178,86 @@ export default function RecipeForm(props) {
                     label="author's name"
                   />
                 </Grid>
-                <Grid item xs={6}>
+                  <Grid item xs={6}>
+                    <TextField
+                      name="recipeTitle"
+                      error={titleError}
+                      required
+                      fullWidth
+                      id="recipeTitle"
+                      label="Recipe Title"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      name="recipeImage"
+                      fullWidth
+                      id="recipeImage"
+                      label="Link an image..."
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      name="recipeServings"
+                      label="No. of servings"
+                      type="textbox"
+                      id="recipeServings"
+                      required
+                      error={servingsError}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      name="recipePrepTime"
+                      label="Prep Time"
+                      type="textbox"
+                      id="recipePrepTime"
+                      required
+                      error={timeError}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      name="recipeDescription"
+                      label="write down recipe description..."
+                      type="textbox"
+                      id="recipeDescription"
+                      multiline
+                      maxRows={5}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      onClick={() => addIngrediant()}
+                      fullWidth
+                      variant={ingrediantError ? "outlined" : "text"}
+                      color={ingrediantError ? "secondary" : "default"}
+                    >
+                      Add Ingrediant
+                    </Button>
+                  </Grid>
+                  {ingrediantList}
+                 <Grid item xs={12}>
                   <TextField
-                    name="recipeTitle"
-                    error={authorError}
-                    required
+                    name="recipeAddress"
                     fullWidth
-                    id="recipeTitle"
-                    label="Recipe Title"
-                    autoFocus
+                    id="recipeAddress"
+                    label="address"
                   />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    name="recipeImage"
-                    fullWidth
-                    id="recipeImage"
-                    label="Link an image..."
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    name="recipeServings"
-                    label="No. of servings"
-                    type="textbox"
-                    id="recipeServings"
-                    required
-                    error={servingsError}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    name="recipePrepTime"
-                    label="Prep Time"
-                    type="textbox"
-                    id="recipePrepTime"
-                    required
-                    error={timeError}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    name="recipeDescription"
-                    label="write down recipe description..."
-                    type="textbox"
-                    id="recipeDescription"
-                    multiline
-                    maxRows={5}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    onClick={() => addIngrediant()}
-                    fullWidth
-                    variant={ingrediantError ? "outlined" : "text"}
-                    color={ingrediantError ? "secondary" : "default"}
-                  >
-                    Add Ingrediant
-                  </Button>
-                </Grid>
-                {ingrediantList}
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="recipeAddress"
-                  fullWidth
-                  id="recipeAddress"
-                  label="address"
-                />
-              </Grid>
-              <Button type="submit" fullWidth variant="contained">
-                Publish
-              </Button>
+                <Button type="submit" fullWidth variant="contained">
+                  Publish
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </Modal>
+          </Container>
+        </ThemeProvider>
+      </Modal>
+    </>
   );
 }
