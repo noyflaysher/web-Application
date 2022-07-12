@@ -12,15 +12,22 @@ export function UseSearch() {
 
 export function Session({ children }) {
   const [userSession, setUserSession] = useState(
-    localStorage.getItem("userSession")
+    localStorage.getItem("userSession") === null
+      ? {
+          userId: null,
+          name: null,
+          email: null,
+          bookmarks: null,
+        }
+      : JSON.parse(localStorage.getItem("userSession"))
   );
   const [searchResults, setSearchResults] = useState([]);
   const [favoriteRecipe, setFavoriteRecipe] = useState([]);
   const setResultState = (arrResult) => setSearchResults(arrResult);
   React.useEffect(() => {
-    userSession === null
+    userSession.userId === null
       ? localStorage.removeItem("userSession")
-      : localStorage.setItem("userSession", userSession);
+      : localStorage.setItem("userSession", JSON.stringify(userSession));
   }, [userSession]);
   return (
     <SessionContext.Provider

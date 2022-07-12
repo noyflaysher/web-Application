@@ -26,7 +26,7 @@ function NavBar() {
 
         <SearchBar />
         <div className="logButtons">
-          {session.session === null && (
+          {session.session.userId === null && (
             <>
               <NavBarButton onClick={() => setShowLoginForm(true)}>
                 Log In
@@ -36,7 +36,7 @@ function NavBar() {
               </NavBarButton>
             </>
           )}
-          {session.session !== null && (
+          {session.session.userId !== null && (
             <>
               <NavBarButton onClick={() => setShowRecipeForm(true)}>
                 New Recipe
@@ -48,7 +48,12 @@ function NavBar() {
                 />
               </NavBarButton>
               <div className="buttons-popup">
-                {buttonList && <ProfileSlider logout={session.setSession} />}
+                {buttonList && (
+                  <ProfileSlider
+                    toggle={() => setButtonList((prev) => !prev)}
+                    logout={session.setSession}
+                  />
+                )}
               </div>
             </>
           )}
@@ -67,15 +72,25 @@ function NavBar() {
   );
 }
 
-function ProfileSlider({ logout }) {
+function ProfileSlider({ logout, toggle }) {
   return (
     <>
-      <div className="button-group">
+      <div className="button-group" onMouseLeave={toggle}>
         <Link to="/profile">
           <Button className="btn user-button">My Profile</Button>
         </Link>
         <Link to="/">
-          <Button className="btn user-button" onClick={() => logout(null)}>
+          <Button
+            className="btn user-button"
+            onClick={() =>
+              logout({
+                userId: null,
+                name: null,
+                email: null,
+                bookmarks: null,
+              })
+            }
+          >
             Log Out
           </Button>
         </Link>

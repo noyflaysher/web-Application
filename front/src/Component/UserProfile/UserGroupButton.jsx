@@ -65,6 +65,7 @@ function UserGroupButton({ changePass }) {
             <ButtonGroup
               deletebtn={showDeleteHandler}
               changePass={changePass}
+              toggle={() => setButtonList((prev) => !prev)}
             />
           )}
         </div>
@@ -75,7 +76,7 @@ function UserGroupButton({ changePass }) {
 
 function ButtonGroup(props) {
   return (
-    <div className="button-group">
+    <div className="button-group" onMouseLeave={props.toggle}>
       <Button className="btn user-button" onClick={props.changePass}>
         change password
       </Button>
