@@ -6,7 +6,7 @@ const Result = (props) => {
   if (props.items.length === 0) {
     return (
       <div className="recipe-list center">
-        <h2> No recipe found. Maybe create one?</h2>
+        <h3> No recipe found. Maybe create one?</h3>
       </div>
     );
   }

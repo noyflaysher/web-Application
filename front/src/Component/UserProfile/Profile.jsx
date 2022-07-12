@@ -41,7 +41,7 @@ function Profile(props) {
       .then((data) => {
         setUserRecipes(data.recipe.map((r) => r.title));
       });
-  }, []);
+  }, [userRecipes]);
 
   const toggleUpdate = () => {
     setUpdateInfo((prev) => !prev);
@@ -67,7 +67,11 @@ function Profile(props) {
         </div>
         <span className="profile-subtitle">My Recipes: </span>
         <div className="user-recipes">
-          <ShowRecipes list={userRecipes} />
+          {userRecipes.length !== 0 ? (
+            <ShowRecipes list={userRecipes} />
+          ) : (
+            <p>you don't have any recipe maybe create one?</p>
+          )}
         </div>
       </div>
       <span className="profile-subtitle">Bookmarks</span>

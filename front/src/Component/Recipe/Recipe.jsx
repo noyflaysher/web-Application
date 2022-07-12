@@ -92,12 +92,12 @@ function Recipe(props) {
               <Button onClick={showDeleteHandler} className="btn btn--del">
                 DELETE
               </Button>
-              <BookmarkButton
-                selected={true}
-                updateBookmark={bookmarkHandler}
-              ></BookmarkButton>
             </>
           )}
+          <BookmarkButton
+            selected={true}
+            updateBookmark={bookmarkHandler}
+          ></BookmarkButton>
         </div>
         {editMode ? (
           <EditRecipe {...props} exitEditMode={editHandler} />
