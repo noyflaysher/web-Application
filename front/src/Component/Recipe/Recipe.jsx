@@ -11,7 +11,6 @@ import EditRecipe from "./EditRecipe";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 import { BookmarkButton } from "./BookmarkButton";
-import { useParams } from "react-router-dom";
 
 function Recipe(props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -54,7 +53,7 @@ function Recipe(props) {
   };
   return (
     <>
-      {console.log(session.session.bookmarks)}
+      {/* {console.log(session.session.bookmarks)} */}
       {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showConfirmModal}
@@ -85,7 +84,7 @@ function Recipe(props) {
           </h1>
         </div>
         <div className="bottons">
-          {session.session !== null && (
+          {session.session !== null && session.session.userId == props.userId && (
             <>
               <Button onClick={editHandler} className="btn btn--edit">
                 EDIT
