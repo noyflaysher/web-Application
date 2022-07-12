@@ -49,6 +49,12 @@ function SearchBar() {
   };
 
   const setResult = UseSearch().setResult;
+  const hideFilters = () => {
+    const filters = document.getElementById("filters");
+    filters
+      ? (filters.style.display = "none")
+      : console.log("filters are hidden");
+  };
   return (
     <div>
       <Disclosure>
@@ -65,6 +71,7 @@ function SearchBar() {
             className="search-button grow"
             onClick={() => {
               handleSearch();
+              hideFilters();
             }}
           >
             <img src={SearchIcon} width={35} alt="search" />
@@ -99,7 +106,7 @@ function FiltersContainer(props) {
   };
 
   return (
-    <div className="filter-container">
+    <div className="filter-container" id="filters">
       <FormControl className="radio-container">
         <FormLabel id="demo-controlled-radio-buttons-group">Filters:</FormLabel>
         <RadioGroup
