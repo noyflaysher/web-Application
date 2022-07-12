@@ -21,14 +21,28 @@ export function Session({ children }) {
         }
       : JSON.parse(localStorage.getItem("userSession"))
   );
+
   const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState(
+  //   localStorage.getItem("searchResults") === null
+  //     ? []
+  //     : JSON.parse(localStorage.getItem("searchResults"))
+  // );
   const [favoriteRecipe, setFavoriteRecipe] = useState([]);
-  const setResultState = (arrResult) => setSearchResults(arrResult);
+
+  const setResultState = (arrResult) => {
+    setSearchResults(arrResult);
+    // localStorage.setItem("searchResults", JSON.stringify(arrResult));
+  };
   React.useEffect(() => {
     userSession.userId === null
       ? localStorage.removeItem("userSession")
       : localStorage.setItem("userSession", JSON.stringify(userSession));
-  }, [userSession]);
+
+    // searchResults.length === 0
+    //   ? localStorage.removeItem("searchResults")
+    //   : localStorage.setItem("searchResults", JSON.stringify(searchResults));
+  }, [userSession, searchResults]);
   return (
     <SessionContext.Provider
       value={{

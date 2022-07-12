@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
 import Modal from "../Modal-Backdrop/Modal";
 import Ingredients from "../Ingredient/IngredientsList";
@@ -37,7 +37,6 @@ function Recipe(props) {
   const session = UseSession();
   const bookmarkHandler = () => {
     const requestOption = {
-      //request to the json db server (this is a format)
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,13 +46,28 @@ function Recipe(props) {
         recipeId: props.id,
       }),
     };
-
-    fetch("http://localhost:3000/bookmark/add", requestOption) //the db adress and the ver that has the task for the server
-      .then((response) => (response.ok ? response.json() : { recipe: [] }));
+    if (session.session.bookmarks.indexOf(`${props.id}`) > -1) {
+      fetch("http://localhost:3000/bookmark/delete", requestOption)
+        .then((res) => res.json())
+        .then((data) =>
+          session.setSession({
+            ...session.session,
+            bookmarks: data.user.recipes,
+          })
+        );
+    } else {
+      fetch("http://localhost:3000/bookmark/add", requestOption)
+        .then((res) => res.json())
+        .then((data) =>
+          session.setSession({
+            ...session.session,
+            bookmarks: data.user.recipes,
+          })
+        );
+    }
   };
   return (
     <>
-      {/* {console.log(session.session.bookmarks)} */}
       {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showConfirmModal}
@@ -92,12 +106,12 @@ function Recipe(props) {
               <Button onClick={showDeleteHandler} className="btn btn--del">
                 DELETE
               </Button>
-              <BookmarkButton
-                selected={true}
-                updateBookmark={bookmarkHandler}
-              ></BookmarkButton>
             </>
           )}
+          <BookmarkButton
+            selected={session.session.bookmarks.indexOf(`${props.id}`) > -1}
+            updateBookmark={bookmarkHandler}
+          ></BookmarkButton>
         </div>
         {editMode ? (
           <EditRecipe {...props} exitEditMode={editHandler} />

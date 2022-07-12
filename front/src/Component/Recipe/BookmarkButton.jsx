@@ -1,16 +1,18 @@
-import * as React from "react";
+import React, { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import ToggleButton from "@mui/material/ToggleButton";
 
 export function BookmarkButton(props) {
-  const [selected, setSelected] = React.useState(props.selected);
-
+  const [selected, setSelected] = useState(false);
+  React.useEffect(() => {
+    setSelected(props.selected);
+  }, [props.selected]);
   return (
     <ToggleButton
       value="check"
       selected={selected}
       onChange={() => {
-        setSelected(!selected);
+        setSelected((prev) => !prev);
         props.updateBookmark();
       }}
     >
