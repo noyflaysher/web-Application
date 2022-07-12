@@ -15,6 +15,7 @@ function Body() {
       <aside className="body__result-continer">
         <Result items={items} />
       </aside>
+
       <div className="body__recipe-continer">
         <Switch>
           <Route path="/" exact>
