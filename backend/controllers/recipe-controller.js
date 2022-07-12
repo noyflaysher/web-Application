@@ -227,14 +227,12 @@ const getIdentifiers = (req, res, next) => {
 
 const getRecipeByUserId = async (req, res, next) => {
   const userId = req.body.userId;
-  console.log(userId);
   let recipe;
   try {
-    recipe = await Recipe.find({ publisherId: userId });
-    console.log(recipe);
+    recipe = await Recipe.find({ userNameId: userId });
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find a recipe!!!.",
+      "Something went wrong, could not find a recipe.",
       500
     );
     return next(error);

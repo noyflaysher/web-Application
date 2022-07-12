@@ -5,8 +5,10 @@ import MessageInput from "./MessageInput";
 import { v4 as uuidv4 } from "uuid";
 import "./Chat.css";
 import Card from "../Card/Card";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
+import Button from "../Button/Button";
 import { UseSession } from "../../Context/Session";
+import { BsChatDots } from "react-icons/bs";
 
 function Chat() {
   const session = UseSession();
@@ -33,10 +35,14 @@ function Chat() {
 
   return (
     <div>
-      {!clicked && <Button onClick={() => setClicked(!clicked)}>chat</Button>}
+      {!clicked && (
+        <Button className="chatButton" onClick={() => setClicked(!clicked)}>
+          Talk with us ! {"\u00A0"} {"\u00A0"} <BsChatDots />
+        </Button>
+      )}
       {clicked && (
         <div className="floating-chat-header">
-          <header className="chat-header">React Chat</header>
+          <header className="chat-header">Recipe4U Chat</header>
           {socket ? (
             <div className="chat-container">
               <Messages socket={socket} />

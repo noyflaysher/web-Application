@@ -17,6 +17,7 @@ const ChosenRecipe = (props) => {
           ingrediants={loadedRecipe.ingrediants}
           description={loadedRecipe.description}
           publisher={loadedRecipe.publisher}
+          userId={loadedRecipe.userNameId}
           link={loadedRecipe.link}
         />
       )}

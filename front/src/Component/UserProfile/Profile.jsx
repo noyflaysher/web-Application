@@ -36,7 +36,7 @@ function Profile(props) {
       }),
     };
 
-    fetch("http://localhost:3000/recipe/myRecipe", requestOption) //the db adress and the ver that has the task for the server
+    fetch(`http://localhost:3000/recipe/myRecipe`, requestOption) //the db adress and the ver that has the task for the server
       .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
       .then((data) => {
         setUserRecipes(data.recipe.map((r) => r.title));
