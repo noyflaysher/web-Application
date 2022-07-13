@@ -5,49 +5,51 @@ import "./Profile.css";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import UserUpdate from "./UserUpdate";
-import { UseSession } from "../../Context/Session";
+import { UseSession, UseSearch } from "../../Context/Session";
 import LogInForm from "../Form/LogIn";
-import { useHttpClient } from "../hooks/http-hook";
-
-const userBookmarks = [
-  {
-    title: "bookmark 1",
-  },
-  {
-    title: "bookmark 2",
-  },
-  {
-    title: "bookmark 3",
-  },
-];
+import { BookmarkButton } from "../Recipe/BookmarkButton";
 
 function Profile(props) {
   const [updateInfo, setUpdateInfo] = React.useState(false);
   const [userRecipes, setUserRecipes] = React.useState([]);
+  const [userBookmarks, setUserBookmarks] = React.useState([]);
   const [showLoginForm, setShowLoginForm] = React.useState(false);
   const session = UseSession();
-  React.useEffect(() => {
+  const setResult = UseSearch().setResult;
+  useEffect(() => {
     const requestOption = {
-      //request to the json db server (this is a format)
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         userId: session.session.userId,
+        bookmarks: session.session.bookmarks,
       }),
     };
-
-    fetch("http://localhost:3000/recipe/myRecipe", requestOption) //the db adress and the ver that has the task for the server
-      .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
+    fetch("http://localhost:3000/recipe/myRecipe", requestOption)
+      .then((response) => (response.ok ? response.json() : { recipe: [] }))
       .then((data) => {
         setUserRecipes(data.recipe.map((r) => r.title));
       });
+    fetch("http://localhost:3000/recipe/arrays", requestOption)
+      .then((response) => (response.ok ? response.json() : { recipe: [] }))
+      .then((data) => {
+        setUserBookmarks(data.recipe);
+        setResult(data.recipe);
+      });
   }, []);
+
+  useEffect(() => {
+    const newBookmarks = userBookmarks.filter(
+      (e) => session.session.bookmarks.indexOf(`${e._id}`) > -1
+    );
+    setUserBookmarks(newBookmarks);
+    setResult(newBookmarks);
+  }, [session.session.bookmarks]);
 
   const toggleUpdate = () => {
     setUpdateInfo((prev) => !prev);
-    console.log("toggle: " + updateInfo);
   };
 
   return (
@@ -108,6 +110,7 @@ function ShowRecipes({ list }) {
 }
 
 function ShowBookmarks({ list }) {
+  const session = UseSession();
   return (
     <ul>
       {list.map((e, index) => (
@@ -121,6 +124,10 @@ function ShowBookmarks({ list }) {
               />
             </Button>
           </Link>
+          <BookmarkButton
+            selected={session.session.bookmarks.indexOf(`${e._id}`) > -1}
+            id={e._id}
+          />
         </li>
       ))}
     </ul>
