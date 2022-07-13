@@ -98,20 +98,24 @@ function Recipe(props) {
           </h1>
         </div>
         <div className="bottons">
-          {session.session !== null && session.session.userId == props.userId && (
+          {session.session.userId !== null && (
             <>
-              <Button onClick={editHandler} className="btn btn--edit">
-                EDIT
-              </Button>
-              <Button onClick={showDeleteHandler} className="btn btn--del">
-                DELETE
-              </Button>
+              {session.session.userId == props.userId && (
+                <>
+                  <Button onClick={editHandler} className="btn btn--edit">
+                    EDIT
+                  </Button>
+                  <Button onClick={showDeleteHandler} className="btn btn--del">
+                    DELETE
+                  </Button>
+                </>
+              )}
+              <BookmarkButton
+                selected={session.session.bookmarks.indexOf(`${props.id}`) > -1}
+                updateBookmark={bookmarkHandler}
+              ></BookmarkButton>
             </>
           )}
-          <BookmarkButton
-            selected={session.session.bookmarks.indexOf(`${props.id}`) > -1}
-            updateBookmark={bookmarkHandler}
-          ></BookmarkButton>
         </div>
         {editMode ? (
           <EditRecipe {...props} exitEditMode={editHandler} />
