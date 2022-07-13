@@ -2,7 +2,9 @@
   max-width: 500px;
   width: 100%;
 }
-
+.systemMessage {
+  background: rgb(223, 226, 227);
+}
 .message-container {
   display: flex;
   justify-content: space-between;
