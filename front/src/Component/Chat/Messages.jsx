@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { UseSession } from "../../Context/Session";
 import "./Messages.css";
 
 function Messages({ socket }) {
+  const session = UseSession();
   const [messages, setMessages] = useState({});
 
   useEffect(() => {
-    const messageListener = (message) => {
+    const messageListener = async (message) => {
       setMessages((prevMessages) => {
         const newMessages = { ...prevMessages };
         newMessages[message.id] = message;
@@ -20,16 +22,20 @@ function Messages({ socket }) {
         return newMessages;
       });
     };
-    
+
     socket.on("message", messageListener);
     socket.on("deleteMessage", deleteMessageListener);
     socket.emit("getMessages");
-
     return () => {
       socket.off("message", messageListener);
       socket.off("deleteMessage", deleteMessageListener);
     };
   }, [socket]);
+
+  useEffect(() => {
+    const empt = {};
+    setMessages(empt);
+  }, [session.session.userId]);
 
   return (
     <div className="message-list">
