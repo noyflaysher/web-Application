@@ -239,11 +239,13 @@ const getRecipeByUserId = async (req, res, next) => {
   }
 
   if (!recipe || recipe.length === 0) {
-    const error = new HttpError(
-      "Could not find recipe for the provided id.",
-      404
-    );
-    return next(error);
+    res.status(404).send("Could not find recipe for the provided id.");
+    return;
+    // const error = new HttpError(
+    //   "Could not find recipe for the provided id.",
+    //   500
+    // );
+    // return next(error);
   }
 
   res.json({ recipe });
@@ -270,7 +272,27 @@ const getRecipeById = async (req, res, next) => {
   }
   res.json({ recipe: recipe.toObject({ getters: true }) });
 };
-
+const getRecipesByArr = async (req, res, next) => {
+  const recipeArr = req.body.bookmarks;
+  let recipe;
+  try {
+    recipe = await Recipe.find({ _id: { $in: recipeArr } });
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+  if (!recipe || recipe.length === 0) {
+    const error = new HttpError(
+      "Could not find recipe for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ recipe: recipe });
+};
 const getRecipeByFilters = async (req, res, next) => {
   const { identifiers, title, servings } = req.body;
   let recipe;
@@ -386,3 +408,4 @@ exports.deleteRecipe = deleteRecipe;
 exports.getCountIdentifier = getCountIdentifier;
 exports.getRecipeById = getRecipeById;
 exports.getDefaultFavoriteRecipes = getDefaultFavoriteRecipes;
+exports.getRecipesByArr = getRecipesByArr;

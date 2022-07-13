@@ -22,4 +22,6 @@ router.delete("/delete/:id", recipeController.deleteRecipe);
 
 router.get("/:id", recipeController.getRecipeById);
 
+router.post("/arrays", recipeController.getRecipesByArr);
+
 module.exports = router;

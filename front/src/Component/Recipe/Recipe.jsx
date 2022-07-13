@@ -20,7 +20,6 @@ function Recipe(props) {
   const showDeleteHandler = () => setShowConfirmModal(true);
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
-    console.log(props.id);
   };
 
   const confirmDeleteHandler = async () => {
@@ -35,37 +34,7 @@ function Recipe(props) {
   const editHandler = () => setEditMode((prev) => !prev);
 
   const session = UseSession();
-  const bookmarkHandler = () => {
-    const requestOption = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: session.session.userId,
-        recipeId: props.id,
-      }),
-    };
-    if (session.session.bookmarks.indexOf(`${props.id}`) > -1) {
-      fetch("http://localhost:3000/bookmark/delete", requestOption)
-        .then((res) => res.json())
-        .then((data) =>
-          session.setSession({
-            ...session.session,
-            bookmarks: data.user.recipes,
-          })
-        );
-    } else {
-      fetch("http://localhost:3000/bookmark/add", requestOption)
-        .then((res) => res.json())
-        .then((data) =>
-          session.setSession({
-            ...session.session,
-            bookmarks: data.user.recipes,
-          })
-        );
-    }
-  };
+
   return (
     <>
       {isLoading && <LoadingSpinner asOverlay />}
@@ -112,7 +81,7 @@ function Recipe(props) {
               )}
               <BookmarkButton
                 selected={session.session.bookmarks.indexOf(`${props.id}`) > -1}
-                updateBookmark={bookmarkHandler}
+                id={props.id}
               ></BookmarkButton>
             </>
           )}
