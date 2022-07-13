@@ -7,7 +7,7 @@
 
 .profile-info {
   margin-top: 2rem;
-  width: 50%;
+  width: 60%;
 }
 
 .profile-info .user-info {
@@ -20,6 +20,11 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+}
+.user-recipes ul {
+  column-count: 2;
+  column-gap: 3rem;
+  text-align: left;
 }
 
 .profile-info .user-recipes ul {
@@ -74,6 +79,7 @@
   position: relative;
   text-align: center;
   padding: 0.5rem 2rem;
+  margin-top: 1rem;
   background-image: linear-gradient(to right bottom, #e9d5cd, #ffa751);
 }
 
@@ -87,4 +93,8 @@
 .book-btn {
   width: auto;
   padding: 0.5rem 1rem;
+}
+
+.text-space {
+  margin: 1rem;
 }

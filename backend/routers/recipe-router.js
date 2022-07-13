@@ -6,6 +6,8 @@ router.get("/", recipeController.getRecipe);
 
 router.get("/identifiers", recipeController.getIdentifiers);
 
+router.get("/fav", recipeController.getDefaultFavoriteRecipes);
+
 router.get("/countIdentifier", recipeController.getCountIdentifier);
 
 router.post("/search", recipeController.getRecipeByFilters);
@@ -17,5 +19,9 @@ router.patch("/update/:id", recipeController.updateRecipe);
 router.post("/add", recipeController.addRecipe);
 
 router.delete("/delete/:id", recipeController.deleteRecipe);
+
+router.get("/:id", recipeController.getRecipeById);
+
+router.post("/arrays", recipeController.getRecipesByArr);
 
 module.exports = router;

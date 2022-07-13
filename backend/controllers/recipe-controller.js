@@ -3,6 +3,7 @@ const getCoordsForAddress = require("../util/location");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
 const mongoose = require("mongoose");
+const uuidv4 = require("uuid").v4;
 
 const identifiers = [
   "spicy",
@@ -12,6 +13,93 @@ const identifiers = [
   "vegeterian",
   "dairy",
   "gluten free",
+  "none",
+];
+const DefaultFavoriteRecipes = [
+  {
+    imageSrc:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkm8s8JbMGJejw7OZMFu_Qmf4oPKTtNQ9sA&usqp=CAU",
+    id: uuidv4(),
+    title: "pizza",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "homemade pizza",
+    publisher: "Noy",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
+  {
+    imageSrc:
+      "https://www.thechunkychef.com/wp-content/uploads/2016/02/Roasted-Garlic-Cream-Sauce-7-feat-500x375.jpg",
+    id: uuidv4(),
+    title: "Paste with cream sauce",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "Paste with cream sauce",
+    publisher: "Maya",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
+  {
+    imageSrc:
+      "https://media-cdn.tripadvisor.com/media/photo-s/12/e2/7f/9b/hamburger-with-foie-gras.jpg",
+    id: uuidv4(),
+    title: "Kosher Burger",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "Kosher Burger",
+    publisher: "SAAR",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
+  {
+    imageSrc:
+      "https://do94x2ubilg42sdsl48mfdqk-wpengine.netdna-ssl.com/wp-content/uploads/44890096345_3612433c15_b.jpg",
+    id: uuidv4(),
+    title: "Vegetarian sushi",
+    time: 3,
+    servings: 3,
+    ingrediants: [
+      "0.5 cup bread flour",
+      "2 lb oil",
+      "3.5 tps dry active yeast",
+    ],
+    description: "Vegetarian sushi",
+    publisher: "Oz",
+    link: "#",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
+  },
 ];
 
 const addRecipe = async (req, res, next) => {
@@ -37,8 +125,7 @@ const addRecipe = async (req, res, next) => {
   const createdRecipe = new Recipe({
     title,
     time,
-    imageSrc:
-      "https://media.istockphoto.com/photos/fresh-homemade-pizza-margherita-picture-id1278998606?s=2048x2048",
+    imageSrc,
     servings,
     ingrediants,
     description,
@@ -54,30 +141,29 @@ const addRecipe = async (req, res, next) => {
     user = await User.findById(userNameId);
   } catch (err) {
     const error = new HttpError(
-      "Creating recipe failed, please try again",
+      "Creating recipe failed, please try again 1",
       500
     );
     return next(error);
   }
   if (!user) {
     const error = new HttpError(
-      "Creating recipe failed, please try again",
+      "Creating recipe failed, please try again 2",
       404
     );
     return next(error);
   }
-
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
-    console.log(createdRecipe);
     await createdRecipe.save({ session: sess }); //create unique id to recipe
     user.recipes.push(createdRecipe);
-    await user.save({ session: sess });
+    const recArr = user.recipes;
+    await user.update({ recipes: recArr });
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      "Creating recipe failed, please try again",
+      "Creating recipe failed, please try again 3",
       500
     );
     return next(error);
@@ -140,20 +226,43 @@ const getIdentifiers = (req, res, next) => {
 };
 
 const getRecipeByUserId = async (req, res, next) => {
-  const userId = req.params.userId;
-  console.log(userId);
+  const userId = req.body.userId;
   let recipe;
   try {
-    recipe = await Recipe.find({ publisherId: userId });
-    console.log(recipe);
+    recipe = await Recipe.find({ userNameId: userId });
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find a recipe!!!.",
+      "Something went wrong, could not find a recipe.",
       500
     );
     return next(error);
   }
 
+  if (!recipe || recipe.length === 0) {
+    res.status(404).send("Could not find recipe for the provided id.");
+    return;
+    // const error = new HttpError(
+    //   "Could not find recipe for the provided id.",
+    //   500
+    // );
+    // return next(error);
+  }
+
+  res.json({ recipe });
+};
+
+const getRecipeById = async (req, res, next) => {
+  const recipeId = req.params.id;
+  let recipe;
+  try {
+    recipe = await Recipe.findById(recipeId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
   if (!recipe || recipe.length === 0) {
     const error = new HttpError(
       "Could not find recipe for the provided id.",
@@ -161,17 +270,36 @@ const getRecipeByUserId = async (req, res, next) => {
     );
     return next(error);
   }
-
-  res.json({ recipe });
+  res.json({ recipe: recipe.toObject({ getters: true }) });
 };
-
+const getRecipesByArr = async (req, res, next) => {
+  const recipeArr = req.body.bookmarks;
+  let recipe;
+  try {
+    recipe = await Recipe.find({ _id: { $in: recipeArr } });
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+  if (!recipe || recipe.length === 0) {
+    const error = new HttpError(
+      "Could not find recipe for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ recipe: recipe });
+};
 const getRecipeByFilters = async (req, res, next) => {
   const { identifiers, title, servings } = req.body;
   let recipe;
   try {
     recipe = await Recipe.find({
       $or: [
-        { title: title },
+        { title: { $regex: `${title}` } },
         { servings: servings },
         { identifiers: identifiers },
       ],
@@ -195,7 +323,6 @@ const getRecipeByFilters = async (req, res, next) => {
 
 const deleteRecipe = async (req, res, next) => {
   const recipeId = req.params.id;
-
   let recipe;
 
   try {
@@ -265,6 +392,11 @@ const getCountIdentifier = async (req, res, next) => {
 
   res.json({ counter });
 };
+const getDefaultFavoriteRecipes = async (req, res, next) => {
+  res.json({
+    DefaultFavoriteRecipes: DefaultFavoriteRecipes,
+  });
+};
 
 exports.addRecipe = addRecipe;
 exports.getIdentifiers = getIdentifiers;
@@ -274,3 +406,6 @@ exports.getRecipe = getRecipe;
 exports.getRecipeByFilters = getRecipeByFilters;
 exports.deleteRecipe = deleteRecipe;
 exports.getCountIdentifier = getCountIdentifier;
+exports.getRecipeById = getRecipeById;
+exports.getDefaultFavoriteRecipes = getDefaultFavoriteRecipes;
+exports.getRecipesByArr = getRecipesByArr;

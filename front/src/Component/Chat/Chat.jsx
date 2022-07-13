@@ -5,18 +5,29 @@ import MessageInput from "./MessageInput";
 import { v4 as uuidv4 } from "uuid";
 import "./Chat.css";
 import Card from "../Card/Card";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
+import Button from "../Button/Button";
+import { UseSession } from "../../Context/Session";
+import { BsChatDots } from "react-icons/bs";
 
 function Chat() {
+  const session = UseSession();
   const [socket, setSocket] = useState(null);
   const [clicked, setClicked] = useState(false);
-  const [userID, setUserID] = useState({
-    id: uuidv4(),
-    name: "Saar",
-  });
+  const [userID, setUserID] = useState(
+    session.session !== null
+      ? {
+          id: session.session.userId,
+          name: session.session.name,
+        }
+      : {
+          id: uuidv4(),
+          name: "Anonymous",
+        }
+  );
 
   useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3001`);
+    const newSocket = io(`http://${window.location.hostname}:3000`);
     setSocket(newSocket);
     newSocket.emit("addUser", userID);
     return () => newSocket.close();
@@ -24,10 +35,14 @@ function Chat() {
 
   return (
     <div>
-      {!clicked && <Button onClick={() => setClicked(!clicked)}>chat</Button>}
+      {!clicked && (
+        <Button className="chatButton" onClick={() => setClicked(!clicked)}>
+          Talk with us ! {"\u00A0"} {"\u00A0"} <BsChatDots />
+        </Button>
+      )}
       {clicked && (
         <div className="floating-chat-header">
-          <header className="chat-header">React Chat</header>
+          <header className="chat-header">Recipe4U Chat</header>
           {socket ? (
             <div className="chat-container">
               <Messages socket={socket} />
