@@ -71,15 +71,17 @@ export default function SignIn(props) {
       );
 
       await fetch(`http://localhost:3000/bookmark/get/${request.user.id}`)
-        .then((res) => (res.ok ? res.json() : {}))
-        .then((data) => (request.user.bookmarks = data.user));
-      await closeFormHandler();
-      await session.setSession({
-        userId: request.user.id,
-        name: request.user.name,
-        email: request.user.email,
-        bookmarks: request.user.bookmarks,
-      });
+        .then((res) => (res.ok ? res.json() : { user: [] }))
+        .then((data) => (request.user.bookmarks = data.user))
+        .then(closeFormHandler)
+        .then(() =>
+          session.setSession({
+            userId: request.user.id,
+            name: request.user.name,
+            email: request.user.email,
+            bookmarks: request.user.bookmarks,
+          })
+        );
     } catch (err) {
       return;
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { BiTimeFive } from "react-icons/bi";
 import Modal from "../Modal-Backdrop/Modal";
 import Ingredients from "../Ingredient/IngredientsList";
@@ -20,7 +20,6 @@ function Recipe(props) {
   const showDeleteHandler = () => setShowConfirmModal(true);
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
-    console.log(props.id);
   };
 
   const confirmDeleteHandler = async () => {
@@ -35,25 +34,9 @@ function Recipe(props) {
   const editHandler = () => setEditMode((prev) => !prev);
 
   const session = UseSession();
-  const bookmarkHandler = () => {
-    const requestOption = {
-      //request to the json db server (this is a format)
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: session.session.userId,
-        recipeId: props.id,
-      }),
-    };
 
-    fetch("http://localhost:3000/bookmark/add", requestOption) //the db adress and the ver that has the task for the server
-      .then((response) => (response.ok ? response.json() : { recipe: [] }));
-  };
   return (
     <>
-      {/* {console.log(session.session.bookmarks)} */}
       {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showConfirmModal}
@@ -84,20 +67,24 @@ function Recipe(props) {
           </h1>
         </div>
         <div className="bottons">
-          {session.session !== null && session.session.userId == props.userId && (
+          {session.session.userId !== null && (
             <>
-              <Button onClick={editHandler} className="btn btn--edit">
-                EDIT
-              </Button>
-              <Button onClick={showDeleteHandler} className="btn btn--del">
-                DELETE
-              </Button>
+              {session.session.userId == props.userId && (
+                <>
+                  <Button onClick={editHandler} className="btn btn--edit">
+                    EDIT
+                  </Button>
+                  <Button onClick={showDeleteHandler} className="btn btn--del">
+                    DELETE
+                  </Button>
+                </>
+              )}
+              <BookmarkButton
+                selected={session.session.bookmarks.indexOf(`${props.id}`) > -1}
+                id={props.id}
+              ></BookmarkButton>
             </>
           )}
-          <BookmarkButton
-            selected={true}
-            updateBookmark={bookmarkHandler}
-          ></BookmarkButton>
         </div>
         {editMode ? (
           <EditRecipe {...props} exitEditMode={editHandler} />
