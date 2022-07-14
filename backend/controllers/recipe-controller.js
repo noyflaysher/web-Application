@@ -224,6 +224,13 @@ const getIdentifiers = (req, res, next) => {
     identifiers: identifiers,
   });
 };
+const countRecipes = async (req, res, next) => {
+  // const userId = req.body.userId;
+  // let recipes;
+  // try {
+  //   recipes= await Recipe.find({})
+  // } catch (err) {}
+};
 
 const getRecipeByUserId = async (req, res, next) => {
   const userId = req.body.userId;
@@ -241,11 +248,6 @@ const getRecipeByUserId = async (req, res, next) => {
   if (!recipe || recipe.length === 0) {
     res.status(404).send("Could not find recipe for the provided id.");
     return;
-    // const error = new HttpError(
-    //   "Could not find recipe for the provided id.",
-    //   500
-    // );
-    // return next(error);
   }
 
   res.json({ recipe });
@@ -366,7 +368,6 @@ const getCountIdentifier = async (req, res, next) => {
 
   try {
     for (let i = 0; i < identifiers.length; i++) {
-      console.log(`${identifiers[i]}`);
       recipe = await Recipe.find({
         identifiers: identifiers[i],
       });
@@ -374,13 +375,9 @@ const getCountIdentifier = async (req, res, next) => {
       if (!recipe || recipe.length === 0) {
         //there are not recipes
         counter[i] = 0;
-        console.log(`no recipe for this identifier, ${identifiers[i]}`);
       } else {
         counter[i] = recipe.length;
-        console.log(counter[i]);
       }
-
-      console.log(`recipe: ${recipe}`);
     }
   } catch (err) {
     const error = new HttpError(
@@ -390,7 +387,7 @@ const getCountIdentifier = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ counter });
+  res.json({ counter: counter });
 };
 const getDefaultFavoriteRecipes = async (req, res, next) => {
   res.json({
@@ -409,3 +406,4 @@ exports.getCountIdentifier = getCountIdentifier;
 exports.getRecipeById = getRecipeById;
 exports.getDefaultFavoriteRecipes = getDefaultFavoriteRecipes;
 exports.getRecipesByArr = getRecipesByArr;
+exports.countRecipes = countRecipes;

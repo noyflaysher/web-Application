@@ -1,5 +1,6 @@
 import React from "react";
 import { Pie, Bar } from "react-chartjs-2";
+import { UseSession } from "../../Context/Session";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,21 +14,47 @@ import {
 import "./Charts.css";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
-  labels: ["My Recipes", "Other Recipes"],
-  datasets: [
-    {
-      label: "# of Recipes",
-      data: [3, 8],
-      backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
-      borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-      borderWidth: 1,
-    },
-  ],
-};
-
 export function PieChart() {
-  return <Pie data={data} />;
+  const session = UseSession();
+  const [pieData, setPieData] = React.useState([]);
+
+  // session.session.userId
+
+  // React.useEffect(() => {
+  //   const requestOption = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       userId: session.session.userId,
+  //     }),
+  //   };
+  //   fetch("http://localhost:3000/recipe/countRecipes", requestOption)
+  //     .then((res) => (res.ok ? res.json() : { counter: [] }))
+  //     .then((data) => {
+  //       setPieData(data.counter);
+  //     });
+  // }, []);
+  return (
+    <Pie
+      data={{
+        labels: ["My Recipes", "Other Recipes"],
+        datasets: [
+          {
+            label: "# of Recipes",
+            data: [3, 5],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+            ],
+            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+            borderWidth: 1,
+          },
+        ],
+      }}
+    />
+  );
 }
 
 ChartJS.register(
@@ -38,19 +65,44 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-export const data2 = {
-  labels: ["Spicy", "Vegaterian", "Vegan", "Dairy", "Glutten-free"],
-  datasets: [
-    {
-      label: "Identifiers",
-      data: [2, 0, 1, 0, 0],
-      backgroundColor: "rgba(75, 192, 192, 0.7)",
-    },
-  ],
-};
 
 export function BarChart() {
-  return <Bar data={data2} />;
+  const [pieData, setPieData] = React.useState([]);
+  const [labels, setLabels] = React.useState([]);
+  const session = UseSession();
+
+  React.useEffect(() => {
+    const requestOption = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch("http://localhost:3000/recipe/countIdentifier", requestOption)
+      .then((res) => (res.ok ? res.json() : { counter: [] }))
+      .then((data) => {
+        setPieData(data.counter);
+      });
+    fetch("http://localhost:3000/recipe/identifiers", requestOption)
+      .then((res) => (res.ok ? res.json() : { identifiers: [] }))
+      .then((data) => {
+        setLabels(data.identifiers);
+      });
+  }, [pieData]);
+  return (
+    <Bar
+      data={{
+        labels: labels,
+        datasets: [
+          {
+            label: "Identifiers",
+            data: pieData,
+            backgroundColor: "rgba(75, 192, 192, 0.7)",
+          },
+        ],
+      }}
+    />
+  );
 }
 
 function Charts() {
