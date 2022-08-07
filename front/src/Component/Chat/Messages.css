@@ -15,6 +15,12 @@
   margin-left: 1rem;
 }
 
+.date-message {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
 .user {
   min-width: 120px;
   margin-right: -1rem;
@@ -81,7 +87,7 @@
 .userMessage .message {
   color: white;
   margin-left: 25%;
-  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background: linear-gradient(to bottom, #00d0ea 0%, #0085d1 100%);
   background-attachment: fixed;
   position: relative;
 }
@@ -94,7 +100,7 @@
   right: -8px;
   height: 20px;
   width: 20px;
-  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background: linear-gradient(to bottom, #00d0ea 0%, #0085d1 100%);
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }

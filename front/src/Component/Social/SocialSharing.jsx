@@ -17,7 +17,7 @@ export default function SocialSharing() {
 
       <FacebookShareButton
         className="facebook"
-        url={"https://github.com/"}
+        url={"https://www.photo-art.co.il/"}
         quote={"good website"}
         hashtag={["#GoodFood", "#Tasty", "#Yummy"]}
         description={"amazing website, go to watch it"}

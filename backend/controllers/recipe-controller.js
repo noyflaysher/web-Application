@@ -313,16 +313,24 @@ const getRecipesByArr = async (req, res, next) => {
   res.json({ recipe: recipe });
 };
 const getRecipeByFilters = async (req, res, next) => {
-  const { identifiers, title, servings } = req.body;
+  const { identifier, title, servings } = req.body;
+  // console.log("req.body ", req.body);
+  // console.log("identifiers == 'none' ", identifier === "none");
+  // console.log("servings == 0 ", servings === 0);
   let recipe;
   try {
-    recipe = await Recipe.find({
-      $or: [
-        { title: { $regex: `${title}` } },
-        { servings: servings },
-        { identifiers: identifiers },
-      ],
-    });
+    // recipe = await Recipe.find({ title: { $regex: `${title}` } });
+    if (identifier === "none" && servings === 0) {
+      recipe = await Recipe.find({ title: { $regex: `${title}` } });
+    } else if (identifier === "none") {
+      recipe = await Recipe.find({
+        $and: [{ title: { $regex: `${title}` } }, { servings: servings }],
+      });
+    } else {
+      recipe = await Recipe.find({
+        $and: [{ title: { $regex: `${title}` } }, { identifiers: identifier }],
+      });
+    }
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find a recipe.",

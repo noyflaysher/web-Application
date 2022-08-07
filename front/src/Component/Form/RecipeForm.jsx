@@ -15,6 +15,7 @@ import { useHttpClient } from "../hooks/http-hook";
 import { UseSession } from "../../Context/Session";
 import ErrorModal from "../Modal-Backdrop/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import MenuItem from "@mui/material/MenuItem";
 
 const theme = createTheme({
   typography: {
@@ -36,6 +37,16 @@ const Ingrediant = ({ count }) => {
     </Grid>
   );
 };
+let identifiers = [
+  "spicy",
+  "sweet",
+  "salty",
+  "vegan",
+  "vegeterian",
+  "dairy",
+  "gluten free",
+  "none",
+];
 export default function RecipeForm(props) {
   const [authorError, setAuthorError] = React.useState(false);
   const [ingrediantList, setIngrediantList] = React.useState([]);
@@ -44,8 +55,12 @@ export default function RecipeForm(props) {
   const [timeError, setTimeError] = React.useState(false);
   const [ingrediantError, setIngrediantError] = React.useState(false);
   const [showForm, setShowForm] = React.useState(true);
-  const session = UseSession();
+  const [identifier, setIdentifier] = React.useState("");
 
+  const handleChange = (event) => {
+    setIdentifier(event.target.value);
+  };
+  const session = UseSession();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const closeFormHandler = (hideForm) => {
@@ -85,17 +100,6 @@ export default function RecipeForm(props) {
     });
     setIngrediantError(ingList.length === 0);
     if (ingList.length === 0) return;
-    // const newRecipe = {
-    //   author: session.session.name,
-    //   title: data.get("recipeTitle"),
-    //   imageSrc: data.get("recipeImage"),
-    //   servings: data.get("recipeServings"),
-    //   time: data.get("recipePrepTime"),
-    //   description: data.get("recipeDescription"),
-    //   ingrediants: ingList,
-    //   address: data.get("recipeAddress"),
-    // };
-
     try {
       const newRecipe = await sendRequest(
         "http://localhost:3000/recipe/add",
@@ -109,7 +113,7 @@ export default function RecipeForm(props) {
           description: data.get("recipeDescription"),
           publisher: session.session.name,
           userNameId: session.session.userId,
-          identifiers: "salty",
+          identifiers: identifier,
           address: data.get("recipeAddress"),
         }),
         { "Content-Type": "application/json" }
@@ -185,6 +189,33 @@ export default function RecipeForm(props) {
                       required
                       error={servingsError}
                     />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="identifiers"
+                      select
+                      label="identifiers"
+                      value={identifier}
+                      onChange={handleChange}
+                      fullWidth
+                      SelectProps={{
+                        MenuProps: {
+                          anchorOrigin: {
+                            vertical: "bottom",
+                            horizontal: "center",
+                          },
+                          getcontentanchorel: null,
+                        },
+                      }}
+                    >
+                      {identifiers.map((t, index) => {
+                        return (
+                          <MenuItem key={index} value={t}>
+                            {t}
+                          </MenuItem>
+                        );
+                      })}
+                    </TextField>
                   </Grid>
                   <Grid item xs={6}>
                     <TextField

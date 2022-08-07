@@ -34,6 +34,7 @@ const ChosenRecipe = (props) => {
           description={loadedRecipe.description}
           publisher={loadedRecipe.publisher}
           userId={loadedRecipe.userNameId}
+          identifier={loadedRecipe.identifiers}
           link={loadedRecipe.link}
         />
       )}
