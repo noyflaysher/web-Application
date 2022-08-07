@@ -17,25 +17,22 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export function PieChart() {
   const session = UseSession();
   const [pieData, setPieData] = React.useState([]);
-
-  // session.session.userId
-
-  // React.useEffect(() => {
-  //   const requestOption = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       userId: session.session.userId,
-  //     }),
-  //   };
-  //   fetch("http://localhost:3000/recipe/countRecipes", requestOption)
-  //     .then((res) => (res.ok ? res.json() : { counter: [] }))
-  //     .then((data) => {
-  //       setPieData(data.counter);
-  //     });
-  // }, []);
+  React.useEffect(() => {
+    const requestOption = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch(
+      `http://localhost:3000/recipe/countRecipes/${session.session.userId}`,
+      requestOption
+    )
+      .then((res) => (res.ok ? res.json() : { counter: [] }))
+      .then((data) => {
+        setPieData(data.counter);
+      });
+  }, [pieData]);
   return (
     <Pie
       data={{
@@ -43,7 +40,7 @@ export function PieChart() {
         datasets: [
           {
             label: "# of Recipes",
-            data: [3, 5],
+            data: pieData,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",
@@ -70,7 +67,6 @@ export function BarChart() {
   const [pieData, setPieData] = React.useState([]);
   const [labels, setLabels] = React.useState([]);
   const session = UseSession();
-
   React.useEffect(() => {
     const requestOption = {
       method: "GET",
@@ -78,7 +74,10 @@ export function BarChart() {
         "Content-Type": "application/json",
       },
     };
-    fetch("http://localhost:3000/recipe/countIdentifier", requestOption)
+    fetch(
+      `http://localhost:3000/recipe/countIdentifier/${session.session.userId}`,
+      requestOption
+    )
       .then((res) => (res.ok ? res.json() : { counter: [] }))
       .then((data) => {
         setPieData(data.counter);
@@ -108,9 +107,11 @@ export function BarChart() {
 function Charts() {
   return (
     <>
+      <h3> Your recipe division according to identifiers</h3>
       <div className="bar-container">
         <BarChart />
       </div>
+      <h3> Amount of recipes compared to the total number of users</h3>
       <div className="pie-container">
         <PieChart />
       </div>
