@@ -26,4 +26,6 @@ router.get("/countRecipes/:id", recipeController.countRecipes);
 
 router.post("/arrays", recipeController.getRecipesByArr);
 
+router.post("/bookmarkArays", recipeController.getIdentifierByIdRecipes);
+
 module.exports = router;

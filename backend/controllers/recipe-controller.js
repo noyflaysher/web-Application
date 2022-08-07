@@ -413,6 +413,53 @@ const getDefaultFavoriteRecipes = async (req, res, next) => {
   });
 };
 
+const getIdentifierByIdRecipes = async (req, res, next) => {
+  const recipeArr = req.body.bookmarks;
+  let favoriteRecipe = [];
+  let counter = [0, 0, 0, 0, 0, 0, 0, 0];
+  let recipe;
+  try {
+    recipe = await Recipe.find({ _id: { $in: recipeArr } });
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+  if (!recipe || recipe.length === 0) {
+    const error = new HttpError(
+      "Could not find recipe for the provided id.",
+      404
+    );
+  }
+  try {
+    for (let i = 0; i < recipe.length; i++) {
+      for (let j = 0; j < identifiers.length; j++) {
+        if (recipe[i].identifiers == identifiers[j]) {
+          counter[j]++;
+          break;
+        }
+      }
+    }
+  } catch (err) {}
+  let indexLike = 0;
+  let maximum = 0;
+  for (let i = 0; i < counter.length; i++) {
+    if (counter[i] >= maximum) {
+      maximum = counter[i];
+      indexLike = i;
+    }
+  }
+  favoriteRecipe = await Recipe.find({ identifiers: identifiers[indexLike] });
+  while (favoriteRecipe.length > 4) {
+    favoriteRecipe.shift();
+  }
+
+  console.log(favoriteRecipe);
+  res.json({ favoriteRecipe });
+};
+
 exports.addRecipe = addRecipe;
 exports.getIdentifiers = getIdentifiers;
 exports.updateRecipe = updateRecipe;
@@ -425,3 +472,4 @@ exports.getRecipeById = getRecipeById;
 exports.getDefaultFavoriteRecipes = getDefaultFavoriteRecipes;
 exports.getRecipesByArr = getRecipesByArr;
 exports.countRecipes = countRecipes;
+exports.getIdentifierByIdRecipes = getIdentifierByIdRecipes;

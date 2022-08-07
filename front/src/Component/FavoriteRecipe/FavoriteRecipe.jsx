@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import "./FavoriteRecipe.css";
@@ -8,10 +8,33 @@ import { UseSession } from "../../Context/Session.jsx";
 
 const FavoriteRecipe = () => {
   const session = UseSession();
+  const [identifiers, setIdentifiers] = useState([]);
+
   React.useEffect(() => {
-    fetch("http://localhost:3000/recipe/fav")
-      .then((res) => res.json())
-      .then((data) => session.setFavoriteRecipe(data.DefaultFavoriteRecipes));
+    if (session.session.bookmarks === null) {
+      fetch("http://localhost:3000/recipe/fav")
+        .then((res) => res.json())
+        .then((data) => session.setFavoriteRecipe(data.DefaultFavoriteRecipes));
+    } else {
+      const requestOption = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: session.session.userId,
+          bookmarks: session.session.bookmarks,
+        }),
+      };
+      fetch("http://localhost:3000/recipe/bookmarkArays", requestOption)
+        .then((response) =>
+          response.ok ? response.json() : { favoriteRecipe: [] }
+        )
+        .then((data) => {
+          console.log(data.favoriteRecipe);
+          session.setFavoriteRecipe(data.favoriteRecipe);
+        });
+    }
   }, []);
   const favRecipesArr = session.favoriteRecipe;
   return (
