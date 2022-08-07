@@ -5,7 +5,7 @@ import Ingredients from "../Ingredient/IngredientsList";
 import Button from "../Button/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { UseSession } from "../../Context/Session";
+import { UseSession, UseSearch } from "../../Context/Session";
 import "./Recipe.css";
 import EditRecipe from "./EditRecipe";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
@@ -16,7 +16,9 @@ function Recipe(props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
+  const session = UseSession();
+  const setResult = UseSearch().setResult;
+  const result = UseSearch().result;
   const showDeleteHandler = () => setShowConfirmModal(true);
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
@@ -30,10 +32,12 @@ function Recipe(props) {
         "DELETE"
       );
     } catch (err) {}
+    const searchResults = result.filter(
+      (e) => session.session.bookmarks.indexOf(`${props.id}`) > -1
+    );
+    setResult(searchResults);
   };
   const editHandler = () => setEditMode((prev) => !prev);
-
-  const session = UseSession();
 
   return (
     <>
