@@ -18,7 +18,7 @@ function NavBar() {
   const buttonListToggle = () => setButtonList(!buttonList);
   const session = UseSession();
   return (
-    <>
+    <header>
       <nav className="nav-bar flex-container">
         <Link to="/">
           <Canvas className="logo" />
@@ -68,7 +68,7 @@ function NavBar() {
           <SignUp closeForm={() => setShowSignupForm(false)} />
         )}
       </nav>
-    </>
+    </header>
   );
 }
 
