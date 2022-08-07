@@ -35,7 +35,7 @@ const RecipeItem = (props) => {
       </Modal>
       <li className="recipe-item">
         <Card className="recipe-item__content">
-          <Link to={`/${props.index}`}>
+          <Link to={`/recipe/${props.index}`}>
             <div className="recipe-item__publisher-image">
               <Image image={props.imageSrc} alt={props.title} />
             </div>
@@ -43,7 +43,7 @@ const RecipeItem = (props) => {
               <h2>{props.title}</h2>
               <div className="recipe-item-row">
                 <h4 className="recipe-item__publisher">
-                  Preparation time: {props.time} Hours
+                  {`Preparation time:${"\u00A0"} ${props.time} Hours`}
                 </h4>
                 <Button className="btn-map" onClick={openMapHandler}>
                   <MapImage />

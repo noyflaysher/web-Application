@@ -1,0 +1,136 @@
+import React, { useEffect } from "react";
+import Charts from "./Charts";
+import UserGroupButton from "./UserGroupButton";
+import "./Profile.css";
+import Button from "../Button/Button";
+import { Link } from "react-router-dom";
+import UserUpdate from "./UserUpdate";
+import { UseSession, UseSearch } from "../../Context/Session";
+import LogInForm from "../Form/LogIn";
+import { BookmarkButton } from "../Recipe/BookmarkButton";
+
+function Profile(props) {
+  const [updateInfo, setUpdateInfo] = React.useState(false);
+  const [userRecipes, setUserRecipes] = React.useState([]);
+  const [userBookmarks, setUserBookmarks] = React.useState([]);
+  const [showLoginForm, setShowLoginForm] = React.useState(false);
+  const session = UseSession();
+  const setResult = UseSearch().setResult;
+  useEffect(() => {
+    const requestOption = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: session.session.userId,
+        bookmarks: session.session.bookmarks,
+      }),
+    };
+    fetch("http://localhost:3000/recipe/myRecipe", requestOption)
+      .then((response) => (response.ok ? response.json() : { recipe: [] }))
+      .then((data) => {
+        setUserRecipes(data.recipe.map((r) => r.title));
+      });
+    fetch("http://localhost:3000/recipe/arrays", requestOption)
+      .then((response) => (response.ok ? response.json() : { recipe: [] }))
+      .then((data) => {
+        setUserBookmarks(data.recipe);
+        setResult(data.recipe);
+      });
+  }, []);
+
+  useEffect(() => {
+    const newBookmarks = userBookmarks.filter(
+      (e) => session.session.bookmarks.indexOf(`${e._id}`) > -1
+    );
+    setUserBookmarks(newBookmarks);
+    setResult(newBookmarks);
+  }, [session.session.bookmarks]);
+
+  const toggleUpdate = () => {
+    setUpdateInfo((prev) => !prev);
+  };
+
+  return (
+    <>
+      {session.session.userId === null && (
+        <div>
+          <p>You need to login</p>
+          <Button onClick={() => setShowLoginForm(true)}> Login</Button>
+          {showLoginForm && (
+            <LogInForm closeForm={() => setShowLoginForm(false)} />
+          )}
+        </div>
+      )}
+      {session.session.userId !== null && (
+        <div className="profile-flex">
+          {updateInfo ? <UserUpdate toggle={toggleUpdate} /> : <></>}
+          <img
+            className="profile-img"
+            src="https://previews.123rf.com/images/maxborovkov/maxborovkov1701/maxborovkov170100258/69948331-white-settings-banner-with-silhouettes-of-gears-vector-illustration-.jpg"
+          />
+          <span className="profile-title">PROFILE</span>
+          <div className="profile-button">
+            <UserGroupButton changePass={toggleUpdate} />
+          </div>
+          <span className="profile-subtitle">My Info.</span>
+          <div className="profile-info">
+            <div className="user-info">
+              <span>name: {session.session.name}</span>
+              <span>email: {session.session.email}</span>
+            </div>
+            <span className="profile-subtitle">My Recipes: </span>
+            <div className="user-recipes">
+              <ShowRecipes list={userRecipes} />
+            </div>
+          </div>
+          <span className="profile-subtitle">Bookmarks</span>
+          <div className="profile-bookmarks">
+            <ShowBookmarks list={userBookmarks} />
+          </div>
+          <span className="profile-subtitle">My Recipes Info.</span>
+          <div className="profile-statistics">
+            <Charts />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function ShowRecipes({ list }) {
+  return (
+    <ul>
+      {list.map((e, index) => (
+        <li key={index}>{e}</li>
+      ))}
+    </ul>
+  );
+}
+
+function ShowBookmarks({ list }) {
+  const session = UseSession();
+  return (
+    <ul>
+      {list.map((e, index) => (
+        <li className="book-li" key={index}>
+          {e.title}
+          <Link to={`/recipe/${index}`}>
+            <Button className="btn book-btn" key={index}>
+              <img
+                width={30}
+                src="https://img.icons8.com/external-those-icons-fill-those-icons/48/000000/external-glasses-retro-those-icons-fill-those-icons.png"
+              />
+            </Button>
+          </Link>
+          <BookmarkButton
+            selected={session.session.bookmarks.indexOf(`${e._id}`) > -1}
+            id={e._id}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+}
+export default Profile;

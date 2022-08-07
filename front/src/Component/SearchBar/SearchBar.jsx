@@ -1,101 +1,60 @@
 import "./SearchBar.css";
+import React from "react";
 import { Disclosure } from "@headlessui/react";
-import FormGroup from "@mui/material/FormGroup";
+import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import Radio from "@mui/material/Radio";
 import SearchIcon from "../../Images/search.png";
 import FilterIcon from "../../Images/filter.png";
 import { UseSearch } from "../../Context/Session.jsx";
+import { orange } from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
-const RECIPE_ARR = [
-  {
-    imageSrc:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkm8s8JbMGJejw7OZMFu_Qmf4oPKTtNQ9sA&usqp=CAU",
-    id: "pizza",
-    title: "pizza",
-    time: 3,
-    servings: 3,
-    ingrediants: [
-      "0.5 cup bread flour",
-      "2 lb oil",
-      "3.5 tps dry active yeast",
-    ],
-    description: "homemade pizza",
-    publisher: "Noy",
-    link: "#",
-    address: "20 W 34th St, New York, NY 10001",
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584,
-    },
-  },
-  {
-    imageSrc:
-      "https://www.thechunkychef.com/wp-content/uploads/2016/02/Roasted-Garlic-Cream-Sauce-7-feat-500x375.jpg",
-    id: "Paste_with_cream_sauce",
-    title: "Paste with cream sauce",
-    time: 3,
-    servings: 3,
-    ingrediants: [
-      "0.5 cup bread flour",
-      "2 lb oil",
-      "3.5 tps dry active yeast",
-    ],
-    description: "Paste with cream sauce",
-    publisher: "Maya",
-    link: "#",
-    address: "20 W 34th St, New York, NY 10001",
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584,
-    },
-  },
-  {
-    imageSrc:
-      "https://media-cdn.tripadvisor.com/media/photo-s/12/e2/7f/9b/hamburger-with-foie-gras.jpg",
-    id: "Kosher_Burger",
-    title: "Kosher Burger",
-    time: 3,
-    servings: 3,
-    ingrediants: [
-      "0.5 cup bread flour",
-      "2 lb oil",
-      "3.5 tps dry active yeast",
-    ],
-    description: "Kosher Burger",
-    publisher: "SAAR",
-    link: "#",
-    address: "20 W 34th St, New York, NY 10001",
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584,
-    },
-  },
-  {
-    imageSrc:
-      "https://do94x2ubilg42sdsl48mfdqk-wpengine.netdna-ssl.com/wp-content/uploads/44890096345_3612433c15_b.jpg",
-    id: "Vegetarian_sushi",
-    title: "Vegetarian sushi",
-    time: 3,
-    servings: 3,
-    ingrediants: [
-      "0.5 cup bread flour",
-      "2 lb oil",
-      "3.5 tps dry active yeast",
-    ],
-    description: "Vegetarian sushi",
-    publisher: "Oz",
-    link: "#",
-    address: "20 W 34th St, New York, NY 10001",
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584,
-    },
-  },
-];
+let RECIPE_ARR = [];
+let identifiers = [];
 
 function SearchBar() {
+  React.useEffect(() => {
+    fetch("http://localhost:3000/recipe/identifiers")
+      .then((res) => res.json())
+      .then((data) => (identifiers = data.identifiers));
+  }, []);
+  const [searchParam, setsearchParam] = React.useState({
+    title: "",
+    identifier: "none",
+    servings: 0,
+  });
+
+  const handleSearch = () => {
+    const requestOption = {
+      //request to the json db server (this is a format)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...searchParam,
+        title: document.getElementById("searchText").value,
+      }),
+    };
+    fetch("http://localhost:3000/recipe/search", requestOption) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
+      .then((data) => {
+        RECIPE_ARR = data.recipe;
+        setResult(RECIPE_ARR);
+      });
+  };
+
   const setResult = UseSearch().setResult;
+  const hideFilters = () => {
+    const filters = document.getElementById("filters");
+    filters
+      ? (filters.style.display = "none")
+      : console.log("filters are hidden");
+  };
   return (
     <div>
       <Disclosure>
@@ -103,45 +62,91 @@ function SearchBar() {
           <Disclosure.Button className="search-toggle grow">
             <img src={FilterIcon} width={30} alt="filter" />
           </Disclosure.Button>
-          <input className="search" placeholder=" search for a recipe..." />
+          <input
+            id="searchText"
+            className="search"
+            placeholder=" search for a recipe..."
+          />
           <button
             className="search-button grow"
-            onClick={() => setResult(RECIPE_ARR)}
+            onClick={() => {
+              handleSearch();
+              hideFilters();
+            }}
           >
             <img src={SearchIcon} width={35} alt="search" />
             SEARCH
           </button>
         </div>
-        <Disclosure.Panel as={FiltersContainer} />
+        <Disclosure.Panel>
+          <FiltersContainer
+            getSearchParam={() => searchParam}
+            setSearchParam={(value) => setsearchParam(value)}
+          ></FiltersContainer>
+        </Disclosure.Panel>
       </Disclosure>
     </div>
   );
 }
 
-function FiltersContainer() {
+function FiltersContainer(props) {
+  const [value, setValue] = React.useState("none");
+  const handleChange = (e) => {
+    props.setSearchParam({
+      ...props.getSearchParam(),
+      identifier: e.target.value,
+    });
+    setValue(e.target.value);
+  };
+  const servingsHandleChange = (e) => {
+    props.setSearchParam({
+      ...props.getSearchParam(),
+      servings: e.target.value.trim(),
+    });
+  };
+
   return (
-    <div className="filter-container">
-      <FormGroup>
-        <FormControlLabel control={<FilterBox />} label="spicy" />
-        <FormControlLabel control={<FilterBox />} label="vegetarian" />
-        <FormControlLabel control={<FilterBox />} label="vegan" />
-      </FormGroup>
+    <div className="filter-container" id="filters">
+      <FormControl className="radio-container">
+        <FormLabel id="demo-controlled-radio-buttons-group">Filters:</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-controlled-radio-buttons-group"
+          name="controlled-radio-buttons-group"
+          value={value}
+          onChange={handleChange}
+          className="radio-group"
+        >
+          {identifiers.map((t, index) => {
+            return (
+              <FormControlLabel
+                value={t}
+                label={t}
+                key={index}
+                control={
+                  <Radio
+                    sx={{
+                      color: orange[500],
+                      "&.Mui-checked": {
+                        color: orange[400],
+                      },
+                    }}
+                  />
+                }
+              />
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+      <Box className="servings">
+        <TextField
+          id="servings"
+          type="number"
+          label="No. of servings"
+          variant="standard"
+          onChange={servingsHandleChange}
+        />
+      </Box>
     </div>
   );
 }
-
-function FilterBox() {
-  return (
-    <Checkbox
-      size="small"
-      sx={{
-        color: "#F59583",
-        "&.Mui-checked": {
-          color: "#F8BB86",
-        },
-      }}
-    />
-  );
-}
-
 export default SearchBar;

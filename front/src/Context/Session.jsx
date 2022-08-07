@@ -1,38 +1,50 @@
 import React, { useContext, useState } from "react";
 
-const LoginContext = React.createContext();
-const UpdateLoginContext = React.createContext();
-
+const SessionContext = React.createContext();
 const SearchContext = React.createContext();
 
-export function UseLoginState() {
-  return useContext(LoginContext);
-}
-export function UseUpdateLoginState() {
-  return useContext(UpdateLoginContext);
+export function UseSession() {
+  return useContext(SessionContext);
 }
 export function UseSearch() {
   return useContext(SearchContext);
 }
 
 export function Session({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userSession, setUserSession] = useState(
+    sessionStorage.getItem("userSession") === null
+      ? {
+          userId: null,
+          name: null,
+          email: null,
+          bookmarks: null,
+        }
+      : JSON.parse(sessionStorage.getItem("userSession"))
+  );
+
   const [searchResults, setSearchResults] = useState([]);
+  const [favoriteRecipe, setFavoriteRecipe] = useState([]);
 
-  function toggleLoginState() {
-    setIsLoggedIn((prevLoginState) => !prevLoginState);
-  }
-  const setResultState = (arrResult) => setSearchResults(arrResult);
-
+  const setResultState = (arrResult) => {
+    setSearchResults(arrResult);
+  };
+  React.useEffect(() => {
+    sessionStorage.setItem("userSession", JSON.stringify(userSession));
+  }, [userSession]);
   return (
-    <LoginContext.Provider value={isLoggedIn}>
-      <UpdateLoginContext.Provider value={toggleLoginState}>
-        <SearchContext.Provider
-          value={{ result: searchResults, setResult: setResultState }}
-        >
-          {children}
-        </SearchContext.Provider>
-      </UpdateLoginContext.Provider>
-    </LoginContext.Provider>
+    <SessionContext.Provider
+      value={{
+        session: userSession,
+        setSession: setUserSession,
+        favoriteRecipe: favoriteRecipe,
+        setFavoriteRecipe: setFavoriteRecipe,
+      }}
+    >
+      <SearchContext.Provider
+        value={{ result: searchResults, setResult: setResultState }}
+      >
+        {children}
+      </SearchContext.Provider>
+    </SessionContext.Provider>
   );
 }

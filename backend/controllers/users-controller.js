@@ -1,65 +1,178 @@
 const HttpError = require("../models/httpError");
-const { v4: uuid } = require("uuid");
-const bcrypt = require("bcrypt-nodejs");
+const Recipe = require("../models/recipe");
+const User = require("../models/user");
 
-let DUMMY_USERS = [
-  {
-    id: "u1",
-    name: "Maya Koma",
-    email: "mayakoma@gmail.com",
-    password: "test",
-  },
-];
+const getUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({}, "-password");
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching users failed, please try again later",
+      500
+    );
+    return next(error);
+  }
 
-const getUsers = (req, res, next) => {
-  res.json({ users: DUMMY_USERS });
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = DUMMY_USERS.find((u) => u.email === email);
-  if (!user || user.password !== password) {
-    throw new HttpError("Could not identify user...", 401);
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Log in failed, please try again", 500);
+    return next(error);
   }
-  res.status(200).json({ message: "login" });
+
+  //not in db// wrong password
+  if (!existingUser || existingUser.password !== password) {
+    const error = new HttpError("Invalid data, could not log in", 401);
+    return next(error);
+  }
+  res
+    .status(200)
+    .json({ message: "login", user: existingUser.toObject({ getters: true }) });
 };
 
-const signup = (req, res, next) => {
-  const { name, email, password } = req.body;
-  const hasUser = DUMMY_USERS.find((u) => u.email === email);
+const signup = async (req, res, next) => {
+  const { name, email, password, userName } = req.body;
 
-  if (hasUser) {
-    throw new HttpError("could not create user, email already  exist", 422);
+  let existingUser;
+
+  //check id the email existing in the db = user existing
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Signing up failed ", 500);
+    return next(error);
   }
 
-  const createdUser = {
-    id: uuid(),
+  //email is existing
+
+  if (existingUser) {
+    const error = new HttpError(
+      "User exists already (email), please login instead",
+      422
+    );
+    return next(error);
+  }
+
+  // try {
+  //   existingUser = await User.findOne({ userName: userName });
+  // } catch (err) {
+  //   const error = new HttpError("Signing up failed", 500);
+  //   return next(error);
+  // }
+
+  // //email is existing
+
+  // if (existingUser) {
+  //   const error = new HttpError(
+  //     "User exists already , please login instead",
+  //     422
+  //   );
+  //   return next(error);
+  // }
+
+  const createdUser = new User({
     name,
+    userName,
     email,
     password,
-  };
+    recipes: [],
+  });
 
-  DUMMY_USERS.push(createdUser);
+  try {
+    await createdUser.save();
+  } catch (err) {
+    const error = new HttpError("Signing up failed, please try again", 500);
+    return next(error);
+  }
 
-  res.status(200).json({ user: createdUser });
+  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
-const updateUser = (req, res, next) => {
-  const { name, email, password } = req.body;
+const updateUser = async (req, res, next) => {
+  const { password } = req.body;
   const userId = req.params.uid;
 
-  const updateUser = { ...DUMMY_USERS.find((r) => r.id === userId) };
-  const userIndex = DUMMY_USERS.findIndex((r) => r.id === userId);
-  updateUser.name = name;
-  updateUser.email = title;
-  updateUser.password = password;
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, cannot update user",
+      500
+    );
+    return next(error);
+  }
 
-  DUMMY_USERS[userIndex] = updateUser;
-  res.status(200).json({ user: updateUser });
+  user.password = password;
+
+  try {
+    await user.save();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, cannot update user (saving user)",
+      500
+    );
+  }
+  res.status(200).json({ user: user.toObject({ getters: true }) });
+};
+
+const deleteUser = async (req, res, next) => {
+  const userId = req.params.id;
+
+  let user;
+
+  try {
+    //find the relevant user from db
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, cannot delete user",
+      500
+    );
+    return next(error);
+  }
+
+  let recipes;
+  let recipe;
+
+  try {
+    //find the relevant user from db
+    recipes = await Recipe.find({ userNameId: userId });
+
+    for (let i = 0; i < recipes.length; i++) {
+      await recipes[i].remove();
+    }
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, cannot delete user new",
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await user.remove();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, cannot delete user",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ message: "Deleted user" });
 };
 
 exports.login = login;
 exports.signup = signup;
 exports.getUsers = getUsers;
 exports.updateUser = updateUser;
+exports.deleteUser = deleteUser;

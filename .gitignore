@@ -4,10 +4,11 @@
 
 # *********************************************************front*****************************************
 # dependencies
+**/node_modules
 /front/node_modules
 /front/.pnp
 /front/.pnp.js
-/front/.package-lock.json
+/front/package-lock.json
 # testing
 /front/coverage
 
@@ -28,5 +29,26 @@
 
 # *********************************************************back*****************************************
 /backend/node_modules
+# dependencies
+/backend/node_modules
+/backend/.pnp
+/backend/.pnp.js
+/backend/package-lock.json
+# testing
+/backend/coverage
+
+# production
+/backend/build
+
+# misc
+/backend/.DS_Store
+/backend/.env.local
+/backend/.env.development.local
+/backend/.env.test.local
+/backend/.env.production.local
+
+/backend/npm-debug.log*
+/backend/yarn-debug.log*
+/backend/yarn-error.log*
 
 # *********************************************************back*****************************************
