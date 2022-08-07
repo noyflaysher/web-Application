@@ -8,9 +8,21 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useHttpClient } from "../hooks/http-hook";
 import { UseSearch } from "../../Context/Session";
 import { useParams } from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+let identifiers = [
+  "spicy",
+  "sweet",
+  "salty",
+  "vegan",
+  "vegeterian",
+  "dairy",
+  "gluten free",
+  "none",
+];
 
 function EditRecipe({
   id,
+  identifier,
   title,
   image,
   time,
@@ -21,7 +33,10 @@ function EditRecipe({
 }) {
   const [ingrediantList, setIngrediantList] = React.useState([]);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [_identifier, setIdentifier] = React.useState(identifier);
   const index = useParams().index;
+  const search = UseSearch();
+
   React.useEffect(() => {
     setIngrediantList(
       ingrediants.map((i, index) => (
@@ -29,7 +44,11 @@ function EditRecipe({
       ))
     );
   }, []);
-  const search = UseSearch();
+
+  const handleChange = (event) => {
+    setIdentifier(event.target.value);
+  };
+
   function addIngrediant() {
     setIngrediantList(
       ingrediantList.concat(
@@ -86,7 +105,7 @@ function EditRecipe({
           time: data.get("recipePrepTime"),
           servings: data.get("recipeServings"),
           ingrediants: ingList,
-          identifiers: "sweet",
+          identifiers: _identifier,
           description: data.get("recipeDescription"),
         }),
         { "Content-Type": "application/json" }
@@ -99,12 +118,12 @@ function EditRecipe({
         time: data.get("recipePrepTime"),
         servings: data.get("recipeServings"),
         ingrediants: ingList,
-        identifiers: "sweet",
+        identifiers: _identifier,
         description: data.get("recipeDescription"),
       };
 
-      let tempResult = JSON.parse(JSON.stringify(search.result));
-      tempResult[index] = tempRecpie;
+      let tempResult = await JSON.parse(JSON.stringify(search.result));
+      tempResult[index] = await tempRecpie;
       search.setResult(tempResult);
       exitEditMode();
     } catch (err) {}
@@ -150,6 +169,33 @@ function EditRecipe({
               defaultValue={servings}
               required
             />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              id="identifiers"
+              select
+              label="identifiers"
+              value={_identifier}
+              onChange={handleChange}
+              fullWidth
+              SelectProps={{
+                MenuProps: {
+                  anchorOrigin: {
+                    vertical: "bottom",
+                    horizontal: "center",
+                  },
+                  getcontentanchorel: null,
+                },
+              }}
+            >
+              {identifiers.map((t, index) => {
+                return (
+                  <MenuItem key={index} value={t}>
+                    {t}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
           </Grid>
           <Grid item xs={6}>
             <TextField
