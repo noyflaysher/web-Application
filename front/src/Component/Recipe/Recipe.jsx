@@ -20,6 +20,8 @@ function Recipe(props) {
   const setResult = UseSearch().setResult;
   const result = UseSearch().result;
   const showDeleteHandler = () => setShowConfirmModal(true);
+  console.log(props);
+
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
   };
@@ -38,7 +40,6 @@ function Recipe(props) {
     setResult(searchResults);
   };
   const editHandler = () => setEditMode((prev) => !prev);
-
   return (
     <>
       {isLoading && <LoadingSpinner asOverlay />}
