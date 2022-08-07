@@ -23,7 +23,7 @@
 }
 .user-recipes ul {
   column-count: 2;
-  column-gap: 3rem;
+  column-gap: 5rem;
   text-align: left;
 }
 
