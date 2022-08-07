@@ -8,10 +8,12 @@ import { UseSession } from "../../Context/Session.jsx";
 
 const FavoriteRecipe = () => {
   const session = UseSession();
-  const [identifiers, setIdentifiers] = useState([]);
 
   React.useEffect(() => {
-    if (session.session.bookmarks === null) {
+    if (
+      session.session.bookmarks === null ||
+      session.session.bookmarks.length === 0
+    ) {
       fetch("http://localhost:3000/recipe/fav")
         .then((res) => res.json())
         .then((data) => session.setFavoriteRecipe(data.DefaultFavoriteRecipes));
@@ -40,7 +42,8 @@ const FavoriteRecipe = () => {
   return (
     <div className="fav-recipes__container">
       <header className="fav-recipes__header">
-        {session.session.userId === null ? (
+        {session.session.userId === null ||
+        session.session.bookmarks.length === 0 ? (
           <h2>The Favorite Recipes Of The Week</h2>
         ) : (
           <h2>Recommended Recipes</h2>
