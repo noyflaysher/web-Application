@@ -54,13 +54,15 @@ function Messages({ socket }) {
             {/* <span className="user">{message.user.name}:</span> */}
             <div className="message">
               {message.user.name}:<br />
+              <div className="date-message">
+                {new Date(message.time).toLocaleTimeString()} <br />
+              </div>
               {message.value.split("\n").map((m, index) => (
                 <span key={index}>
                   {m}
                   <br key={index} />
                 </span>
               ))}
-              {new Date(message.time).toLocaleTimeString()}
             </div>
             {/* <span className="date">
               {new Date(message.time).toLocaleTimeString()}
