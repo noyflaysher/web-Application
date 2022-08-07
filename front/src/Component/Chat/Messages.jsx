@@ -45,16 +45,26 @@ function Messages({ socket }) {
           <div
             key={message.id}
             className={
-              "message-container " +
-              (message.user.name === `Recipe4U` ? `systemMessage` : ``)
+              (message.user.name === `Recipe4U`
+                ? `systemMessage`
+                : `userMessage`) + " message-container"
             }
             title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
           >
-            <span className="user">{message.user.name}:</span>
-            <span className="message">{message.value}</span>
-            <span className="date">
+            {/* <span className="user">{message.user.name}:</span> */}
+            <div className="message">
+              {message.user.name}:<br />
+              {message.value.split("\n").map((m, index) => (
+                <span key={index}>
+                  {m}
+                  <br key={index} />
+                </span>
+              ))}
               {new Date(message.time).toLocaleTimeString()}
-            </span>
+            </div>
+            {/* <span className="date">
+              {new Date(message.time).toLocaleTimeString()}
+            </span> */}
           </div>
         ))}
     </div>

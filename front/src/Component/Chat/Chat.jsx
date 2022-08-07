@@ -45,11 +45,14 @@ function Chat() {
       )}
       {clicked && (
         <div className="floating-chat-header">
-          <header className="chat-header" onClick={() => setClicked(!clicked)}>
-            Recipe4U Chat
-          </header>
           {socket ? (
             <div className="chat-container">
+              <header
+                className="chat-header"
+                onClick={() => setClicked(!clicked)}
+              >
+                Recipe4U Chat
+              </header>
               <Messages socket={socket} />
               <MessageInput socket={socket} />
             </div>

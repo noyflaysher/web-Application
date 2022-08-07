@@ -4,6 +4,9 @@ const messages = new Set();
 const users = new Map();
 
 const defaultMessages = {
+  999:
+    "Oops .. it looks like you entered an incorrect number.\n" +
+    "For the main menu, press 0\n",
   0:
     "1. For help adding a new recipe\n" +
     "2.For help editing a new recipe\n" +
@@ -13,10 +16,10 @@ const defaultMessages = {
     "For the main menu, press 0\n",
   2:
     "Navigate to the recipe you want to edit.\n" +
-    "Click the 'Edit Recipe' button in the body of the recipe, edit the recipe details and finally click the 'Save' button" +
+    "Click the 'Edit Recipe' button in the body of the recipe, edit the recipe details and finally click the 'Save' button.\n" +
     "For the main menu, press 0\n",
   3:
-    "Contact us by email: Recipe4U@cs.colman.ac.il" +
+    "Contact us by email: Recipe4U@cs.colman.ac.il\n" +
     "For the main menu, press 0\n",
 };
 
@@ -48,7 +51,9 @@ class Connection {
   sendMessage(message) {
     if (message.user.id === users.get(this.socket).id) {
       this.socket.emit("message", message);
-      this.handleMessage(defaultMessages[message.value], true);
+      defaultMessages[message.value]
+        ? this.handleMessage(defaultMessages[message.value], true)
+        : this.handleMessage(defaultMessages[999], true);
     } else if (
       message.user.id === SystemDefaultUser.id &&
       message.to.id === users.get(this.socket).id
