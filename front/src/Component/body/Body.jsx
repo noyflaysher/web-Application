@@ -16,7 +16,7 @@ function Body() {
         <Result items={items} />
       </aside>
 
-      <div className="body__recipe-continer">
+      <section className="body__recipe-continer">
         <Switch>
           <Route path="/" exact>
             <FavoriteRecipe />
@@ -31,7 +31,7 @@ function Body() {
             <Profile />
           </Route>
         </Switch>
-      </div>
+      </section>
     </div>
   );
 }
