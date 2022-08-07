@@ -464,7 +464,6 @@ const getIdentifierByIdRecipes = async (req, res, next) => {
     favoriteRecipe.shift();
   }
 
-  console.log(favoriteRecipe);
   res.json({ favoriteRecipe });
 };
 
