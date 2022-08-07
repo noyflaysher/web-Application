@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import CheckIcon from "@mui/icons-material/Check";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ToggleButton from "@mui/material/ToggleButton";
 import { UseSession } from "../../Context/Session";
+import { red } from "@mui/material/colors";
 
 export function BookmarkButton(props) {
   const [selected, setSelected] = useState(false);
@@ -43,6 +45,11 @@ export function BookmarkButton(props) {
   };
   return (
     <ToggleButton
+      sx={{
+        border: (theme) => `0px solid`,
+        fontSize: 40,
+        marginLeft: 2,
+      }}
       value="check"
       selected={selected}
       onChange={() => {
@@ -50,7 +57,21 @@ export function BookmarkButton(props) {
         bookmarkHandler();
       }}
     >
-      <CheckIcon />
+      {selected ? (
+        <FavoriteIcon
+          sx={{
+            height: 20,
+            width: 20,
+          }}
+        />
+      ) : (
+        <FavoriteBorderIcon
+          sx={{
+            height: 20,
+            width: 20,
+          }}
+        />
+      )}
     </ToggleButton>
   );
 }
