@@ -17,7 +17,11 @@ const FavoriteRecipe = () => {
   return (
     <div className="fav-recipes__container">
       <header className="fav-recipes__header">
-        <h2>The Favorite Recipes Of The Week</h2>
+        {session.session.userId === null ? (
+          <h2>The Favorite Recipes Of The Week</h2>
+        ) : (
+          <h2>Recommended Recipes</h2>
+        )}
       </header>
       <Carousel infiniteLoop className="carousel-root" showThumbs={false}>
         {favRecipesArr.map((recp, index) => {
