@@ -225,11 +225,28 @@ const getIdentifiers = (req, res, next) => {
   });
 };
 const countRecipes = async (req, res, next) => {
-  // const userId = req.body.userId;
-  // let recipes;
-  // try {
-  //   recipes= await Recipe.find({})
-  // } catch (err) {}
+  const userId = req.params.id;
+  let recipes;
+  let counter = [0, 0];
+  try {
+    recipes = await Recipe.aggregate([
+      {
+        $group: {
+          _id: "$userNameId",
+
+          count: { $count: {} },
+        },
+      },
+    ]);
+  } catch (err) {}
+  for (let i = 0; i < recipes.length; i++) {
+    if (recipes[i]._id == userId) {
+      counter[0] = recipes[i].count;
+    } else {
+      counter[1] += recipes[i].count;
+    }
+  }
+  res.json({ counter });
 };
 
 const getRecipeByUserId = async (req, res, next) => {
@@ -363,6 +380,7 @@ const deleteRecipe = async (req, res, next) => {
 };
 
 const getCountIdentifier = async (req, res, next) => {
+  const userId = req.params.id;
   let counter = [];
   let recipe;
 
@@ -370,6 +388,7 @@ const getCountIdentifier = async (req, res, next) => {
     for (let i = 0; i < identifiers.length; i++) {
       recipe = await Recipe.find({
         identifiers: identifiers[i],
+        userNameId: userId,
       });
 
       if (!recipe || recipe.length === 0) {
@@ -386,7 +405,6 @@ const getCountIdentifier = async (req, res, next) => {
     );
     return next(error);
   }
-
   res.json({ counter: counter });
 };
 const getDefaultFavoriteRecipes = async (req, res, next) => {
