@@ -21,6 +21,7 @@
   align-items: flex-start;
   flex-direction: column;
 }
+
 .user-recipes ul {
   margin-right: 2rem;
   margin-left: 2rem;
@@ -109,4 +110,51 @@
 
 .text-space {
   margin: 1rem;
+}
+
+.searchBookmark-container {
+  display: flex;
+  align-items: center;
+}
+
+.searchBookmark {
+  padding: 0 1rem;
+  color: inherit;
+  width: 30rem;
+  height: 5rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  text-align: left;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 4rem;
+}
+
+.searchBookmark:focus {
+  box-shadow: 0 1px 10px rgba(0, 170, 255, 0.45);
+}
+
+.searchBookmark-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  height: 5rem;
+  width: 13rem;
+  color: black;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom right, #ffe259, #ffa751);
+  border-radius: 4rem;
+  border: none;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s;
+  right: 4rem;
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Lato";
+}
+
+.growBookmark:hover {
+  transform: scale(1.05);
 }
