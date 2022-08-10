@@ -55,7 +55,7 @@
 .filter-container {
   position: absolute;
   background: #f9f5f3;
-  top: 5.5rem;
+  top: 0.5em;
   width: 47rem;
   padding: 0.5rem 1.5rem;
   border-radius: 1.5rem;
@@ -75,7 +75,7 @@
 }
 
 .radio-container {
-  max-width: 65% !important;
+  max-width: 50% !important;
 }
 /* .filter-container span {
   padding: 0.25rem;

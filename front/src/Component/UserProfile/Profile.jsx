@@ -115,15 +115,7 @@ function ShowBookmarks({ list }) {
     <ul>
       {list.map((e, index) => (
         <li className="book-li" key={index}>
-          {e.title}
-          <Link to={`/recipe/${index}`}>
-            <Button className="btn book-btn" key={index}>
-              <img
-                width={30}
-                src="https://img.icons8.com/external-those-icons-fill-those-icons/48/000000/external-glasses-retro-those-icons-fill-those-icons.png"
-              />
-            </Button>
-          </Link>
+          <Link to={`/recipe/${index}`}>{e.title}</Link>
           <BookmarkButton
             selected={session.session.bookmarks.indexOf(`${e._id}`) > -1}
             id={e._id}

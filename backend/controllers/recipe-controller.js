@@ -224,6 +224,30 @@ const getIdentifiers = (req, res, next) => {
     identifiers: identifiers,
   });
 };
+const countRecipes = async (req, res, next) => {
+  const userId = req.params.id;
+  let recipes;
+  let counter = [0, 0];
+  try {
+    recipes = await Recipe.aggregate([
+      {
+        $group: {
+          _id: "$userNameId",
+
+          count: { $count: {} },
+        },
+      },
+    ]);
+  } catch (err) {}
+  for (let i = 0; i < recipes.length; i++) {
+    if (recipes[i]._id == userId) {
+      counter[0] = recipes[i].count;
+    } else {
+      counter[1] += recipes[i].count;
+    }
+  }
+  res.json({ counter });
+};
 
 const getRecipeByUserId = async (req, res, next) => {
   const userId = req.body.userId;
@@ -241,11 +265,6 @@ const getRecipeByUserId = async (req, res, next) => {
   if (!recipe || recipe.length === 0) {
     res.status(404).send("Could not find recipe for the provided id.");
     return;
-    // const error = new HttpError(
-    //   "Could not find recipe for the provided id.",
-    //   500
-    // );
-    // return next(error);
   }
 
   res.json({ recipe });
@@ -294,16 +313,24 @@ const getRecipesByArr = async (req, res, next) => {
   res.json({ recipe: recipe });
 };
 const getRecipeByFilters = async (req, res, next) => {
-  const { identifiers, title, servings } = req.body;
+  const { identifier, title, servings } = req.body;
+  // console.log("req.body ", req.body);
+  // console.log("identifiers == 'none' ", identifier === "none");
+  // console.log("servings == 0 ", servings === 0);
   let recipe;
   try {
-    recipe = await Recipe.find({
-      $or: [
-        { title: { $regex: `${title}` } },
-        { servings: servings },
-        { identifiers: identifiers },
-      ],
-    });
+    // recipe = await Recipe.find({ title: { $regex: `${title}` } });
+    if (identifier === "none" && servings === 0) {
+      recipe = await Recipe.find({ title: { $regex: `${title}` } });
+    } else if (identifier === "none") {
+      recipe = await Recipe.find({
+        $and: [{ title: { $regex: `${title}` } }, { servings: servings }],
+      });
+    } else {
+      recipe = await Recipe.find({
+        $and: [{ title: { $regex: `${title}` } }, { identifiers: identifier }],
+      });
+    }
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find a recipe.",
@@ -361,26 +388,23 @@ const deleteRecipe = async (req, res, next) => {
 };
 
 const getCountIdentifier = async (req, res, next) => {
+  const userId = req.params.id;
   let counter = [];
   let recipe;
 
   try {
     for (let i = 0; i < identifiers.length; i++) {
-      console.log(`${identifiers[i]}`);
       recipe = await Recipe.find({
         identifiers: identifiers[i],
+        userNameId: userId,
       });
 
       if (!recipe || recipe.length === 0) {
         //there are not recipes
         counter[i] = 0;
-        console.log(`no recipe for this identifier, ${identifiers[i]}`);
       } else {
         counter[i] = recipe.length;
-        console.log(counter[i]);
       }
-
-      console.log(`recipe: ${recipe}`);
     }
   } catch (err) {
     const error = new HttpError(
@@ -389,13 +413,58 @@ const getCountIdentifier = async (req, res, next) => {
     );
     return next(error);
   }
-
-  res.json({ counter });
+  res.json({ counter: counter });
 };
 const getDefaultFavoriteRecipes = async (req, res, next) => {
   res.json({
     DefaultFavoriteRecipes: DefaultFavoriteRecipes,
   });
+};
+
+const getIdentifierByIdRecipes = async (req, res, next) => {
+  const recipeArr = req.body.bookmarks;
+  let favoriteRecipe = [];
+  let counter = [0, 0, 0, 0, 0, 0, 0, 0];
+  let recipe;
+  try {
+    recipe = await Recipe.find({ _id: { $in: recipeArr } });
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+  if (!recipe || recipe.length === 0) {
+    const error = new HttpError(
+      "Could not find recipe for the provided id.",
+      404
+    );
+  }
+  try {
+    for (let i = 0; i < recipe.length; i++) {
+      for (let j = 0; j < identifiers.length; j++) {
+        if (recipe[i].identifiers == identifiers[j]) {
+          counter[j]++;
+          break;
+        }
+      }
+    }
+  } catch (err) {}
+  let indexLike = 0;
+  let maximum = 0;
+  for (let i = 0; i < counter.length; i++) {
+    if (counter[i] >= maximum) {
+      maximum = counter[i];
+      indexLike = i;
+    }
+  }
+  favoriteRecipe = await Recipe.find({ identifiers: identifiers[indexLike] });
+  while (favoriteRecipe.length > 4) {
+    favoriteRecipe.shift();
+  }
+
+  res.json({ favoriteRecipe });
 };
 
 exports.addRecipe = addRecipe;
@@ -409,3 +478,5 @@ exports.getCountIdentifier = getCountIdentifier;
 exports.getRecipeById = getRecipeById;
 exports.getDefaultFavoriteRecipes = getDefaultFavoriteRecipes;
 exports.getRecipesByArr = getRecipesByArr;
+exports.countRecipes = countRecipes;
+exports.getIdentifierByIdRecipes = getIdentifierByIdRecipes;

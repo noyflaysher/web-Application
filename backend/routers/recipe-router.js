@@ -8,7 +8,7 @@ router.get("/identifiers", recipeController.getIdentifiers);
 
 router.get("/fav", recipeController.getDefaultFavoriteRecipes);
 
-router.get("/countIdentifier", recipeController.getCountIdentifier);
+router.get("/countIdentifier/:id", recipeController.getCountIdentifier);
 
 router.post("/search", recipeController.getRecipeByFilters);
 
@@ -22,6 +22,10 @@ router.delete("/delete/:id", recipeController.deleteRecipe);
 
 router.get("/:id", recipeController.getRecipeById);
 
+router.get("/countRecipes/:id", recipeController.countRecipes);
+
 router.post("/arrays", recipeController.getRecipesByArr);
+
+router.post("/bookmarkArays", recipeController.getIdentifierByIdRecipes);
 
 module.exports = router;

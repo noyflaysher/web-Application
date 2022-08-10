@@ -11,14 +11,15 @@
 }
 .fav-recipes__header h2 {
   position: absolute;
-  top: 50%;
-  width: 67rem;
+  /* top: 50%; */
+  width: 100%;
   left: 50%;
   background-color: rgba(238, 245, 251, 0.693);
   padding: 0.5rem;
   color: #fff;
   z-index: 10;
-  margin-bottom: 10rem;
+  margin-top: 2rem;
+  /* margin-bottom: 10rem; */
   transform: translate(-50%, 50%) skewY(-6deg);
   text-align: center;
   -webkit-box-decoration-break: clone;
@@ -53,4 +54,7 @@
 .video {
   margin-bottom: 2rem;
   width: 50rem;
+}
+.recipe__title {
+  bottom: -2rem;
 }

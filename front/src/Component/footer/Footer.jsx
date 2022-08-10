@@ -21,15 +21,14 @@ function Footer() {
     } catch (err) {}
   }
   return (
-    <div className="footercontainer">
-
+    <footer className="footercontainer">
       <div className="footercontainerTop">
-          <p>Today</p>
-          <p>{moment(weather?.location.localtime).format("h:mm a")}</p>
-       </div>
+        <p>Today</p>
+        <p>{moment(weather?.location.localtime).format("h:mm a")}</p>
+      </div>
       <div className="footercontainerTop">
         <p>{moment(weather?.location.localtime).format("MMM Do YY")}</p>
-      </div >
+      </div>
       <div className="footercontainerMid">
         <span>
           {weather?.current.temp_c} <span>°C</span>
@@ -47,7 +46,7 @@ function Footer() {
           {weather?.location.country}, {weather?.location.name}
         </p>
       </div>
-    </div>
+    </footer>
   );
 }
 

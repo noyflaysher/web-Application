@@ -6,37 +6,39 @@ const Result = (props) => {
   if (props.items.length === 0) {
     return (
       <div className="recipe-list center">
-        <h2> No recipe found. Maybe create one?</h2>
+        <h3> No recipe found. Maybe create one?</h3>
       </div>
     );
   }
   return (
-    <ul>
-      {props.items.length > 0 ? (
-        props.items.map((recipe, index) => {
-          return (
-            <RecipeItem
-              key={index}
-              index={index}
-              id={recipe.id}
-              imageSrc={recipe.imageSrc}
-              title={recipe.title}
-              time={recipe.time}
-              servings={recipe.servings}
-              ingrediants={recipe.ingrediants}
-              description={recipe.description}
-              publisher={recipe.publisher}
-              link={recipe.link}
-              address={recipe.address}
-              coordinates={recipe.location}
-              onDelete={props.onDeleteRecipe}
-            />
-          );
-        })
-      ) : (
-        <></>
-      )}
-    </ul>
+    <aside>
+      <ul>
+        {props.items.length > 0 ? (
+          props.items.map((recipe, index) => {
+            return (
+              <RecipeItem
+                key={index}
+                index={index}
+                id={recipe.id}
+                imageSrc={recipe.imageSrc}
+                title={recipe.title}
+                time={recipe.time}
+                servings={recipe.servings}
+                ingrediants={recipe.ingrediants}
+                description={recipe.description}
+                publisher={recipe.publisher}
+                link={recipe.link}
+                address={recipe.address}
+                coordinates={recipe.location}
+                onDelete={props.onDeleteRecipe}
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </ul>
+    </aside>
   );
 };
 

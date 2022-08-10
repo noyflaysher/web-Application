@@ -18,7 +18,7 @@ function NavBar() {
   const buttonListToggle = () => setButtonList(!buttonList);
   const session = UseSession();
   return (
-    <>
+    <header>
       <nav className="nav-bar flex-container">
         <Link to="/">
           <Canvas className="logo" />
@@ -48,7 +48,12 @@ function NavBar() {
                 />
               </NavBarButton>
               <div className="buttons-popup">
-                {buttonList && <ProfileSlider logout={session.setSession} />}
+                {buttonList && (
+                  <ProfileSlider
+                    toggle={() => setButtonList((prev) => !prev)}
+                    logout={session.setSession}
+                  />
+                )}
               </div>
             </>
           )}
@@ -63,14 +68,14 @@ function NavBar() {
           <SignUp closeForm={() => setShowSignupForm(false)} />
         )}
       </nav>
-    </>
+    </header>
   );
 }
 
-function ProfileSlider({ logout }) {
+function ProfileSlider({ logout, toggle }) {
   return (
     <>
-      <div className="button-group">
+      <div className="button-group" onMouseLeave={toggle}>
         <Link to="/profile">
           <Button className="btn user-button">My Profile</Button>
         </Link>
