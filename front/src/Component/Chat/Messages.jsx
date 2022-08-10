@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { UseSession } from "../../Context/Session";
 import "./Messages.css";
 
 function Messages({ socket }) {
   const session = UseSession();
   const [messages, setMessages] = useState({});
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     const messageListener = async (message) => {
@@ -13,6 +18,7 @@ function Messages({ socket }) {
         newMessages[message.id] = message;
         return newMessages;
       });
+      scrollToBottom();
     };
 
     const deleteMessageListener = (messageID) => {
@@ -69,6 +75,7 @@ function Messages({ socket }) {
             </span> */}
           </div>
         ))}
+      <div ref={messagesEndRef}></div>
     </div>
   );
 }
