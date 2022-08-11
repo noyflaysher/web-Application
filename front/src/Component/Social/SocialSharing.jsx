@@ -9,7 +9,7 @@ export default function SocialSharing() {
       <TwitterShareButton
         className="twitter"
         title={"come to see "}
-        url={"https://peing.net/ja/"}
+        url={"https://www.facebook.com/Recipe4U-109712465176008"}
         hashtags={["#GoodFood", "#Tasty", "#Yummy"]}
       >
         <TwitterIcon size={32} round />
@@ -17,7 +17,7 @@ export default function SocialSharing() {
 
       <FacebookShareButton
         className="facebook"
-        url={"https://www.photo-art.co.il/"}
+        url={"https://www.facebook.com/Recipe4U-109712465176008"}
         quote={"good website"}
         hashtag={["#GoodFood", "#Tasty", "#Yummy"]}
         description={"amazing website, go to watch it"}
