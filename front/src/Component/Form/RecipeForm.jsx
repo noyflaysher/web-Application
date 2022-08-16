@@ -197,22 +197,16 @@ export default function RecipeForm(props) {
                       label="identifiers"
                       value={identifier}
                       onChange={handleChange}
-                      fullWidth
                       SelectProps={{
-                        MenuProps: {
-                          anchorOrigin: {
-                            vertical: "bottom",
-                            horizontal: "center",
-                          },
-                          getcontentanchorel: null,
-                        },
+                        native: true,
                       }}
+                      fullWidth
                     >
                       {identifiers.map((t, index) => {
                         return (
-                          <MenuItem key={index} value={t}>
+                          <option key={index} value={t}>
                             {t}
-                          </MenuItem>
+                          </option>
                         );
                       })}
                     </TextField>
