@@ -100,14 +100,14 @@ function Profile(props) {
               <ShowRecipes list={userRecipes} />
             </div>
           </div>
+          <span className="profile-subtitle">Find Other Users</span>
+          <div className="profile-bookmarks">
+            <SearchUsers />
+          </div>
           <span className="profile-subtitle">Bookmarks</span>
           <div className="profile-bookmarks">
             <SearchBookmarks />
             <ShowBookmarks list={userBookmarks} />
-          </div>
-          <span className="profile-subtitle">Find Other Users</span>
-          <div className="profile-bookmarks">
-            <SearchUsers />
           </div>
           <span className="profile-subtitle">My Recipes Info.</span>
           <div className="profile-statistics">
