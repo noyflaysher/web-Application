@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { UseSession } from "../../Context/Session";
 import "./Messages.css";
 
 function Messages({ socket }) {
   const session = UseSession();
   const [messages, setMessages] = useState({});
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     const messageListener = async (message) => {
@@ -36,7 +41,9 @@ function Messages({ socket }) {
     const empt = {};
     setMessages(empt);
   }, [session.session.userId]);
-
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
   return (
     <div className="message-list">
       {[...Object.values(messages)]
@@ -51,7 +58,6 @@ function Messages({ socket }) {
             }
             title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
           >
-            {/* <span className="user">{message.user.name}:</span> */}
             <div className="message">
               {message.user.name}:<br />
               <div className="date-message">
@@ -64,11 +70,9 @@ function Messages({ socket }) {
                 </span>
               ))}
             </div>
-            {/* <span className="date">
-              {new Date(message.time).toLocaleTimeString()}
-            </span> */}
           </div>
         ))}
+      <div ref={messagesEndRef}></div>
     </div>
   );
 }

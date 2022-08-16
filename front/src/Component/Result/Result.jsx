@@ -12,7 +12,7 @@ const Result = (props) => {
   }
   return (
     <aside>
-      <ul>
+      <ul className="recipe-list center">
         {props.items.length > 0 ? (
           props.items.map((recipe, index) => {
             return (
