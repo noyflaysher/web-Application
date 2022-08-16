@@ -100,6 +100,10 @@ function Profile(props) {
               <ShowRecipes list={userRecipes} />
             </div>
           </div>
+          <span className="profile-subtitle">Find Other Users</span>
+          <div className="profile-bookmarks">
+            <SearchUsers />
+          </div>
           <span className="profile-subtitle">Bookmarks</span>
           <div className="profile-bookmarks">
             <SearchBookmarks />
@@ -316,6 +320,43 @@ function FiltersContainer(props) {
         />
       </Box>
     </div>
+  );
+}
+function SearchUsers() {
+  const [Results, setResults] = React.useState(null);
+
+  const handleSearch = () => {
+    const nameParam = document.getElementById("searchNameText").value;
+    fetch(`http://localhost:3000/users/findByName/${nameParam}`) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : [])) //give back the data that just enterd
+      .then((data) => {
+        setResults(data);
+      });
+  };
+
+  return (
+    <>
+      <div className="searchBookmark-container">
+        <input id="searchNameText" className="searchUsers"></input>
+        <button className="searchBookmark-button grow" onClick={handleSearch}>
+          <img src={SearchIcon} width={35} alt="searchBookmark" />
+          SEARCH
+        </button>
+      </div>
+      {Results && (
+        <div className="user-recipes space">
+          <ul>
+            {Results.length > 0 ? (
+              Results.map((user, index) => {
+                return <li key={index}>{user.name}</li>;
+              })
+            ) : (
+              <h3> No Users Found</h3>
+            )}
+          </ul>
+        </div>
+      )}
+    </>
   );
 }
 export default Profile;
