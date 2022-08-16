@@ -2,10 +2,11 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Recipe from "../Recipe/Recipe";
 import "./ChosenRecipe.css";
+import { UseSearch } from "../../Context/Session";
 const ChosenRecipe = (props) => {
   const index = useParams().index;
   const [loadedRecipe, setLoadedRecipe] = React.useState();
-
+  const search = UseSearch();
   React.useEffect(() => {
     const setRec = async () => {
       const tempData = await props.items[index];
@@ -25,6 +26,7 @@ const ChosenRecipe = (props) => {
     <>
       {loadedRecipe && (
         <Recipe
+          index={index}
           id={loadedRecipe._id}
           image={loadedRecipe.imageSrc}
           title={loadedRecipe.title}

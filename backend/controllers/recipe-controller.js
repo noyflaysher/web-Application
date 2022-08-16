@@ -314,21 +314,33 @@ const getRecipesByArr = async (req, res, next) => {
 };
 const getRecipeByFilters = async (req, res, next) => {
   const { identifier, title, servings } = req.body;
-  // console.log("req.body ", req.body);
-  // console.log("identifiers == 'none' ", identifier === "none");
-  // console.log("servings == 0 ", servings === 0);
   let recipe;
   try {
-    // recipe = await Recipe.find({ title: { $regex: `${title}` } });
     if (identifier === "none" && servings === 0) {
-      recipe = await Recipe.find({ title: { $regex: `${title}` } });
+      recipe = await Recipe.find({
+        title: { $regex: `${title}`, $options: "i" },
+      });
     } else if (identifier === "none") {
       recipe = await Recipe.find({
-        $and: [{ title: { $regex: `${title}` } }, { servings: servings }],
+        $and: [
+          { title: { $regex: `${title}`, $options: "i" } },
+          { servings: servings },
+        ],
+      });
+    } else if (servings === 0) {
+      recipe = await Recipe.find({
+        $and: [
+          { title: { $regex: `${title}`, $options: "i" } },
+          { identifiers: identifier },
+        ],
       });
     } else {
       recipe = await Recipe.find({
-        $and: [{ title: { $regex: `${title}` } }, { identifiers: identifier }],
+        $and: [
+          { title: { $regex: `${title}` } },
+          { servings: servings },
+          { identifiers: identifier },
+        ],
       });
     }
   } catch (err) {

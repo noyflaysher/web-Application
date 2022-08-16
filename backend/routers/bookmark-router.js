@@ -6,6 +6,8 @@ router.post("/add", bookmarkController.addRecipeToBookmark);
 
 router.post("/delete", bookmarkController.deleteRecipeFromBookmark);
 
+router.post("/search", bookmarkController.getBookmarkByFilters);
+
 router.get("/get/:uid", bookmarkController.getBookmark);
 
 module.exports = router;

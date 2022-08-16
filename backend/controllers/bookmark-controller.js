@@ -1,5 +1,6 @@
 const HttpError = require("../models/httpError");
 const BookmarkMongo = require("../models/bookmark");
+const Recipe = require("../models/recipe");
 const mongoose = require("mongoose");
 
 //add recipe to bookmark
@@ -80,6 +81,63 @@ const deleteRecipeFromBookmark = async (req, res, next) => {
   res.status(200).json({ user: existingUser.toObject({ getters: true }) });
 };
 
+const getBookmarkByFilters = async (req, res, next) => {
+  const { identifier, title, servings } = req.body;
+  console.log(
+    "identifier: ",
+    identifier,
+    "",
+    "title: ",
+    title,
+    "servings: ",
+    servings
+  );
+  let recipe;
+  try {
+    if (identifier === "none" && servings === 0) {
+      recipe = await Recipe.find({
+        title: { $regex: `${title}`, $options: "i" },
+      });
+    } else if (identifier === "none") {
+      recipe = await Recipe.find({
+        $and: [
+          { title: { $regex: `${title}`, $options: "i" } },
+          { servings: servings },
+        ],
+      });
+    } else if (servings === 0) {
+      recipe = await Recipe.find({
+        $and: [
+          { title: { $regex: `${title}`, $options: "i" } },
+          { identifiers: identifier },
+        ],
+      });
+    } else {
+      recipe = await Recipe.find({
+        $and: [
+          { title: { $regex: `${title}` } },
+          { servings: servings },
+          { identifiers: identifier },
+        ],
+      });
+    }
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a recipe.",
+      500
+    );
+    return next(error);
+  }
+  if (!recipe || recipe.length === 0) {
+    const error = new HttpError(
+      "Could not find recipe for the provided data.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ recipe });
+};
+
 const getBookmark = async (req, res, next) => {
   const userId = req.params.uid;
   let existingUser;
@@ -102,4 +160,5 @@ const getBookmark = async (req, res, next) => {
 
 exports.addRecipeToBookmark = addRecipeToBookmark;
 exports.getBookmark = getBookmark;
+exports.getBookmarkByFilters = getBookmarkByFilters;
 exports.deleteRecipeFromBookmark = deleteRecipeFromBookmark;
