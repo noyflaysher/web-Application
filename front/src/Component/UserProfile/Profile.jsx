@@ -13,6 +13,16 @@ import Modal from "../Modal-Backdrop/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import classes from "../Form/SignUp.module.css";
 import RecipeItem from "../RecipeItem/RecipeItem";
+import FilterIcon from "../../Images/filter.png";
+import { Disclosure } from "@headlessui/react";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import Radio from "@mui/material/Radio";
+import { orange } from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 function Profile(props) {
   const [updateInfo, setUpdateInfo] = React.useState(false);
@@ -90,10 +100,14 @@ function Profile(props) {
               <ShowRecipes list={userRecipes} />
             </div>
           </div>
+          <span className="profile-subtitle">Bookmarks</span>
+          <div className="profile-bookmarks">
+            <SearchBookmarks />
+            <ShowBookmarks list={userBookmarks} />
+          </div>
           <span className="profile-subtitle">Find Other Users</span>
           <div className="profile-bookmarks">
             <SearchUsers />
-            <ShowBookmarks list={userBookmarks} />
           </div>
           <span className="profile-subtitle">My Recipes Info.</span>
           <div className="profile-statistics">
@@ -132,6 +146,182 @@ function ShowBookmarks({ list }) {
   );
 }
 
+function SearchBookmarks() {
+  const [showSearchResults, setSearchResults] = React.useState(false);
+  const [Results, setResults] = React.useState([]);
+  const [searchParam, setsearchParam] = React.useState({
+    title: "",
+    identifier: "none",
+    servings: 0,
+  });
+  const session = UseSession();
+  const setResult = UseSearch().setResult;
+  React.useEffect(() => {
+    fetch("http://localhost:3000/recipe/identifiers")
+      .then((res) => res.json())
+      .then((data) => (identifiers = data.identifiers));
+  }, []);
+  const handleSearch = () => {
+    let RECIPE_ARR = [];
+    setSearchResults((prev) => !prev);
+    const requestOption = {
+      //request to the json db server (this is a format)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        identifier: searchParam.identifier,
+        servings: searchParam.servings,
+        title: document.getElementById("searchBookmarkText").value,
+      }),
+    };
+    fetch("http://localhost:3000/bookmark/search", requestOption) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
+      .then((data) => {
+        RECIPE_ARR = data.recipe.filter(
+          (recipe) => session.session.bookmarks.indexOf(`${recipe._id}`) > -1
+        );
+        setResults(RECIPE_ARR);
+        setResult(RECIPE_ARR);
+      });
+  };
+  const hideFilters = () => {
+    const filters = document.getElementById("filter");
+    filters && (filters.style.display = "none");
+  };
+  return (
+    <>
+      <Disclosure>
+        <div className="searchBookmark-container">
+          <input id="searchBookmarkText" className="searchBookmark"></input>
+          <button
+            className="searchBookmark-button grow"
+            onClick={() => {
+              handleSearch();
+              hideFilters();
+            }}
+          >
+            <img src={SearchIcon} width={35} alt="searchBookmark" />
+            SEARCH
+          </button>
+          <Disclosure.Button className="searchBookmark-toggle grow">
+            <img src={FilterIcon} width={30} alt="filter" />
+          </Disclosure.Button>
+          <Disclosure.Panel>
+            <FiltersContainer
+              getSearchParam={() => searchParam}
+              setSearchParam={(value) => setsearchParam(value)}
+            ></FiltersContainer>
+          </Disclosure.Panel>
+        </div>
+      </Disclosure>
+      {showSearchResults && (
+        <Modal
+          show={showSearchResults}
+          onCancel={() => setSearchResults((prev) => !prev)}
+          header={
+            <AiFillCloseCircle
+              onClick={() => setSearchResults((prev) => !prev)}
+              className={classes.icon}
+            />
+          }
+          footer={<></>}
+        >
+          <div>
+            <ul>
+              {Results.length > 0 ? (
+                Results.map((recipe, index) => {
+                  return (
+                    <RecipeItem
+                      key={index}
+                      index={index}
+                      id={recipe.id}
+                      imageSrc={recipe.imageSrc}
+                      title={recipe.title}
+                      time={recipe.time}
+                      servings={recipe.servings}
+                      ingrediants={recipe.ingrediants}
+                      description={recipe.description}
+                      publisher={recipe.publisher}
+                      link={recipe.link}
+                      address={recipe.address}
+                      coordinates={recipe.location}
+                    />
+                  );
+                })
+              ) : (
+                <h3> No Bookmarks found. Maybe create one?</h3>
+              )}
+            </ul>
+          </div>
+        </Modal>
+      )}
+    </>
+  );
+}
+
+let identifiers = [];
+function FiltersContainer(props) {
+  const [value, setValue] = React.useState("none");
+  const handleChange = (e) => {
+    props.setSearchParam({
+      ...props.getSearchParam(),
+      identifier: e.target.value,
+    });
+    setValue(e.target.value);
+  };
+  const servingsHandleChange = (e) => {
+    props.setSearchParam({
+      ...props.getSearchParam(),
+      servings: e.target.value.trim(),
+    });
+  };
+
+  return (
+    <div className="filterBookmark-container" id="filter">
+      <FormControl className="radio-container">
+        <FormLabel id="demo-controlled-radio-buttons-group">Filters:</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-controlled-radio-buttons-group"
+          name="controlled-radio-buttons-group"
+          value={value}
+          onChange={handleChange}
+          className="radio-group"
+        >
+          {identifiers.map((t, index) => {
+            return (
+              <FormControlLabel
+                value={t}
+                label={t}
+                key={index}
+                control={
+                  <Radio
+                    sx={{
+                      color: orange[500],
+                      "&.Mui-checked": {
+                        color: orange[400],
+                      },
+                    }}
+                  />
+                }
+              />
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+      <Box className="servings">
+        <TextField
+          id="servings"
+          type="number"
+          label="No. of servings"
+          variant="standard"
+          onChange={servingsHandleChange}
+        />
+      </Box>
+    </div>
+  );
+}
 function SearchUsers() {
   const [Results, setResults] = React.useState(null);
 
@@ -147,7 +337,7 @@ function SearchUsers() {
   return (
     <>
       <div className="searchBookmark-container">
-        <input id="searchNameText" className="searchBookmark"></input>
+        <input id="searchNameText" className="searchUsers"></input>
         <button className="searchBookmark-button grow" onClick={handleSearch}>
           <img src={SearchIcon} width={35} alt="searchBookmark" />
           SEARCH

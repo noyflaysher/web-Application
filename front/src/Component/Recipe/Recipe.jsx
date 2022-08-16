@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiTimeFive } from "react-icons/bi";
 import Modal from "../Modal-Backdrop/Modal";
 import Ingredients from "../Ingredient/IngredientsList";
@@ -20,7 +20,6 @@ function Recipe(props) {
   const setResult = UseSearch().setResult;
   const result = UseSearch().result;
   const showDeleteHandler = () => setShowConfirmModal(true);
-  console.log(props);
 
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);

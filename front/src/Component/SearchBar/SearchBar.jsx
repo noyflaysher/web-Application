@@ -40,7 +40,6 @@ function SearchBar() {
         title: document.getElementById("searchText").value,
       }),
     };
-    console.log(requestOption);
     fetch("http://localhost:3000/recipe/search", requestOption) //the db adress and the ver that has the task for the server
       .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
       .then((data) => {
@@ -52,9 +51,7 @@ function SearchBar() {
   const setResult = UseSearch().setResult;
   const hideFilters = () => {
     const filters = document.getElementById("filters");
-    filters
-      ? (filters.style.display = "none")
-      : console.log("filters are hidden");
+    filters && (filters.style.display = "none");
   };
   return (
     <div>

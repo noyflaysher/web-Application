@@ -9,6 +9,7 @@ import { useHttpClient } from "../hooks/http-hook";
 import { UseSearch } from "../../Context/Session";
 import { useParams } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
 let identifiers = [
   "spicy",
   "sweet",
@@ -95,24 +96,13 @@ function EditRecipe({
       if (val !== "") ingList.push(val);
     });
     if (ingList.length === 0) return;
-    try {
-      await sendRequest(
-        `http://localhost:3000/recipe/update/${id}`,
-        "PATCH",
-        JSON.stringify({
-          imageSrc: data.get("recipeImage"),
-          title: data.get("recipeTitle"),
-          time: data.get("recipePrepTime"),
-          servings: data.get("recipeServings"),
-          ingrediants: ingList,
-          identifiers: _identifier,
-          description: data.get("recipeDescription"),
-        }),
-        { "Content-Type": "application/json" }
-      );
-      let tempRecpie = search.result[index];
-      tempRecpie = {
-        ...tempRecpie,
+
+    const requestOption = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         imageSrc: data.get("recipeImage"),
         title: data.get("recipeTitle"),
         time: data.get("recipePrepTime"),
@@ -120,13 +110,16 @@ function EditRecipe({
         ingrediants: ingList,
         identifiers: _identifier,
         description: data.get("recipeDescription"),
-      };
-
-      let tempResult = await JSON.parse(JSON.stringify(search.result));
-      tempResult[index] = await tempRecpie;
-      search.setResult(tempResult);
-      exitEditMode();
-    } catch (err) {}
+      }),
+    };
+    fetch(`http://localhost:3000/recipe/update/${id}`, requestOption) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
+      .then((data) => {
+        const temp = search.result;
+        temp[index] = data.recipe;
+        search.setResult(temp);
+        exitEditMode();
+      });
   };
 
   return (
@@ -231,14 +224,17 @@ function EditRecipe({
             </Button>
           </Grid>
         </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          className="btn btn--submit"
+        <Link
+          to={`/recipe/${index}`}
+          onClick={() => {
+            document.getElementById("publish").click();
+          }}
         >
-          Publish
-        </Button>
+          <button type="submit" className="btn btn--submit">
+            Publish
+          </button>
+        </Link>
+        <button id="publish" type="submit" hidden></button>
       </Box>
     </>
   );

@@ -38,6 +38,7 @@ const Ingrediant = ({ count }) => {
   );
 };
 let identifiers = [
+  "none",
   "spicy",
   "sweet",
   "salty",
@@ -45,7 +46,6 @@ let identifiers = [
   "vegeterian",
   "dairy",
   "gluten free",
-  "none",
 ];
 export default function RecipeForm(props) {
   const [authorError, setAuthorError] = React.useState(false);
@@ -192,6 +192,12 @@ export default function RecipeForm(props) {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
+                      sx={{
+                        marginTop: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
                       id="identifiers"
                       select
                       label="identifiers"
