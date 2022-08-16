@@ -113,6 +113,7 @@
 }
 
 .searchBookmark-container {
+  transform: translateX(105px);
   display: flex;
   align-items: center;
 }
@@ -120,14 +121,14 @@
 .searchBookmark {
   padding: 0 1rem;
   color: inherit;
-  width: 30rem;
+  width: 26rem;
   height: 5rem;
   background: none;
   border: none;
   font-size: 1.2rem;
   text-align: left;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 4rem;
+  border-radius: 0% 35% 25% 0%;
 }
 
 .searchBookmark:focus {
@@ -148,7 +149,7 @@
   border: none;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   transition: all 0.2s;
-  right: 4rem;
+  right: 7rem;
   position: relative;
   font-size: 1.5rem;
   font-weight: bold;
@@ -157,4 +158,37 @@
 
 .growBookmark:hover {
   transform: scale(1.05);
+}
+
+.searchBookmark-toggle {
+  height: 5rem;
+  width: 6rem;
+  border-radius: 50% 0 0 50%;
+  border: none;
+  background-image: linear-gradient(to bottom right, #ffe259, #ffa751);
+  cursor: pointer;
+  padding: 0.3rem 0 0 0.5rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s;
+  right: 45rem;
+  position: relative;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}
+
+.filterBookmark-container {
+  position: absolute;
+  background: #f9f5f3;
+  top: -2.5em;
+  width: 47rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
 }
