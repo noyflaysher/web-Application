@@ -43,7 +43,7 @@ const RecipeItem = (props) => {
               <h2>{props.title}</h2>
               <div className="recipe-item-row">
                 <h4 className="recipe-item__publisher">
-                  {`Preparation time:${"\u00A0"} ${props.time} Hours`}
+                  {`Preparation time:${"\u00A0"} ${props.time} Min`}
                 </h4>
                 <Button className="btn-map" onClick={openMapHandler}>
                   <MapImage />

@@ -23,9 +23,6 @@
 }
 
 .user-recipes ul {
-  margin-right: 2rem;
-  margin-left: 2rem;
-  margin-bottom: 2rem;
   column-count: 2;
   column-gap: 10rem;
   text-align: left;
@@ -160,6 +157,7 @@
   transform: scale(1.05);
 }
 
+
 .searchBookmark-toggle {
   height: 5rem;
   width: 6rem;
@@ -205,3 +203,7 @@
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   border-radius: 3rem;
 }
+.space {
+  margin-top: 25px;
+}
+
