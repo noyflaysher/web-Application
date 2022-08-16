@@ -90,9 +90,9 @@ function Profile(props) {
               <ShowRecipes list={userRecipes} />
             </div>
           </div>
-          <span className="profile-subtitle">Bookmarks</span>
+          <span className="profile-subtitle">Find Other Users</span>
           <div className="profile-bookmarks">
-            <SearchBookmarks />
+            <SearchUsers />
             <ShowBookmarks list={userBookmarks} />
           </div>
           <span className="profile-subtitle">My Recipes Info.</span>
@@ -131,88 +131,41 @@ function ShowBookmarks({ list }) {
     </ul>
   );
 }
-function SearchBookmarks() {
-  const [showSearchResults, setSearchResults] = React.useState(false);
-  const [Results, setResults] = React.useState([]);
-  const session = UseSession();
-  const setResult = UseSearch().setResult;
+
+function SearchUsers() {
+  const [Results, setResults] = React.useState(null);
 
   const handleSearch = () => {
-    let RECIPE_ARR = [];
-    setSearchResults((prev) => !prev);
-    const requestOption = {
-      //request to the json db server (this is a format)
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        identifier: "none",
-        servings: 0,
-        title: document.getElementById("searchBookmarkText").value,
-      }),
-    };
-    fetch("http://localhost:3000/recipe/search", requestOption) //the db adress and the ver that has the task for the server
-      .then((response) => (response.ok ? response.json() : { recipe: [] })) //give back the data that just enterd
+    const nameParam = document.getElementById("searchNameText").value;
+    fetch(`http://localhost:3000/users/findByName/${nameParam}`) //the db adress and the ver that has the task for the server
+      .then((response) => (response.ok ? response.json() : [])) //give back the data that just enterd
       .then((data) => {
-        RECIPE_ARR = data.recipe.filter(
-          (recipe) => session.session.bookmarks.indexOf(`${recipe._id}`) > -1
-        );
-        setResults(RECIPE_ARR);
-        setResult(RECIPE_ARR);
+        setResults(data);
       });
   };
 
   return (
     <>
       <div className="searchBookmark-container">
-        <input id="searchBookmarkText" className="searchBookmark"></input>
+        <input id="searchNameText" className="searchBookmark"></input>
         <button className="searchBookmark-button grow" onClick={handleSearch}>
           <img src={SearchIcon} width={35} alt="searchBookmark" />
           SEARCH
         </button>
-        {showSearchResults && (
-          <Modal
-            show={showSearchResults}
-            onCancel={() => setSearchResults((prev) => !prev)}
-            header={
-              <AiFillCloseCircle
-                onClick={() => setSearchResults((prev) => !prev)}
-                className={classes.icon}
-              />
-            }
-            footer={<></>}
-          >
-            <div>
-              <ul>
-                {Results.length > 0 ? (
-                  Results.map((recipe, index) => {
-                    return (
-                      <RecipeItem
-                        key={index}
-                        index={index}
-                        id={recipe.id}
-                        imageSrc={recipe.imageSrc}
-                        title={recipe.title}
-                        time={recipe.time}
-                        servings={recipe.servings}
-                        ingrediants={recipe.ingrediants}
-                        description={recipe.description}
-                        publisher={recipe.publisher}
-                        link={recipe.link}
-                        address={recipe.address}
-                        coordinates={recipe.location}
-                      />
-                    );
-                  })
-                ) : (
-                  <h3> No Bookmarks found. Maybe create one?</h3>
-                )}
-              </ul>
-            </div>
-          </Modal>
-        )}
       </div>
+      {Results && (
+        <div className="user-recipes space">
+          <ul>
+            {Results.length > 0 ? (
+              Results.map((user, index) => {
+                return <li key={index}>{user.name}</li>;
+              })
+            ) : (
+              <h3> No Users Found</h3>
+            )}
+          </ul>
+        </div>
+      )}
     </>
   );
 }

@@ -171,8 +171,25 @@ const deleteUser = async (req, res, next) => {
   res.status(200).json({ message: "Deleted user" });
 };
 
+const findByName = async (req, res, next) => {
+  const name = req.params.name;
+  let users;
+  try {
+    if (!name) name = "";
+    users = await User.find({ name: { $regex: `${name}`, $options: "i" } });
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find any users.",
+      500
+    );
+    return next(error);
+  }
+  res.json(users);
+};
+
 exports.login = login;
 exports.signup = signup;
 exports.getUsers = getUsers;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
+exports.findByName = findByName;
