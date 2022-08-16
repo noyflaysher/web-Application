@@ -24,7 +24,6 @@ function Footer() {
     <footer className="footercontainer">
       <div className="footercontainerTop">
         <p>Today</p>
-        <p>{moment(weather?.location.localtime).format("h:mm a")}</p>
       </div>
       <div className="footercontainerTop">
         <p>{moment(weather?.location.localtime).format("MMM Do YY")}</p>
