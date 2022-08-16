@@ -337,7 +337,7 @@ const getRecipeByFilters = async (req, res, next) => {
     } else {
       recipe = await Recipe.find({
         $and: [
-          { title: { $regex: `${title}` } },
+          { title: { $regex: `${title}`, $options: "i" } },
           { servings: servings },
           { identifiers: identifier },
         ],

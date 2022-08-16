@@ -83,15 +83,6 @@ const deleteRecipeFromBookmark = async (req, res, next) => {
 
 const getBookmarkByFilters = async (req, res, next) => {
   const { identifier, title, servings } = req.body;
-  console.log(
-    "identifier: ",
-    identifier,
-    "",
-    "title: ",
-    title,
-    "servings: ",
-    servings
-  );
   let recipe;
   try {
     if (identifier === "none" && servings === 0) {
@@ -115,7 +106,7 @@ const getBookmarkByFilters = async (req, res, next) => {
     } else {
       recipe = await Recipe.find({
         $and: [
-          { title: { $regex: `${title}` } },
+          { title: { $regex: `${title}`, $options: "i" } },
           { servings: servings },
           { identifiers: identifier },
         ],
